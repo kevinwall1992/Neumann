@@ -13,15 +13,11 @@ public class NanolathingLineController : MonoBehaviour
     public float NanolathingRate { get; set; }
     public Vector3 Target { get; set; }
 
-    public bool IsVisible
-    {
-        get { return gameObject.activeSelf; }
-        set { gameObject.SetActive(value); }
-    }
-
     void Start()
     {
         Line.material = new Material(Material);
+
+        Color.Value = Color.Value.AlphaChangedTo(0);
     }
 
     void Update()
@@ -33,7 +29,10 @@ public class NanolathingLineController : MonoBehaviour
 
         Animator.speed = Mathf.Lerp(Animator.speed, AnimationBaseSpeed * NanolathingRate, 2 * Time.deltaTime);
 
-        if(NanolathingRate == 0)
-            Color.Value = Color.Value.AlphaChangedTo(Mathf.Lerp(Color.Value.a, 0, 1 * Time.deltaTime));
+        float target_alpha = NanolathingRate == 0 ? 0 : 1;
+        Color.Value = Color.Value.AlphaChangedTo(
+            Mathf.Lerp(Color.Value.a, 
+                       target_alpha, 
+                       (target_alpha > Color.Value.a ? 3 : 1) * Time.deltaTime));
     }
 }

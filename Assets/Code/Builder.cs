@@ -50,7 +50,6 @@ public class Builder : Able
             if(request == null)
                 request = Stock.MakeRequest(Project.RequiredResources.Normalized() * Rate);
 
-            NanolathingLineController.IsVisible = true;
             NanolathingLineController.NanolathingRate = Rate * request.Yield;
             NanolathingLineController.Target = Project.transform.position + new Vector3(0, 0.5f, 0);
 
@@ -61,7 +60,7 @@ public class Builder : Able
             request.Revoke();
             request = null;
 
-            NanolathingLineController.IsVisible = false;
+            NanolathingLineController.NanolathingRate = 0;
         }
     }
 

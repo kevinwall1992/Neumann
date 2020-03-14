@@ -58,7 +58,7 @@
                 fixed4 color = tex2D(MaterialTexture, fragment_data.texture_coordinates) * MaterialColor;
 
 				if (fragment_data.world_position.y > YMask)
-					color.a *= MaskTransparency;
+					color = fixed4(0, 1, 0, MaskTransparency);
 
 				return color;
             }

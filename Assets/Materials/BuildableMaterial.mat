@@ -60,7 +60,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - MaskTransparency: 0.2
+    - MaskTransparency: 0.5
     - YMask: 0
     - _BlendOp: 0
     - _BumpScale: 1

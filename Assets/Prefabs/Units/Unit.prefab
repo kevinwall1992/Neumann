@@ -407,7 +407,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7013136166321163157
 Transform:
   m_ObjectHideFlags: 0
@@ -653,6 +653,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 5a7cc68e793d25a4d84257c624b83380, type: 2}
+    - target: {fileID: -2234088532573482278, guid: 8db5be6e163e3254888e062ab2cd6e02,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5a7cc68e793d25a4d84257c624b83380, type: 2}
     - target: {fileID: -1504981713932161579, guid: 8db5be6e163e3254888e062ab2cd6e02,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -663,6 +668,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: builder
       objectReference: {fileID: 0}
+    - target: {fileID: -399565625823019718, guid: 8db5be6e163e3254888e062ab2cd6e02,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5a7cc68e793d25a4d84257c624b83380, type: 2}
     - target: {fileID: 608615394619914483, guid: 8db5be6e163e3254888e062ab2cd6e02,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -678,7 +688,22 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 5a7cc68e793d25a4d84257c624b83380, type: 2}
+    - target: {fileID: 1992294101099827920, guid: 8db5be6e163e3254888e062ab2cd6e02,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5a7cc68e793d25a4d84257c624b83380, type: 2}
+    - target: {fileID: 3677432879041622682, guid: 8db5be6e163e3254888e062ab2cd6e02,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5a7cc68e793d25a4d84257c624b83380, type: 2}
     - target: {fileID: 5490870052100550915, guid: 8db5be6e163e3254888e062ab2cd6e02,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5a7cc68e793d25a4d84257c624b83380, type: 2}
+    - target: {fileID: 7122508302821527130, guid: 8db5be6e163e3254888e062ab2cd6e02,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
