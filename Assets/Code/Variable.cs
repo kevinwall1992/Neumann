@@ -32,6 +32,40 @@ public abstract class Variable
     public string Units { get; set; }
 }
 
+public class ReadOnlyVariable : Variable
+{
+    public override string Name { get; set; }
+    public object Value { get; set; }
+
+    public ReadOnlyVariable(string name, object value = null)
+    {
+        Name = name;
+        Value = value;
+    }
+
+    public override object Read()
+    {
+        return Value;
+    }
+}
+
+public class TypedReadOnlyVariable<T> : Variable
+{
+    public override string Name { get; set; }
+    public T Value { get; set; }
+
+    public TypedReadOnlyVariable(string name, T value = default(T))
+    {
+        Name = name;
+        Value = value;
+    }
+
+    public override object Read()
+    {
+        return Value;
+    }
+}
+
 public class WritableVariable : Variable
 {
     public override string Name { get; set; }
