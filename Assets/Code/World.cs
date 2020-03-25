@@ -22,6 +22,8 @@ public class World : MonoBehaviour, HasVariables
     Physics physics = null;
     public Physics Physics { get { return physics; } }
 
+    public Memory Memory { get; private set; } = new Memory();
+
     public bool IsPointedAt
     {
         get
@@ -35,7 +37,7 @@ public class World : MonoBehaviour, HasVariables
     {
         get
         {
-            return Stock.Variables;
+            return Memory.Variables.Merged(Stock.Variables);
         }
     }
 
@@ -50,6 +52,18 @@ public class World : MonoBehaviour, HasVariables
            InputUtility.WasMouseLeftReleased() && 
            TerrainCollider.gameObject.IsTouched())
             Scene.Main.UnitInterface.Unit = null;
+    }
+
+    public string MemorizePosition(Vector3 position)
+    {
+        string name = Memory.RememberName(position);
+        if (name != null)
+            return name;
+
+        name = "Position " + Memory.Count<Vector3>();
+        Memory.Memorize(name, position);
+
+        return name;
     }
 
     public Vector3 GetSurfaceNormal(Vector3 position)
