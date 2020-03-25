@@ -37,4 +37,18 @@ public class Target
     {
         return new Target(target);
     }
+
+    public static implicit operator Target(MonoBehaviour target)
+    {
+        return new Target(target.gameObject);
+    }
+
+    public static Target Convert(object obj)
+    {
+        if (obj is Target) return (Target)obj;
+        else if (obj is Vector3) return (Vector3)obj;
+        else if (obj is GameObject) return (GameObject)obj;
+        else if (obj is MonoBehaviour) return (MonoBehaviour)obj;
+        else return null;
+    }
 }
