@@ -39,7 +39,7 @@ public class AgainOperation : Operation
 
     public bool Repeat()
     {
-        object repetitions = Repetitions.Get();
+        object repetitions = Repetitions.Read();
 
         if (repetitions is bool)
             return (bool)repetitions;

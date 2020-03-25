@@ -6,8 +6,10 @@ using System;
 public abstract class Variable
 {
     public abstract string Name { get; set; }
+    public virtual bool IsReadOnly { get { return true; } }
 
-    public abstract object Get();
+    public abstract object Read();
+    public virtual void Write(object value) { }
 
     public override bool Equals(object obj)
     {
@@ -30,12 +32,6 @@ public abstract class Variable
     public string Units { get; set; }
 }
 
-public abstract class WritableVariable : Variable
-{
-    public abstract void Set(object value);
-}
-
-
 public class ConstVariable<T> : Variable
 {
     public override string Name { get; set; }
@@ -47,18 +43,19 @@ public class ConstVariable<T> : Variable
         Value = value;
     }
 
-    public override object Get()
+    public override object Read()
     {
         return Value;
     }
 }
 
-public class SimpleWritableVariable : WritableVariable
+public class WritableVariable : Variable
 {
     public override string Name { get; set; }
     public object Value { get; set; }
+    public override bool IsReadOnly { get { return false; } }
 
-    public SimpleWritableVariable(string name, object value = null)
+    public WritableVariable(string name, object value = null)
     {
         Name = name;
 
@@ -68,12 +65,12 @@ public class SimpleWritableVariable : WritableVariable
             Value = new Int32();
     }
 
-    public override object Get()
+    public override object Read()
     {
         return Value;
     }
 
-    public override void Set(object value)
+    public override void Write(object value)
     {
         Value = value;
     }
@@ -91,7 +88,7 @@ public class FunctionVariable : Variable
         function = function_;
     }
 
-    public override object Get() { return function(); }
+    public override object Read() { return function(); }
 }
 
 

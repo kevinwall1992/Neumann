@@ -14,7 +14,7 @@ public class VariableTile : Tile
 
     public Variable Variable { get; set; }
 
-    public bool IsWritable { get { return Variable is WritableVariable; } }
+    public bool IsWritable { get { return !Variable.IsReadOnly; } }
 
     protected override void Start()
     {
@@ -30,7 +30,7 @@ public class VariableTile : Tile
 
         NameText.text = Variable.Name;
 
-        object value = Variable.Get();
+        object value = Variable.Read();
         string value_string = value.ToString();
         if (value is float)
             value_string = ((float)value).ToString("F1");
