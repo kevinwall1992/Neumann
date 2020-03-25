@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 1443886839357831313}
   - component: {fileID: 5679919706389045170}
   - component: {fileID: 9071426788684750279}
+  - component: {fileID: 5901415352359774616}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Untagged
@@ -258,6 +259,20 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 3db4fcdcae5060f4d806e6882a93ba3d, type: 3}
   Color: {r: 1, g: 0, b: 0.036886215, a: 1}
   selection_box: {fileID: 4965214135156403404}
+--- !u!114 &5901415352359774616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557146464982453639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 048b0589ced01bb44ae866a718f5e22f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThinksPerSecond: 10
+  ThoughtsPerSecond: 10
 --- !u!1 &4965214135156403404
 GameObject:
   m_ObjectHideFlags: 0

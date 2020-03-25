@@ -97,14 +97,11 @@ public class OperationTile : Tile
         {
             if (IsSelected && Scene.Main.World.Terrain.gameObject.IsTouched())
             {
-                if (Operation is Task)
-                {
-                    Task task = Operation.Instantiate() as Task;
-                    task.Input.PrimaryVariableName = 
-                        Scene.Main.World.MemorizePosition(Scene.Main.World.GetWorldPositionPointedAt());
+                Operation operation = Operation.Instantiate();
+                operation.Input.PrimaryVariableName = 
+                    Scene.Main.World.MemorizePosition(Scene.Main.World.GetWorldPositionPointedAt());
 
-                    Unit.Task = task;
-                }
+                Unit.Program.Next = operation;
 
                 IsSelected = false;
             }

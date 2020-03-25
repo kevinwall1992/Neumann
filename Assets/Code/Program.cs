@@ -24,10 +24,7 @@ public class Program : List<Operation>
             if (value == null)
                 next_index = -1;
             else if (!Contains(value))
-            {
-                Debug.Assert(false);
-                return;
-            }
+                Add(value);
 
             next_index = IndexOf(value);
         }

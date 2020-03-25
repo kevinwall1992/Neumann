@@ -165,6 +165,16 @@ public static class Utility
 
         return (T[])System.Enum.GetValues(typeof(T));
     }
+
+    public static bool IsInPast(this System.DateTime time)
+    {
+        return System.DateTime.Now > time;
+    }
+
+    public static bool IsInFuture(this System.DateTime time)
+    {
+        return System.DateTime.Now < time;
+    }
 }
 
 public static class UIUtility

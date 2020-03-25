@@ -11,6 +11,15 @@ public abstract class Operation
     public virtual bool HasOutput { get { return false; } }
     public virtual bool TakesGoto { get { return false; } }
 
+    public virtual void Execute(Unit unit)
+    {
+        int next_index = unit.Program.IndexOf(this) + 1;
+        if (next_index < unit.Program.Count)
+            unit.Program.Next = unit.Program[next_index];
+        else
+            unit.Program.Next = null;
+    }
+
     public abstract Operation Instantiate();
 
     public abstract Style.Operation Style { get; }
@@ -32,6 +41,21 @@ public class ChooseOperation : Operation
         Goto = goto_;
     }
 
+    public override void Execute(Unit unit)
+    {
+        bool? condition_value = Condition.Read<bool?>(unit);
+
+        if (Goto != null &&
+            unit.Program.Contains(Goto) &&
+            (condition_value == null || condition_value.Value))
+        {
+            unit.Program.Next = Goto;
+            return;
+        }
+
+        base.Execute(unit);
+    }
+
     public override Operation Instantiate() { return new ChooseOperation(); }
 
     public override Style.Operation Style
@@ -50,6 +74,16 @@ public class YieldOperation : Operation
     public YieldOperation(string condition_variable_name = null)
     {
         Condition.PrimaryVariableName = condition_variable_name;
+    }
+
+    public override void Execute(Unit unit)
+    {
+        bool? condition_value = Condition.Read<bool?>(unit);
+
+        if (condition_value != null && condition_value.Value)
+            return;
+
+        base.Execute(unit);
     }
 
     public override Operation Instantiate() { return new YieldOperation(); }

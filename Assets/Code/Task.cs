@@ -10,4 +10,14 @@ public abstract class Task : Operation
     public override bool TakesInput { get { return true; } }
 
     public abstract bool IsComplete { get; }
+
+    public override void Execute(Unit unit)
+    {
+        if (unit.Task != null)
+            return;
+
+        unit.Task = this;
+        Unit = unit;
+        base.Execute(unit);
+    }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 [RequireComponent(typeof(Physical))]
 [RequireComponent(typeof(Mortal))]
 [RequireComponent(typeof(Buildable))]
+[RequireComponent(typeof(Thinker))]
 public class Unit : MonoBehaviour, HasVariables
 {
     public string Name;
@@ -44,6 +45,7 @@ public class Unit : MonoBehaviour, HasVariables
     public Physical Physical { get { return GetComponent<Physical>(); } }
     public Mortal Mortal { get { return GetComponent<Mortal>(); } }
     public Buildable Buildable { get { return GetComponent<Buildable>(); } }
+    public Thinker Thinker { get { return GetComponent<Thinker>(); } }
 
     public List<Variable> Variables
     {
