@@ -6,7 +6,7 @@ public class Attacker : Able
 {
     public override IEnumerable<Task> Abilities
     {
-        get { return Utility.List<Task>(new AttackTask(null)); }
+        get { return Utility.List<Task>(new AttackTask()); }
     }
 
     void Update()
@@ -35,8 +35,6 @@ public class SuicideBomber : Attacker
 [System.Serializable]
 public class AttackTask : Task
 {
-    public Target Target { get; private set; }
-
     public override bool IsComplete
     {
         get
@@ -48,9 +46,9 @@ public class AttackTask : Task
         }
     }
 
-    public AttackTask(Target target)
+    public override Operation Instantiate()
     {
-        Target = target;
+        return new AttackTask();
     }
 
     public override Style.Operation Style

@@ -26,7 +26,7 @@ public class Motile : Able
 
     public override IEnumerable<Task> Abilities
     {
-        get { return Utility.List<Task>(new MoveTask(Physical, null)); }
+        get { return Utility.List<Task>(new MoveTask()); }
     }
 
     public bool IsFunctioning { get { return !Buildable.IsProject; } }
@@ -106,23 +106,14 @@ public class Motile : Able
 [System.Serializable]
 public class MoveTask : Task
 {
-    public Physical Physical { get; private set; }
-    public Target Target { get; private set; }
-
     public override bool IsComplete
     {
-        get { return (Physical.Position - Target.Position).magnitude < 1; }
+        get { return (Unit.Physical.Position - Target.Position).magnitude < 1; }
     }
 
-    public MoveTask(Physical physical, Target target)
+    public override Operation Instantiate()
     {
-        Physical = physical;
-        Target = target;
-    }
-
-    public MoveTask Reparameterized(Physical physical, Target target)
-    {
-        return new MoveTask(physical, target);
+        return new MoveTask();
     }
 
 

@@ -30,6 +30,18 @@ public abstract class Variable
     public Sprite Sprite { get; set; }
     public Color Color { get; set; }
     public string Units { get; set; }
+
+
+    public static Variable Find(Unit unit, string name)
+    {
+        Predicate<Variable> match = (variable_) => (variable_.Name == name);
+
+        Variable variable = unit.Variables.Find(match);
+        if (variable != null)
+            return variable;
+
+        return Scene.Main.World.Variables.Find(match);
+    }
 }
 
 public class ReadOnlyVariable : Variable

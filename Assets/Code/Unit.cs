@@ -12,7 +12,7 @@ public class Unit : MonoBehaviour, HasVariables
     public string Name;
     public Sprite Icon = null;
     public Color Color = Color.red;
-    
+
     [SerializeField]
     GameObject selection_box = null;
     public GameObject SelectionBox { get { return selection_box; } }
@@ -25,7 +25,19 @@ public class Unit : MonoBehaviour, HasVariables
         }
     }
 
-    public Task Task { get; set; }
+    Task task = null;
+    public Task Task
+    {
+        get { return task; }
+        set
+        {
+            task = value;
+
+            if(task != null)
+                task.Unit = this;
+        }
+    }
+
     public Program Program { get; set; }
     public bool IsSelected { get { return Scene.Main.UnitInterface.Unit == this; } }
 

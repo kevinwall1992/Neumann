@@ -23,11 +23,10 @@ public class ProductionTask : Task
 {
     public override bool IsComplete { get { return false; } }
 
-    public ProductionTask()
+    public override Operation Instantiate()
     {
-
+        return new ProductionTask();
     }
-
 
     public override Style.Operation Style
     { get { return Scene.Main.Style.ProductionTask; } }

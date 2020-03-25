@@ -14,7 +14,7 @@ public class VariableTile : Tile
 
     public Variable Variable { get; set; }
 
-    public bool IsWritable { get { return !Variable.IsReadOnly; } }
+    public bool IsWritable { get { return Variable is WritableVariable; } }
 
     protected override void Start()
     {

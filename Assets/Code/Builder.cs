@@ -87,28 +87,14 @@ public class Builder : Able
 [System.Serializable]
 public class BuildTask : Task
 {
-    Vector3 construction_site;
-    bool construction_site_is_unspecified;
+    public Buildable Blueprint { get; private set; }
 
-    public Buildable Blueprint { get; set; }
-
-    public Vector3 ConstructionSite
-    {
-        get { return Project == null ? construction_site : Project.transform.position; }
-        set { construction_site = value; construction_site_is_unspecified = false; }
-    }
-    public bool NoConstructionSite { get { return Project == null && construction_site_is_unspecified; } }
+    public Vector3 ConstructionSite { get { return Target.Position; } }
 
     public Buildable Project { get; private set; }
     public override bool IsComplete
     {
         get{ return Project == null ? false : !Project.IsProject; }
-    }
-
-    public BuildTask(Buildable blueprint, Vector3 construction_site)
-    {
-        Blueprint = blueprint;
-        ConstructionSite = construction_site;
     }
 
     public BuildTask(Buildable blueprint)
@@ -118,12 +104,12 @@ public class BuildTask : Task
 
     public Buildable PlaceBlueprint()
     {
-        return Project = Blueprint.InstantiateProject(construction_site);
+        return Project = Blueprint.InstantiateProject(ConstructionSite);
     }
 
-    public BuildTask Reparameterized(Vector3 construction_site)
+    public override Operation Instantiate()
     {
-        return new BuildTask(Blueprint, construction_site);
+        return new BuildTask(Blueprint);
     }
 
 

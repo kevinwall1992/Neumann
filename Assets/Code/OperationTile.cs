@@ -99,13 +99,9 @@ public class OperationTile : Tile
             {
                 if (Operation is Task)
                 {
-                    Task task = Operation as Task;
-                    Vector3 position = Scene.Main.World.GetWorldPositionPointedAt();
-
-                    if (task is MoveTask)
-                        task = (task as MoveTask).Reparameterized(Unit.GetComponent<Physical>(), position);
-                    if (task is BuildTask)
-                        task = (task as BuildTask).Reparameterized(position);
+                    Task task = Operation.Instantiate() as Task;
+                    task.Input.PrimaryVariableName = 
+                        Scene.Main.World.MemorizePosition(Scene.Main.World.GetWorldPositionPointedAt());
 
                     Unit.Task = task;
                 }
