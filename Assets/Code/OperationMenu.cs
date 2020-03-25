@@ -22,9 +22,8 @@ public class OperationMenu : Drawer
             Reset();
 
             List<Operation> operations =
-            Utility.List<Operation>(new AgainOperation(),
-                                          new ChooseOperation(),
-                                          new YieldOperation());
+            Utility.List<Operation>(new ChooseOperation(),
+                                    new YieldOperation());
             operations.AddRange(Abilities);
 
             foreach (Operation operation in operations)

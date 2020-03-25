@@ -2289,13 +2289,6 @@ MonoBehaviour:
     Cursor:
       Texture: {fileID: 0}
       Hotspot: {x: 0, y: 0}
-  AgainOperation:
-    Sprite: {fileID: 21300000, guid: c72cba2f7fd7c4e4f8040051e798ea8c, type: 3}
-    Color: {r: 1, g: 0.9728835, b: 0, a: 1}
-    Description: Again
-    Cursor:
-      Texture: {fileID: 0}
-      Hotspot: {x: 0, y: 0}
   YieldOperation:
     Sprite: {fileID: 21300000, guid: acc5d079dfa49754584d81cf49078321, type: 3}
     Color: {r: 0, g: 0.32765833, b: 0.7924528, a: 1}

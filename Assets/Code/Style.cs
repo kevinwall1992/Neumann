@@ -18,7 +18,6 @@ public class Style : MonoBehaviour
     public Operation BuildTask;
     public Operation ProductionTask;
     public Operation ChooseOperation;
-    public Operation AgainOperation;
     public Operation YieldOperation;
 
     public float Scale
