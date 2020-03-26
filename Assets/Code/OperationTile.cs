@@ -77,6 +77,9 @@ public class OperationTile : Tile
         //to OperationTile prefab, and underlay can't come first
         //in the editor because of prefab rules. 
         Underlay.transform.SetAsFirstSibling();
+
+        line.gameObject.SetActive(true);
+        line.enabled = false;
     }
 
     protected override void Update()
@@ -86,7 +89,7 @@ public class OperationTile : Tile
         DescriptionText.gameObject.SetActive(this.IsPointedAt());
 
         SelectionOverlay.gameObject.SetActive(IsSelected);
-        line.gameObject.SetActive(IsSelected);
+        line.enabled = IsSelected;
         if (IsSelected)
         {
             line.SetPosition(0, Scene.Main.Camera.ScreenToWorldPoint(new Vector3(transform.position.x, transform.position.y, 5)));

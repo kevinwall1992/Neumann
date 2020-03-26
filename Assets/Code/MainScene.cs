@@ -14,6 +14,7 @@ public class MainScene : Scene
     public MainInputModule InputModule;
     public World World;
     public Style Style;
+    public _3DUIElementContainer _3DUIElementContainer;
     public Prefabs Prefabs;
     public UnitInterface UnitInterface;
     public WorldInterface WorldInterface;
