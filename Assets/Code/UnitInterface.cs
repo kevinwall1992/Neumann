@@ -63,8 +63,6 @@ public class UnitInterface : UIElement
     protected override void Start()
     {
         base.Start();
-
-        program_interface.gameObject.SetActive(false);
     }
 
     protected override void Update()
