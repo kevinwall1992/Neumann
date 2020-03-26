@@ -50,6 +50,7 @@ public class World : MonoBehaviour, HasVariables
     {
         if(OperationTile.Selected == null && 
            InputUtility.WasMouseRightReleased() && 
+           !InputUtility.DidDragOccur() &&
            TerrainCollider.gameObject.IsTouched())
             Scene.Main.UnitInterface.Unit = null;
     }
