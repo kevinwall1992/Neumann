@@ -27,7 +27,7 @@ public class OperationMenu : Drawer
             operations.AddRange(Abilities);
 
             foreach (Operation operation in operations)
-                Add(OperationTile.Create(operation));
+                Add(OperationTile.Create(operation)).transform.position = SpawnPosition.position;
         }
     }
 

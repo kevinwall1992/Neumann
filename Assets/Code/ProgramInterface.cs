@@ -41,7 +41,7 @@ public class ProgramInterface : Drawer
 
         foreach(Operation operation in Program)
             if (!operations.Contains(operation))
-                Add(OperationTile.Create(operation));
+                Add(OperationTile.Create(operation)).transform.position = SpawnPosition.position;
 
         foreach(OperationTile operation_tile in OperationTiles)
             if(!Program.Contains(operation_tile.Operation))

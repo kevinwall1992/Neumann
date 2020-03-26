@@ -30,6 +30,7 @@ public class Drawer : UIElement
     public int ElementsPerRow = 6;
     public int RowsVisible = 1;
     public DrawerHandle Handle;
+    public Transform SpawnPosition;
 
     public bool HasHandle { get { return Handle != null; } }
     public RectTransform RectTransform { get { return transform as RectTransform; } }

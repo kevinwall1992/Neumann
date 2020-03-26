@@ -39,7 +39,7 @@ public class VariableDrawer : Drawer
 
         foreach (Variable variable in VariableSource.Variables)
             if(!variables.Contains(variable))
-                Add(VariableTile.Create(variable));
+                Add(VariableTile.Create(variable)).transform.position = SpawnPosition.position;
 
         foreach (VariableTile variable_tile in VariableTiles)
             if (!VariableSource.Variables.Contains(variable_tile.Variable))
