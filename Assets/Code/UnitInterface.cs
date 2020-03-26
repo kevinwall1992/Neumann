@@ -57,6 +57,13 @@ public class UnitInterface : UIElement
 
                 Show();
             }
+            else
+            {
+                VariableDrawer.VariableSource = null;
+                OperationMenu.Abilities = null;
+                ProgramInterface.Program = null;
+                Hide();
+            }
         }
     }
 
