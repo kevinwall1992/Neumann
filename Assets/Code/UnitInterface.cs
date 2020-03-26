@@ -91,9 +91,10 @@ public class UnitInterface : UIElement
                 CurrentTaskTile.Operation = null;
         }
 
-        if (OperationTile.Selected == null &&
-            InputUtility.WasMouseLeftPressed() &&
-            Scene.Main.World.Terrain.gameObject.IsPointedAt())
+        if (OperationTile.Selected == null && 
+            OperationTileIONode.Selected == null && 
+            InputUtility.WasMouseLeftPressed() && 
+            Scene.Main.World.IsPointedAt())
         {
             foreach (OperationTile operation_tile in operation_menu.OperationTiles)
                 if (operation_tile.Operation is MoveTask)

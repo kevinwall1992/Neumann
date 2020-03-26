@@ -9,7 +9,14 @@ public class OperationTile : Tile
     Sprite null_task_sprite = null;
 
     [SerializeField]
-    LineRenderer line = null;
+    OperationTileIONode input_node = null, output_node = null;
+
+    [SerializeField]
+    OperationTileGotoNode goto_node = null;
+
+    [SerializeField]
+    RectTransform goto_attach_position = null;
+    public RectTransform GotoAttachPosition { get { return goto_attach_position; } }
 
     bool IsDraggable
     {
@@ -45,11 +52,24 @@ public class OperationTile : Tile
 
             Underlay.color = Color.clear;
 
+            input_node.gameObject.SetActive(false);
+            output_node.gameObject.SetActive(false);
+            goto_node.gameObject.SetActive(false);
+
             if (Operation != null)
             {
                 Image.sprite = Operation.Style.Sprite;
                 Image.color = Operation.Style.Color;
                 DescriptionText.text = Operation.Style.Description;
+
+                if (Operation.TakesInput)
+                    input_node.VariableTile = VariableTile.Find(Operation.Input.PrimaryVariableName);
+                if (Operation.HasOutput)
+                    output_node.VariableTile = VariableTile.Find(Operation.Output.PrimaryVariableName);
+                if (Operation.TakesGoto)
+                    goto_node.GotoOperationTile = 
+                        Scene.Main.UnitInterface.ProgramInterface.Tiles
+                        .Find(tile => (tile as OperationTile).Operation == Operation.Goto) as OperationTile;
 
                 if (Operation is Task && (Operation as Task) is BuildTask)
                 {
@@ -104,8 +124,9 @@ public class OperationTile : Tile
         //in the editor because of prefab rules. 
         Underlay.transform.SetAsFirstSibling();
 
-        line.gameObject.SetActive(true);
-        line.enabled = false;
+        input_node.gameObject.SetActive(false);
+        output_node.gameObject.SetActive(false);
+        goto_node.gameObject.SetActive(false);
     }
 
     protected override void Update()
@@ -119,27 +140,61 @@ public class OperationTile : Tile
         DescriptionText.gameObject.SetActive(this.IsPointedAt());
   
         SelectionOverlay.gameObject.SetActive(IsSelected);
-        line.enabled = IsSelected;
-        if (IsSelected)
-        {
-            line.SetPosition(0, Scene.Main.Camera.ScreenToWorldPoint(new Vector3(transform.position.x, transform.position.y, 5)));
-            line.SetPosition(1, Scene.Main.World.GetWorldPositionPointedAt());
 
-            if (Scene.Main.World.Terrain.gameObject.IsTouched() && this.UseMouseLeftRelease())
+        input_node.gameObject.SetActive(Operation.TakesInput);
+        output_node.gameObject.SetActive(Operation.HasOutput);
+        goto_node.gameObject.SetActive(Operation.TakesGoto);
+
+        if (IsInProgramInterface)
+        {
+            if (input_node.VariableTile != null)
+                Operation.Input.PrimaryVariableName = input_node.VariableTile.Variable.Name;
+            if (output_node.VariableTile != null)
+                Operation.Output.PrimaryVariableName = output_node.VariableTile.Variable.Name;
+            if (goto_node.GotoOperationTile != null)
+                Operation.Goto = goto_node.GotoOperationTile.Operation;
+        }
+        else if(IsInOperationMenu && IsSelected)
+        {
+            bool is_complete = false;
+            if (operation.TakesGoto)
+                is_complete = goto_node.GotoOperationTile != null;
+            else if((!operation.TakesInput || input_node.VariableTile != null) && 
+                    (!operation.HasOutput || output_node.VariableTile != null))
+                is_complete = true;
+
+            if (is_complete)
             {
                 Operation operation = Operation.Instantiate();
-                operation.Input.PrimaryVariableName =
-                    Scene.Main.World.MemorizePosition(Scene.Main.World.GetWorldPositionPointedAt());
+                if(operation.TakesInput && input_node.VariableTile != null)
+                    operation.Input.PrimaryVariableName = input_node.VariableTile.Variable.Name;
+                if(operation.HasOutput && output_node.VariableTile != null)
+                    operation.Output.PrimaryVariableName = output_node.VariableTile.Variable.Name;
+                if (operation.TakesGoto && goto_node.GotoOperationTile != null)
+                    operation.Goto = goto_node.GotoOperationTile.Operation;
 
                 Unit.Program.Add(operation);
-                operation.Execute(Unit);
+                if (Unit.Program.Next == null)
+                    Unit.Program.Next = operation;
+                if (Unit.Task == null || !Input.GetKey(KeyCode.LeftShift))
+                {
+                    Unit.Task = null;
+                    operation.Execute(Unit);
+                }
 
+                input_node.VariableTile = null;
+                input_node.IsSelected = false;
+                output_node.VariableTile = null;
+                output_node.IsSelected = false;
+                goto_node.GotoOperationTile = null;
+                goto_node.IsSelected = false;
                 IsSelected = false;
             }
         }
 
         if (!InputUtility.DidDragOccur()  &&
             this.IsPointedAt() && 
+            !input_node.IsPointedAt() && !output_node.IsPointedAt() && !goto_node.IsPointedAt() && 
             this.UseMouseLeftRelease())
         {
             if (IsInOperationMenu)
@@ -154,6 +209,27 @@ public class OperationTile : Tile
         if (InputUtility.WasMouseRightReleased())
         {
             if (IsSelected)
+                IsSelected = false;
+        }
+
+        if(IsSelected)
+        {
+            if (Operation.TakesInput && input_node.VariableTile == null && !Operation.TakesGoto)
+            {
+                if(!input_node.IsSelected)
+                    input_node.IsSelected = true;
+            }
+            else if (Operation.HasOutput && output_node.VariableTile == null)
+            {
+                if(!output_node.IsSelected)
+                    output_node.IsSelected = true;
+            }
+            else if (Operation.TakesGoto && goto_node.GotoOperationTile == null)
+            {
+                if (!goto_node.IsSelected)
+                    goto_node.IsSelected = true;
+            }
+            else
                 IsSelected = false;
         }
 
