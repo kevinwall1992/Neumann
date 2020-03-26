@@ -2,9 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
 
 public class ProgramInterface : Drawer
 {
+    [SerializeField]
+    Image arrow = null;
+
     public bool IsClosed { get; set; }
 
     Program program;
@@ -30,6 +34,8 @@ public class ProgramInterface : Drawer
     protected override void Start()
     {
         base.Start();
+
+        arrow.gameObject.SetActive(false);
     }
 
     protected override void Update()
@@ -63,7 +69,21 @@ public class ProgramInterface : Drawer
                 operation_tile_.Operation == Unit.Program.Next);
             if (operation_tile.IsBeingDragged)
                 return;
+
+            Vector3 target_position = arrow.transform.position
+                .YChangedTo(operation_tile.transform.position.y);
+
+            if (arrow.gameObject.activeSelf)
+                arrow.transform.position = Vector3.Lerp(arrow.transform.position,
+                                                        target_position,
+                                                        4 * Time.deltaTime);
+            else
+                arrow.transform.position = target_position;
+
+            arrow.gameObject.SetActive(true);
         }
+        else
+            arrow.gameObject.SetActive(false);
     }
 
     public override Tile Add(Tile tile)
