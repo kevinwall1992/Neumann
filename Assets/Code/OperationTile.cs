@@ -83,7 +83,17 @@ public class OperationTile : Tile
     public bool IsInOperationMenu { get { return Drawer is OperationMenu; } }
     public bool IsInProgramInterface { get { return Drawer is ProgramInterface; } }
 
-    public Unit Unit { get { return GetComponentInParent<UnitInterface>().Unit; } }
+    public Unit Unit
+    {
+        get
+        {
+            UnitInterface unit_interface = GetComponentInParent<UnitInterface>();
+            if (unit_interface == null)
+                return null;
+
+            return unit_interface.Unit;
+        }
+    }
 
     protected override void Start()
     {
@@ -103,7 +113,7 @@ public class OperationTile : Tile
         if (Operation == null)
             return;
 
-        if (Operation is Task && (Operation as Task) is BuildTask)
+        if (Unit != null && Operation is Task && (Operation as Task) is BuildTask)
             Underlay.color = Unit.Team.Color;
 
         DescriptionText.gameObject.SetActive(this.IsPointedAt());
