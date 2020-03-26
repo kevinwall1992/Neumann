@@ -27,17 +27,10 @@ public class Unit : MonoBehaviour, HasVariables
         }
     }
 
-    Task task = null;
-    public Task Task { get; set; }
-
     public Team Team { get { return GetComponentInParent<Team>(); } }
-    public Program Program { get; set; }
+    public Task Task { get; set; }
+    public Program Program { get; set; } = new Program();
     public bool IsSelected { get { return Scene.Main.UnitInterface.Unit == this; } }
-
-    public Physical Physical { get { return GetComponent<Physical>(); } }
-    public Mortal Mortal { get { return GetComponent<Mortal>(); } }
-    public Buildable Buildable { get { return GetComponent<Buildable>(); } }
-    public Thinker Thinker { get { return GetComponent<Thinker>(); } }
 
     public List<Variable> Variables
     {
@@ -55,9 +48,13 @@ public class Unit : MonoBehaviour, HasVariables
         }
     }
 
+    public Physical Physical { get { return GetComponent<Physical>(); } }
+    public Mortal Mortal { get { return GetComponent<Mortal>(); } }
+    public Buildable Buildable { get { return GetComponent<Buildable>(); } }
+
+    
     void Start()
     {
-        Program = new Program();
         Memory.Memorize("Variable", 0, true);
     }
 
