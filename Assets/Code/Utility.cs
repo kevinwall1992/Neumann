@@ -65,6 +65,14 @@ public static class Utility
         return element;
     }
 
+    public static List<T> Reversed<T>(this List<T> list)
+    {
+        List<T> reversed = new List<T>(list);
+        reversed.Reverse();
+
+        return reversed;
+    }
+
     public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
     {
         foreach (T element in enumerable)
