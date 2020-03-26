@@ -66,6 +66,9 @@ public class OperationTile : Tile
         }
     }
 
+    public bool IsInOperationMenu { get { return Drawer is OperationMenu; } }
+    public bool IsInProgramInterface { get { return Drawer is ProgramInterface; } }
+
     public Unit Unit { get { return GetComponentInParent<UnitInterface>().Unit; } }
 
     protected override void Start()

@@ -13,6 +13,8 @@ public class Tile : DraggableUIElement
     Image selection_overlay = null;
     public Image SelectionOverlay { get { return selection_overlay; } }
 
+    public Drawer Drawer { get { return GetComponentInParent<Drawer>(); } }
+
     public override void OnDrag(PointerEventData eventData)
     {
         base.OnDrag(eventData);
