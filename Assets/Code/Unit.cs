@@ -66,7 +66,7 @@ public class Unit : MonoBehaviour, HasVariables
         if (Task != null && Task.IsComplete)
             Task = null;
 
-        if(InputUtility.WasMouseLeftReleased())
+        if(this.UseMouseLeftRelease())
             if(this.IsTouched())
                 Scene.Main.UnitInterface.Unit = this;
     }
