@@ -44,6 +44,7 @@ public class Unit : MonoBehaviour, HasVariables
         get
         {
             List<Variable> variables = new List<Variable>();
+            variables.Add(new FunctionVariable("Busy", () => Task != null));
 
             variables.AddRange(Mortal.Variables);
             variables.AddRange(Buildable.Variables);
