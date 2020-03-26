@@ -276,6 +276,11 @@ public static class UIUtility
     {
         return mono_behavior.gameObject.HasComponent<T>();
     }
+
+    public static Color Lerped(this Color color, Color other, float factor)
+    {
+        return Color.Lerp(color, other, factor);
+    }
 }
 
 public static class InputUtility
