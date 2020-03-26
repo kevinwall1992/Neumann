@@ -315,8 +315,7 @@ public static class InputUtility
             return true;
 
         if (game_object.transform is RectTransform)
-            return RectTransformUtility.RectangleContainsScreenPoint(
-                game_object.transform as RectTransform, Input.mousePosition);
+            return (game_object.transform as RectTransform).ContainsMouse();
 
         return false;
     }
@@ -349,6 +348,16 @@ public static class InputUtility
     public static bool IsTouched(this Transform transform)
     {
         return transform.gameObject.IsTouched();
+    }
+
+    public static bool Contains(this RectTransform rect_transform, Vector2 position)
+    {
+        return RectTransformUtility.RectangleContainsScreenPoint(rect_transform, position);
+    }
+
+    public static bool ContainsMouse(this RectTransform rect_transform)
+    {
+        return rect_transform.Contains(Input.mousePosition);
     }
 
 
