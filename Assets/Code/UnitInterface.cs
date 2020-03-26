@@ -49,7 +49,7 @@ public class UnitInterface : UIElement
                 NameText.text = Unit.Name;
 
                 Image.sprite = Unit.Icon;
-                image.color = Unit.Color;
+                image.color = Unit.Team.Color;
 
                 VariableDrawer.VariableSource = Unit;
                 OperationMenu.Abilities = Unit.Abilities;

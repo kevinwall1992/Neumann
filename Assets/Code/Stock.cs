@@ -50,11 +50,10 @@ public class Stock : MonoBehaviour, HasVariables
         return requests.Sum(request => request.UsagePerSecond.GetVolumeOf(resource));
     }
 
-
-    public static Request MakeRequest(Pile usage_per_second)
+    public Request MakeRequest(Pile usage_per_second)
     {
-        Request request = new Request(Scene.Main.World.Stock, usage_per_second);
-        Scene.Main.World.Stock.requests.Add(request);
+        Request request = new Request(this, usage_per_second);
+        requests.Add(request);
 
         return request;
     }

@@ -50,7 +50,7 @@ public class Motile : Able
             return;
 
         if(request == null)
-            request = Stock.MakeRequest(Propellent * 0);
+            request = Unit.Team.Stock.MakeRequest(Propellent * 0);
 
         //Turn towards direction indicated
         Quaternion target_rotation = Quaternion.LookRotation(target_direction);

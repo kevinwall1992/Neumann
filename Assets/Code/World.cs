@@ -7,10 +7,6 @@ using UnityEngine.EventSystems;
 public class World : MonoBehaviour, HasVariables
 {
     [SerializeField]
-    Stock stock = null;
-    public Stock Stock { get { return stock; } }
-
-    [SerializeField]
     Terrain terrain = null;
     public Terrain Terrain { get { return terrain; } }
 
@@ -21,6 +17,10 @@ public class World : MonoBehaviour, HasVariables
     [SerializeField]
     Physics physics = null;
     public Physics Physics { get { return physics; } }
+
+    [SerializeField]
+    Team player_team = null;
+    public Team PlayerTeam { get { return player_team; } }
 
     public Memory Memory { get; private set; } = new Memory();
 
@@ -37,7 +37,7 @@ public class World : MonoBehaviour, HasVariables
     {
         get
         {
-            return Memory.Variables.Merged(Stock.Variables);
+            return Memory.Variables.Merged(PlayerTeam.Stock.Variables);
         }
     }
 

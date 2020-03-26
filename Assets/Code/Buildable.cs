@@ -50,8 +50,9 @@ public class Buildable : MonoBehaviour, HasVariables
     {
         if(IsProject && Foundation.Volume >= RequiredResources.Volume)
         {
-            Scene.Main.World.Stock.Pile.PutIn(Foundation.Normalized() * 
-                                              (Foundation.Volume - RequiredResources.Volume));
+            if(this.HasComponent<Unit>())
+            GetComponent<Unit>().Team.Stock.Pile.PutIn(Foundation.Normalized() * 
+                (Foundation.Volume - RequiredResources.Volume));
             IsProject = false;
         }
     }

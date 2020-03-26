@@ -12,7 +12,6 @@ public class Unit : MonoBehaviour, HasVariables
 {
     public string Name;
     public Sprite Icon = null;
-    public Color Color = Color.red;
 
     [SerializeField]
     GameObject selection_box = null;
@@ -39,6 +38,7 @@ public class Unit : MonoBehaviour, HasVariables
         }
     }
 
+    public Team Team { get { return GetComponentInParent<Team>(); } }
     public Program Program { get; set; }
     public bool IsSelected { get { return Scene.Main.UnitInterface.Unit == this; } }
 

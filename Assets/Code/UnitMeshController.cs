@@ -43,7 +43,7 @@ public class UnitMeshController : MonoBehaviour
             Material.SetFloat(YMaskName, Mathf.Lerp(min_y, max_y, Unit.Buildable.Completion));
         }
 
-        Material.SetVector(ColorName, Unit.Color);
+        Material.SetVector(ColorName, Unit.Team.Color);
 
         MaterialSprayer.Material = Material;
     }

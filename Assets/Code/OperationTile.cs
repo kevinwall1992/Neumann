@@ -43,7 +43,6 @@ public class OperationTile : Tile
                     Unit unit = build_task.Blueprint.GetComponent<Unit>();
 
                     Underlay.sprite = unit.Icon;
-                    Underlay.color = unit.Color;
                 }
             }
             else
@@ -87,6 +86,9 @@ public class OperationTile : Tile
         base.Update();
 
         DescriptionText.gameObject.SetActive(this.IsPointedAt());
+
+        if (Operation is Task && (Operation as Task) is BuildTask)
+            Underlay.color = Unit.Team.Color;
 
         SelectionOverlay.gameObject.SetActive(IsSelected);
         line.enabled = IsSelected;

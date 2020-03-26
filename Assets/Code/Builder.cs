@@ -48,7 +48,7 @@ public class Builder : Able
         if(IsProjectWithinReach)
         {
             if(request == null)
-                request = Stock.MakeRequest(Project.RequiredResources.Normalized() * Rate);
+                request = Unit.Team.Stock.MakeRequest(Project.RequiredResources.Normalized() * Rate);
 
             NanolathingLineController.NanolathingRate = Rate * request.Yield;
             NanolathingLineController.Target = Project.transform.position + new Vector3(0, 0.5f, 0);
@@ -104,7 +104,10 @@ public class BuildTask : Task
 
     public Buildable PlaceBlueprint()
     {
-        return Project = Blueprint.InstantiateProject(ConstructionSite);
+        Project = Blueprint.InstantiateProject(ConstructionSite);
+        Project.transform.SetParent(Unit.Team.transform);
+
+        return Project;
     }
 
     public override Operation Instantiate()
