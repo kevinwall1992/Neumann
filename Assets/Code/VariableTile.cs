@@ -53,4 +53,15 @@ public class VariableTile : Tile
 
         return variable_tile;
     }
+
+    public static VariableTile Find(string name)
+    {
+        System.Predicate<Tile> match = tile => (tile as VariableTile).Variable.Name == name;
+
+        VariableTile variable_tile = Scene.Main.UnitInterface.VariableDrawer.Tiles.Find(match) as VariableTile;
+        if (variable_tile != null)
+            return variable_tile;
+
+        return Scene.Main.WorldInterface.VariableDrawer.Tiles.Find(match) as VariableTile;
+    }
 }
