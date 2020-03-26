@@ -17,7 +17,6 @@ public class Mortal : MonoBehaviour, HasVariables
 
     void Update()
     {
-        if (IsDead)
-            Destroy(gameObject);
+
     }
 }
