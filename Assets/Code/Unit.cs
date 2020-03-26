@@ -13,6 +13,8 @@ public class Unit : MonoBehaviour, HasVariables
     public string Name;
     public Sprite Icon = null;
 
+    public Memory Memory { get; private set; } = new Memory();
+
     [SerializeField]
     GameObject selection_box = null;
     public GameObject SelectionBox { get { return selection_box; } }
@@ -46,6 +48,8 @@ public class Unit : MonoBehaviour, HasVariables
             variables.AddRange(Mortal.Variables);
             variables.AddRange(Buildable.Variables);
 
+            variables.AddRange(Memory.Variables);
+
             return variables;
         }
     }
@@ -53,6 +57,7 @@ public class Unit : MonoBehaviour, HasVariables
     void Start()
     {
         Program = new Program();
+        Memory.Memorize("Variable", 0, true);
     }
 
     void Update()
