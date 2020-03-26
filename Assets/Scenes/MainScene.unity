@@ -2846,6 +2846,20 @@ MonoBehaviour:
     Cursor:
       Texture: {fileID: 0}
       Hotspot: {x: 0, y: 0}
+  WriteOperation:
+    Sprite: {fileID: 21300000, guid: 3fe6e0f69f96ff5499d9a6ab61caea65, type: 3}
+    Color: {r: 1, g: 0.7347467, b: 0, a: 1}
+    Description: Write
+    Cursor:
+      Texture: {fileID: 0}
+      Hotspot: {x: 0, y: 0}
+  InterruptOperation:
+    Sprite: {fileID: 21300000, guid: a6f429b9694378c4f80a96a9d70c7b71, type: 3}
+    Color: {r: 1, g: 0.14632325, b: 0, a: 1}
+    Description: Interrupt
+    Cursor:
+      Texture: {fileID: 0}
+      Hotspot: {x: 0, y: 0}
   YieldOperation:
     Sprite: {fileID: 21300000, guid: acc5d079dfa49754584d81cf49078321, type: 3}
     Color: {r: 0, g: 0.32765833, b: 0.7924528, a: 1}

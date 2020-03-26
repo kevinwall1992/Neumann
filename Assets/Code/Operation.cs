@@ -91,3 +91,42 @@ public class YieldOperation : Operation
     public override Style.Operation Style
     { get { return Scene.Main.Style.YieldOperation; } }
 }
+
+
+//Stops the current Task
+[System.Serializable]
+public class InterruptOperation : Operation
+{
+    public override void Execute(Unit unit)
+    {
+        unit.Task = null;
+
+        base.Execute(unit);
+    }
+
+    public override Operation Instantiate() { return new InterruptOperation(); }
+
+    public override Style.Operation Style
+    { get { return Scene.Main.Style.InterruptOperation; } }
+}
+
+
+//Writes Input to Output
+public class WriteOperation : Operation
+{
+    public override bool TakesInput { get { return true; } }
+    public override bool HasOutput { get { return true; } }
+
+    public override void Execute(Unit unit)
+    {
+        if (Input.IsConnected(unit) && Output.IsConnected(unit))
+            Output.Write(unit, Input.Read(unit));
+
+        base.Execute(unit);
+    }
+
+    public override Operation Instantiate() { return new WriteOperation(); }
+
+    public override Style.Operation Style
+    { get { return Scene.Main.Style.WriteOperation; } }
+}

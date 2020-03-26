@@ -26,6 +26,8 @@ public class OperationMenu : Drawer
 
             List<Operation> operations =
             Utility.List<Operation>(new ChooseOperation(),
+                                    new WriteOperation(), 
+                                    new InterruptOperation(),
                                     new YieldOperation());
             operations.AddRange(Abilities);
 
