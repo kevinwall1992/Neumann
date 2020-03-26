@@ -49,7 +49,7 @@ public class World : MonoBehaviour, HasVariables
     void Update()
     {
         if(OperationTile.Selected == null && 
-           InputUtility.WasMouseLeftReleased() && 
+           InputUtility.WasMouseRightReleased() && 
            TerrainCollider.gameObject.IsTouched())
             Scene.Main.UnitInterface.Unit = null;
     }
