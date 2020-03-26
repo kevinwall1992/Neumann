@@ -11,6 +11,16 @@ public class OperationTile : Tile
     [SerializeField]
     LineRenderer line = null;
 
+    bool IsDraggable
+    {
+        get
+        {
+            return IsInProgramInterface || 
+                   transform.parent == Scene.Main.Canvas.transform;
+        }
+    }
+
+    //Properties seem unnecessary if private****
     [SerializeField]
     Text description_text = null;
     Text DescriptionText { get { return description_text; } }
@@ -18,6 +28,10 @@ public class OperationTile : Tile
     [SerializeField]
     Image underlay = null;
     Image Underlay { get { return underlay; } }
+
+    [SerializeField]
+    Image discard_overlay = null;
+    Image DiscardOverlay { get { return discard_overlay; } }
 
     [SerializeField]
     Operation operation;
@@ -37,12 +51,12 @@ public class OperationTile : Tile
                 Image.color = Operation.Style.Color;
                 DescriptionText.text = Operation.Style.Description;
 
-                if(Operation is Task && (Operation as Task) is BuildTask)
+                if (Operation is Task && (Operation as Task) is BuildTask)
                 {
                     BuildTask build_task = Operation as BuildTask;
-                    Unit unit = build_task.Blueprint.GetComponent<Unit>();
+                    Unit unit_blueprint = build_task.Blueprint.GetComponent<Unit>();
 
-                    Underlay.sprite = unit.Icon;
+                    Underlay.sprite = unit_blueprint.Icon;
                 }
             }
             else
@@ -86,37 +100,99 @@ public class OperationTile : Tile
 
     protected override void Update()
     {
-        base.Update();
-
-        DescriptionText.gameObject.SetActive(this.IsPointedAt());
+        if (Operation == null)
+            return;
 
         if (Operation is Task && (Operation as Task) is BuildTask)
             Underlay.color = Unit.Team.Color;
 
+        DescriptionText.gameObject.SetActive(this.IsPointedAt());
+  
         SelectionOverlay.gameObject.SetActive(IsSelected);
         line.enabled = IsSelected;
         if (IsSelected)
         {
             line.SetPosition(0, Scene.Main.Camera.ScreenToWorldPoint(new Vector3(transform.position.x, transform.position.y, 5)));
             line.SetPosition(1, Scene.Main.World.GetWorldPositionPointedAt());
-        }
 
-        if (InputUtility.WasMouseLeftReleased() || InputUtility.WasMouseRightReleased())
-        {
-            if (IsSelected && Scene.Main.World.Terrain.gameObject.IsTouched())
+            if (Scene.Main.World.Terrain.gameObject.IsTouched() && this.UseMouseLeftRelease())
             {
                 Operation operation = Operation.Instantiate();
-                operation.Input.PrimaryVariableName = 
+                operation.Input.PrimaryVariableName =
                     Scene.Main.World.MemorizePosition(Scene.Main.World.GetWorldPositionPointedAt());
 
-                Unit.Program.Next = operation;
+                Unit.Program.Add(operation);
+                operation.Execute(Unit);
 
                 IsSelected = false;
             }
-
-            if (this.IsPointedAt())
-                IsSelected = true;
         }
+
+        if (!InputUtility.DidDragOccur()  &&
+            this.IsPointedAt() && 
+            this.UseMouseLeftRelease())
+        {
+            if (IsInOperationMenu)
+                IsSelected = true;
+            else if (IsInProgramInterface)
+            {
+                Unit.Program.Next = Operation;
+                Operation.Execute(Unit);
+            }
+        }
+
+        if (InputUtility.WasMouseRightReleased())
+        {
+            if (IsSelected)
+                IsSelected = false;
+        }
+
+        base.Update();
+    }
+
+    public override void OnBeginDrag(PointerEventData eventData)
+    {
+        if (!IsDraggable)
+            return;
+
+        base.OnBeginDrag(eventData);
+
+        Drawer.Remove(this);
+        transform.SetParent(Scene.Main.Canvas.transform);
+    }
+
+    public override void OnDrag(PointerEventData eventData)
+    {
+        if (!IsDraggable)
+            return;
+
+        base.OnDrag(eventData);
+
+        if ((Scene.Main.UnitInterface.ProgramInterface.transform as RectTransform).ContainsMouse())
+        {
+            Scene.Main.UnitInterface.ProgramInterface.PreviewAt(Input.mousePosition);
+            DiscardOverlay.gameObject.SetActive(false);
+        }
+        else
+        {
+            Scene.Main.UnitInterface.ProgramInterface.StopPreviewing();
+            DiscardOverlay.gameObject.SetActive(true);
+        }
+    }
+
+    public override void OnEndDrag(PointerEventData eventData)
+    {
+        if (!IsDraggable)
+            return;
+
+        base.OnEndDrag(eventData);
+
+        DiscardOverlay.gameObject.SetActive(false);
+
+        if ((Scene.Main.UnitInterface.ProgramInterface.transform as RectTransform).ContainsMouse())
+            Scene.Main.UnitInterface.ProgramInterface.AddAt(this, Input.mousePosition);
+        else
+            GameObject.Destroy(gameObject);
     }
 
 
