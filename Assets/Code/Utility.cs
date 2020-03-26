@@ -304,6 +304,56 @@ public static class InputUtility
     public static bool IsDragOccurring() { return Scene.Main.InputModule.IsDragOccurring; }
     public static bool DidDragOccur() { return Scene.Main.InputModule.DidDragOccur; }
 
+    static MonoBehaviour mouse_left_release_claimer = null;
+    static int mouse_left_release_claim_yield_frame = -1;
+    static MonoBehaviour MouseLeftReleaseClaimer
+    {
+        get
+        {
+            if (mouse_left_release_claim_yield_frame >= 0 &&
+               mouse_left_release_claim_yield_frame < Time.frameCount)
+                mouse_left_release_claimer = null;
+
+            return mouse_left_release_claimer;
+        }
+
+        set
+        {
+            mouse_left_release_claimer = value;
+            mouse_left_release_claim_yield_frame = -1;
+        }
+    }
+
+    public static void ClaimMouseLeftRelease(this MonoBehaviour claimant)
+    {
+        MouseLeftReleaseClaimer = claimant;
+    }
+
+    public static void YieldMouseLeftReleaseClaim(this MonoBehaviour claimant)
+    {
+        if (MouseLeftReleaseClaimer = claimant)
+            mouse_left_release_claim_yield_frame = Time.frameCount;
+    }
+
+    public static bool UseMouseLeftRelease(this MonoBehaviour enquirer)
+    {
+        if (!WasMouseLeftReleased())
+            return false;
+
+        if (MouseLeftReleaseClaimer != null)
+        {
+            if (MouseLeftReleaseClaimer == enquirer)
+            {
+                YieldMouseLeftReleaseClaim(enquirer);
+                return true;
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
     public static Vector2 GetMouseMotion()
     {
         return new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
