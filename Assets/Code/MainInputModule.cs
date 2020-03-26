@@ -9,6 +9,18 @@ public class MainInputModule : StandaloneInputModule
     bool is_below_threshold_drag_occurring = false;
     Vector2 mouse_down_position;
 
+    public GameObject ElementTouched
+    {
+        get
+        {
+            if (pointer_event_data == null ||
+            pointer_event_data.pointerCurrentRaycast.gameObject == null)
+                return null;
+
+            return pointer_event_data.pointerCurrentRaycast.gameObject;
+        }
+    }
+
     public bool IsDragOccurring { get; private set; }
     public bool DidDragOccur { get; private set; }
 
@@ -62,10 +74,6 @@ public class MainInputModule : StandaloneInputModule
 
     public bool IsTouched(GameObject game_object)
     {
-        if (pointer_event_data == null || 
-            pointer_event_data.pointerCurrentRaycast.gameObject == null)
-            return false;
-
-        return pointer_event_data.pointerCurrentRaycast.gameObject.transform.IsChildOf(game_object.transform);
+        return ElementTouched == game_object;
     }
 }
