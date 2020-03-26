@@ -282,6 +282,9 @@ public static class InputUtility
     public static bool IsMouseRightPressed() { return Input.GetMouseButton((int)MouseButton.Right); }
     public static bool WasMouseRightReleased() { return Input.GetMouseButtonUp((int)MouseButton.Right); }
 
+    public static bool IsDragOccurring() { return Scene.Main.InputModule.IsDragOccurring; }
+    public static bool DidDragOccur() { return Scene.Main.InputModule.DidDragOccur; }
+
     public static Vector2 GetMouseMotion()
     {
         return new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
