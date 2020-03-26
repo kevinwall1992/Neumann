@@ -26,17 +26,7 @@ public class Unit : MonoBehaviour, HasVariables
     }
 
     Task task = null;
-    public Task Task
-    {
-        get { return task; }
-        set
-        {
-            task = value;
-
-            if(task != null)
-                task.Unit = this;
-        }
-    }
+    public Task Task { get; set; }
 
     public Team Team { get { return GetComponentInParent<Team>(); } }
     public Program Program { get; set; }
