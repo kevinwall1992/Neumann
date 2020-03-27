@@ -78,21 +78,6 @@ public class Pile
         return removed_pile;
     }
 
-    public Pile Sample_Volume(float volume)
-    {
-        return Sample_Fraction(Mathf.Min(volume, Volume) / Volume);
-    }
-
-    public Pile Sample_Fraction(float fraction)
-    {
-        Pile pile = new Pile();
-
-        foreach (Resource resource in new List<Resource>(Resources))
-            pile.PutIn(resource, TakeOut(resource, GetVolumeOf(resource) * fraction));
-
-        return pile;
-    }
-
     public float GetVolumeOf(Resource resource)
     {
         if (!Resources.Contains(resource))
