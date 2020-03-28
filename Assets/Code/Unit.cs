@@ -39,6 +39,9 @@ public class Unit : MonoBehaviour, HasVariables
             List<Variable> variables = new List<Variable>();
             variables.Add(new FunctionVariable("Busy", () => Task != null));
 
+            variables.Add(new FunctionVariable("Iron Concentration", () => 100 * Scene.Main.World.Asteroid.Regolith.GetConcentrationByVolume(Physical.Position, 1, new Resource("Iron"))));
+            variables.Add(new FunctionVariable("Deep Iron Concentration", () => 100 * Scene.Main.World.Asteroid.Rock.GetConcentrationByVolume(Physical.Position, 1, new Resource("Iron"))));
+
             variables.AddRange(Mortal.Variables);
             variables.AddRange(Buildable.Variables);
 
