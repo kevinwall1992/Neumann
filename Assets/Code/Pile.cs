@@ -78,6 +78,16 @@ public class Pile
         return removed_pile;
     }
 
+    public Pile TakeOut(float volume)
+    {
+        return TakeOut(Normalized() * volume);
+    }
+
+    public Pile TakeSlice(float fraction)
+    {
+        return TakeOut(Volume * fraction);
+    }
+
     public float GetVolumeOf(Resource resource)
     {
         if (!Resources.Contains(resource))
