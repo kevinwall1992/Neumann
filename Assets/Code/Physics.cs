@@ -41,12 +41,12 @@ public class Physics : MonoBehaviour
 
             //General forces
 
-            float terrain_height = World.GetSurfaceHeight(physical.Position);
+            float terrain_height = World.Asteroid.GetSurfaceHeight(physical.Position);
             bool below_terrain = physical.Position.y < terrain_height;
 
             if (physical.IsTouchingTerrain)
             {
-                Vector3 normal = World.GetSurfaceNormal(physical.Position);
+                Vector3 normal = World.Asteroid.GetSurfaceNormal(physical.Position);
                 
 
                 Vector3 normal_force =  physical.Mass * 0.99f * -gravity.InAxis(normal);

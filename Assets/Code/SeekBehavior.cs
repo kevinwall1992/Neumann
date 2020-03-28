@@ -20,7 +20,7 @@ public class SeekBehavior : Behavior
         if (Motile == null || !Motile.IsFunctioning)
             return;
 
-        Vector3 normal = Scene.Main.World.GetSurfaceNormal(Physical.Position);
+        Vector3 normal = Scene.Main.World.Asteroid.GetSurfaceNormal(Physical.Position);
 
         Vector3 displacement = Target.Position - Physical.Position;
         Vector3 surface_direction = displacement.InPlane(Vector3.up).InPlane(normal).normalized;

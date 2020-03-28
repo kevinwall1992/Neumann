@@ -7,12 +7,8 @@ using UnityEngine.EventSystems;
 public class World : MonoBehaviour, HasVariables
 {
     [SerializeField]
-    Terrain terrain = null;
-    public Terrain Terrain { get { return terrain; } }
-
-    [SerializeField]
-    TerrainCollider terrain_collider = null;
-    public TerrainCollider TerrainCollider { get { return terrain_collider; } }
+    Asteroid asteroid = null;
+    public Asteroid Asteroid { get { return asteroid; } }
 
     [SerializeField]
     Physics physics = null;
@@ -23,15 +19,6 @@ public class World : MonoBehaviour, HasVariables
     public Team PlayerTeam { get { return player_team; } }
 
     public Memory Memory { get; private set; } = new Memory();
-
-    public bool IsPointedAt
-    {
-        get
-        {
-            RaycastHit hit = new RaycastHit();
-            return TerrainCollider.Raycast(Scene.Main.Camera.ScreenPointToRay(Input.mousePosition), out hit, 1000);
-        }
-    }
 
     public List<Variable> Variables
     {
@@ -51,7 +38,7 @@ public class World : MonoBehaviour, HasVariables
         if(OperationTile.Selected == null && 
            InputUtility.WasMouseRightReleased() && 
            !InputUtility.DidDragOccur() &&
-           TerrainCollider.gameObject.IsTouched())
+           Asteroid.TerrainCollider.gameObject.IsTouched())
             Scene.Main.UnitInterface.Unit = null;
     }
 
@@ -67,24 +54,5 @@ public class World : MonoBehaviour, HasVariables
         return name;
     }
 
-    public Vector3 GetSurfaceNormal(Vector3 position)
-    {
-        RaycastHit hit = new RaycastHit();
-        TerrainCollider.Raycast(new Ray(position + new Vector3(0, 100, 0), new Vector3(0, -1, 0)), out hit, 1000);
-
-        return hit.normal;
-    }
-
-    public float GetSurfaceHeight(Vector3 position)
-    {
-        return Terrain.SampleHeight(position);
-    }
-
-    public Vector3 GetWorldPositionPointedAt()
-    {
-        RaycastHit hit = new RaycastHit();
-        TerrainCollider.Raycast(Scene.Main.Camera.ScreenPointToRay(Input.mousePosition), out hit, 1000);
-
-        return hit.point;
-    }
+    
 }

@@ -69,7 +69,7 @@ public class Motile : Able
 
         //Surface gripping
         if(Physical.IsTouchingTerrain)
-            Physical.Force += -20 * Scene.Main.World.GetSurfaceNormal(Physical.Position);
+            Physical.Force += -20 * Scene.Main.World.Asteroid.GetSurfaceNormal(Physical.Position);
 
         request.UsagePerSecond = Propellent * DrivePercent;
     }

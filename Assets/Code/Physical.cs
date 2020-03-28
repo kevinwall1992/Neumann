@@ -51,7 +51,7 @@ public class Physical : MonoBehaviour
     {
         get
         {
-            float terrain_height = Scene.Main.World.GetSurfaceHeight(Position);
+            float terrain_height = Scene.Main.World.Asteroid.GetSurfaceHeight(Position);
 
             return Position.y < terrain_height + 0.3f;
         }

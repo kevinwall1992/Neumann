@@ -48,7 +48,7 @@ public class OperationTileIONode : OperationTileNode
             if (IsSelected)
             {
                 if (Scene.Main.World.IsPointedAt())
-                    BezierLineController.EndPosition = Scene.Main.World.GetWorldPositionPointedAt();
+                    BezierLineController.EndPosition = Scene.Main.World.Asteroid.GetWorldPositionPointedAt();
                 else
                     BezierLineController.EndPosition = Scene.Main.Camera.ScreenToWorldPoint(
                         Input.mousePosition.ZChangedTo(UIDepth));
@@ -84,7 +84,7 @@ public class OperationTileIONode : OperationTileNode
                         VariableTile = variable_tile;
                     else if (Scene.Main.World.IsPointedAt())
                         variable_name = Scene.Main.World.MemorizePosition(
-                            Scene.Main.World.GetWorldPositionPointedAt());
+                            Scene.Main.World.Asteroid.GetWorldPositionPointedAt());
                     else
                         VariableTile = null;
                 }
