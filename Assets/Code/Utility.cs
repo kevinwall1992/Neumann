@@ -437,6 +437,15 @@ public static class VectorUtility
         return axis * vector.Dot(axis.normalized);
     }
 
+    public static Vector3 Scale(this Vector3 vector, float scalar)
+    {
+        vector.x *= scalar;
+        vector.y *= scalar;
+        vector.z *= scalar;
+
+        return vector;
+    }
+
     public static float Distance(this Vector3 vector, Vector3 other) { return Vector3.Distance(vector, other); }
     public static float Dot(this Vector3 vector, Vector3 other) { return Vector3.Dot(vector, other); }
     public static Vector3 Scaled(this Vector3 vector, Vector3 other) { return Vector3.Scale(vector, other); }
