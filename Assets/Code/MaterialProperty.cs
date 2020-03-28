@@ -54,3 +54,13 @@ public class ColorMaterialProperty : MaterialProperty<Color>
         set { Material.SetColor(Name, value); }
     }
 }
+
+[System.Serializable]
+public class BoolMaterialProperty : MaterialProperty<bool>
+{
+    public override bool Value
+    {
+        get { return Material.GetInt(Name) != 0; }
+        set { Material.SetInt(Name, value ? 1 : 0); }
+    }
+}
