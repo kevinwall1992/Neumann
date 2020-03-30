@@ -125,5 +125,13 @@ public class Pile
     {
         return pile * (1 / scalar);
     }
+
+    public static Pile operator +(Pile a, Pile b)
+    {
+        Pile sum = a.Copy();
+        sum.PutIn(b);
+
+        return sum;
+    }
 }
 

@@ -6,7 +6,7 @@ using UnityEditor;
 public class Deposit : MonoBehaviour
 {
     [SerializeField]
-    MeshRenderer extent_mesh_renderer = null;
+    protected MeshRenderer extent_mesh_renderer = null;
 
     [SerializeField]
     Material material = null;
@@ -32,12 +32,12 @@ public class Deposit : MonoBehaviour
         }
     }
 
-    void Start()
+    protected virtual void Start()
     {
         
     }
 
-    void Update()
+    protected virtual void Update()
     {
         extent_mesh_renderer.enabled = VisualizeExtent;
 
@@ -83,6 +83,14 @@ public class Deposit : MonoBehaviour
 
     //integrate 2 * pi * x * e ^ (-0.5 * (x * 3) ^ 2) / (2 * pi) ^ 0.5 from x = 0 to x = 1
     static float unit_gaussian_area = 0.2754f;
+
+    public static Deposit Create()
+    {
+        Deposit deposit = GameObject.Instantiate(Scene.Main.Prefabs.Deposit);
+        deposit.Volume = 0;
+
+        return deposit;
+    }
 
 
     public enum DistributionType { Gaussian, Uniform }

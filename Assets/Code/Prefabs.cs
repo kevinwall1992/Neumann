@@ -8,6 +8,9 @@ public class Prefabs : MonoBehaviour
     public VariableTile VariableTile;
     public OperationTile OperationTile;
 
+    public Deposit Deposit;
+    public SurfaceDeposit SurfaceDeposit;
+
     [SerializeField]
     List<Unit> units = new List<Unit>();
     public Dictionary<string, Unit> Units

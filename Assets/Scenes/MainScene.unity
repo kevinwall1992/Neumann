@@ -2597,8 +2597,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.8637804, y: 0}
   m_AnchorMax: {x: 0.8637804, y: 0}
-  m_AnchoredPosition: {x: 4.522156, y: 56.49469}
-  m_SizeDelta: {x: 643.80005, y: 70}
+  m_AnchoredPosition: {x: 4.658386, y: 56.49469}
+  m_SizeDelta: {x: 644.4, y: 70}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1142336984
 MonoBehaviour:
@@ -2962,8 +2962,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.136, y: 1}
   m_AnchorMax: {x: 0.136, y: 1}
-  m_AnchoredPosition: {x: -5.918457, y: -56.49475}
-  m_SizeDelta: {x: 643.80005, y: 70}
+  m_AnchoredPosition: {x: -6.054474, y: -56.49475}
+  m_SizeDelta: {x: 644.4, y: 70}
   m_Pivot: {x: 0.000000027008355, y: -0.000000026077032}
 --- !u!114 &1417386134
 MonoBehaviour:
@@ -3437,6 +3437,9 @@ MonoBehaviour:
   VariableTile: {fileID: 5399375906980158410, guid: fe38a5222c3d96f4787e295d0779b511,
     type: 3}
   OperationTile: {fileID: 7908139509503451012, guid: 5da2f7217b5c8054898d440e5de46f5d,
+    type: 3}
+  Deposit: {fileID: 3839512712653356319, guid: c755f210757a8cc46a455aa034ca358f, type: 3}
+  SurfaceDeposit: {fileID: 731662988319285802, guid: 614d6d1aebee96748b8545a21a592bb5,
     type: 3}
   units:
   - {fileID: 2572544533978103549, guid: bc2e7b3a017073846bea5bd8df8b895a, type: 3}
@@ -4205,7 +4208,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.06182751, y: 0}
   m_AnchorMax: {x: 0.06182751, y: 0.7683751}
-  m_AnchoredPosition: {x: 73.668304, y: -0.000030517578}
+  m_AnchoredPosition: {x: 73.606476, y: -0.000030517578}
   m_SizeDelta: {x: 168.01141, y: 0}
   m_Pivot: {x: 0.49999997, y: 0.50000006}
 --- !u!114 &2116754075

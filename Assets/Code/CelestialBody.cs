@@ -7,8 +7,14 @@ using System.Linq;
 [RequireComponent(typeof(TerrainCollider))]
 public class CelestialBody : MonoBehaviour
 {
+    IEnumerable<SurfaceDeposit> SurfaceDeposits { get { return Surface.GetComponentsInChildren<SurfaceDeposit>(); } }
+
     public Terrain Terrain { get { return GetComponent<Terrain>(); } }
     public TerrainCollider TerrainCollider { get { return GetComponent<TerrainCollider>(); } }
+
+    [SerializeField]
+    Stratum surface = null;
+    public Stratum Surface { get { return surface; } }
 
     public bool IsPointedAt
     {
@@ -19,14 +25,52 @@ public class CelestialBody : MonoBehaviour
         }
     }
 
-    void Start()
+    protected virtual void Start()
     {
 
     }
 
-    void Update()
+    protected virtual void Update()
     {
+        List<SurfaceDeposit> surface_deposits = SurfaceDeposits.OrderBy(surface_deposit => surface_deposit.Extent).Reverse().ToList();
 
+        while(surface_deposits.Count > 0)
+        {
+            SurfaceDeposit surface_deposit = surface_deposits.TakeAt(0);
+
+            foreach (SurfaceDeposit other_surface_deposit in new List<SurfaceDeposit>(SurfaceDeposits))
+            {
+                if (other_surface_deposit == surface_deposit)
+                    continue;
+
+                if (surface_deposit.transform.position.Distance(other_surface_deposit.transform.position) <=
+                    (surface_deposit.Extent + other_surface_deposit.Extent))
+                {
+                    surface_deposit.AddTo(other_surface_deposit.Composition.Normalized() * other_surface_deposit.Volume);
+
+                    surface_deposits.Remove(other_surface_deposit);
+                    other_surface_deposit.transform.SetParent(null);
+                    GameObject.Destroy(other_surface_deposit.gameObject);
+                }
+
+            }
+        } 
+    }
+
+    public void Litter(Vector3 position, Pile pile)
+    {
+        SurfaceDeposit nearest_deposit = SurfaceDeposits.ToList()
+            .Find(deposit => deposit.transform.position.Distance(position) <= deposit.Extent);
+
+        if (nearest_deposit == null)
+        {
+            nearest_deposit = SurfaceDeposit.Create();
+            nearest_deposit.transform.SetParent(Surface.transform);
+            nearest_deposit.transform.position = position;
+        }
+
+
+        nearest_deposit.AddTo(pile);
     }
 
     public Vector3 GetSurfaceNormal(Vector3 position)
