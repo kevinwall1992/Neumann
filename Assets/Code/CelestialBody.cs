@@ -61,6 +61,9 @@ public class CelestialBody : MonoBehaviour
 
     public void Litter(Vector3 position, Pile pile)
     {
+        if (pile.Volume == 0)
+            return;
+
         SurfaceDeposit nearest_deposit = SurfaceDeposits.ToList()
             .Find(deposit => deposit.transform.position.Distance(position) <= deposit.Extent);
 

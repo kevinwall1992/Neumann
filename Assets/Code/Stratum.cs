@@ -39,11 +39,17 @@ public class Stratum : MonoBehaviour
         float fraction = Mathf.Min(1, volume / volume_within_range);
 
         Pile sample = new Pile();
-        foreach (Deposit deposit in Deposits)
+        foreach (Deposit deposit in new List<Deposit>(Deposits))
         {
             float volume_removed = deposit.GetVolumeWithinRange(position, range) * fraction;
 
             deposit.Volume -= volume_removed;
+            if(deposit.Volume < 0.000001f)
+            {
+                deposit.transform.SetParent(null);
+                GameObject.Destroy(deposit.gameObject);
+            }
+
             sample.PutIn(deposit.Composition.Normalized() * volume_removed);
         }
 
