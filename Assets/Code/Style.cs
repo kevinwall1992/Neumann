@@ -21,6 +21,7 @@ public class Style : MonoBehaviour
     public Operation WriteOperation;
     public Operation InterruptOperation;
     public Operation YieldOperation;
+    public Operation SelectWasteSiteOperation;
 
     public float Scale
     {

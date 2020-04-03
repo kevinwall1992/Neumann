@@ -31,9 +31,17 @@ public class OperationMenu : Drawer
                                     new YieldOperation());
             operations.AddRange(Abilities);
 
+            if (UnitInterface.Unit.HasComponent<Waster>())
+                operations.Add(new SelectWasteSiteOperation());
+
             foreach (Operation operation in operations)
                 Add(OperationTile.Create(operation)).transform.position = SpawnPosition.position;
         }
+    }
+
+    public UnitInterface UnitInterface
+    {
+        get { return GetComponentInParent<UnitInterface>(); }
     }
 
     protected override void Start()
