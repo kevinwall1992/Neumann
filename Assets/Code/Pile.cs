@@ -45,17 +45,21 @@ public class Pile
             resources[resource] = 0;
     }
 
-    public void PutIn(Resource resource, float volume)
+    public Pile PutIn(Resource resource, float volume)
     {
         Require(resource);
 
         resources[resource] += volume;
+
+        return this;
     }
 
-    public void PutIn(Pile pile)
+    public Pile PutIn(Pile pile)
     {
         foreach (Resource resource in pile.Resources)
             PutIn(resource, pile.GetVolumeOf(resource));
+
+        return this;
     }
 
     public float TakeOut(Resource resource, float volume = float.MaxValue)
