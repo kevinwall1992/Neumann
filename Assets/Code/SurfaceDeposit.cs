@@ -45,7 +45,7 @@ public class SurfaceDeposit : Deposit
 
     static float unit_height = 1;
 
-    public static SurfaceDeposit Create()
+    new public static SurfaceDeposit Create()
     {
         SurfaceDeposit surface_deposit = GameObject.Instantiate(Scene.Main.Prefabs.SurfaceDeposit);
         surface_deposit.Volume = 0;
