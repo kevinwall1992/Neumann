@@ -125,12 +125,12 @@ PrefabInstance:
     - target: {fileID: 3839512712653356319, guid: c755f210757a8cc46a455aa034ca358f,
         type: 3}
       propertyPath: Composition.resources._keyValues.Array.data[0].Name
-      value: Silica
+      value: Silicon
       objectReference: {fileID: 0}
     - target: {fileID: 3839512712653356319, guid: c755f210757a8cc46a455aa034ca358f,
         type: 3}
       propertyPath: Composition.resources._keys.Array.data[0].Name
-      value: Silica
+      value: Silicon
       objectReference: {fileID: 0}
     - target: {fileID: 3839512712653356319, guid: c755f210757a8cc46a455aa034ca358f,
         type: 3}
