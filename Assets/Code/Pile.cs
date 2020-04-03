@@ -100,6 +100,11 @@ public class Pile
         return TakeOut(Volume * fraction);
     }
 
+    public Pile TakeAll()
+    {
+        return TakeSlice(1);
+    }
+
     public float GetVolumeOf(Resource resource)
     {
         if (!Resources.Contains(resource))
