@@ -225,8 +225,6 @@ public class OperationTile : Tile
                 if (!goto_node.IsSelected)
                     goto_node.IsSelected = true;
             }
-            else
-                IsSelected = false;
         }
 
         base.Update();
