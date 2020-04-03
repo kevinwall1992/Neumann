@@ -29,4 +29,7 @@ public class Resource
     {
         return 1;
     }
+
+
+    public static Resource Energy { get { return new Resource("Energy"); } }
 }
