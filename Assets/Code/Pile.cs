@@ -24,6 +24,14 @@ public class Pile
         {
             return resources.Values.Sum();
         }
+
+        set
+        {
+            if (value < Volume)
+                TakeSlice(1 - value / Volume);
+            else
+                PutIn(Normalized() * (value - Volume));
+        }
     }
 
     public Pile()
