@@ -172,7 +172,7 @@ public class OperationTile : Tile
                 Unit.Program.Add(operation);
                 if (Unit.Program.Next == null)
                     Unit.Program.Next = operation;
-                if (Unit.Task == null || !Input.GetKey(KeyCode.LeftShift))
+                if (operation is Task && (Unit.Task == null || !Input.GetKey(KeyCode.LeftShift)))
                 {
                     Unit.Task = null;
                     operation.Execute(Unit);
