@@ -32,7 +32,11 @@ public class Stratum : MonoBehaviour
 
     public virtual Pile TakeSample(Vector3 position, float range, float volume)
     {
-        float fraction = Mathf.Min(1, volume / GetVolumeWithinRange(position, range));
+        float volume_within_range = GetVolumeWithinRange(position, range);
+        if (volume_within_range == 0)
+            return new Pile();
+
+        float fraction = Mathf.Min(1, volume / volume_within_range);
 
         Pile sample = new Pile();
         foreach (Deposit deposit in Deposits)
