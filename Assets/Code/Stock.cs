@@ -88,10 +88,11 @@ public class Stock : MonoBehaviour, HasVariables
         public Pile Disbursement { get; internal set; }
         public float Yield { get; internal set; }
 
-        internal Request(Stock stock_, Pile usaged_per_second_)
+        internal Request(Stock stock_, Pile usage_per_second )
         {
             stock = stock_;
-            UsagePerSecond = usaged_per_second_;
+
+            UsagePerSecond = usage_per_second;
 
             Disbursement = new Pile();
         }
