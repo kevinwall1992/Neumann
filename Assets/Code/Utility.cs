@@ -120,6 +120,16 @@ public static class Utility
         return Sorted(new List<T>(enumerable), comparable_fetcher);
     }
 
+    public static T MinElement<T, U>(this IEnumerable<T> enumerable, Func<T, U> comparable_fetcher) where U : IComparable
+    {
+        return enumerable.Sorted(comparable_fetcher).First();
+    }
+
+    public static T MaxElement<T, U>(this IEnumerable<T> enumerable, Func<T, U> comparable_fetcher) where U : IComparable
+    {
+        return enumerable.Sorted(comparable_fetcher).Last();
+    }
+
     public static int DuplicateCountOf<T>(this IEnumerable<T> enumerable, T element)
     {
         return enumerable.Sum(other_element => (EqualityComparer<T>.Default.Equals(other_element, element) ? 1 : 0));
