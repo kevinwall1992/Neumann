@@ -39,10 +39,13 @@ public class Stock : MonoBehaviour, HasVariables
         }
 
         foreach (Request request in requests)
-            request.Yield = request.UsagePerSecond.Resources.Min(resource => resource_yields[resource]);
-
-        foreach (Request request in requests)
-            request.Disbursement = Pile.TakeOut(request.UsagePerSecond * request.Yield * Time.deltaTime);
+        {
+            if (request.UsagePerSecond.Volume > 0)
+            {
+                request.Yield = request.UsagePerSecond.Resources.Min(resource => resource_yields[resource]);
+                request.Disbursement = Pile.TakeOut(request.UsagePerSecond * request.Yield * Time.deltaTime);
+            }
+        }
     }
 
     public float GetUsagePerSecond(Resource resource)
