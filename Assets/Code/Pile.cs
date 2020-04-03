@@ -62,14 +62,14 @@ public class Pile
         return this;
     }
 
-    public float TakeOut(Resource resource, float volume = float.MaxValue)
+    public Pile TakeOut(Resource resource, float volume = float.MaxValue)
     {
         Require(resource);
 
         volume = Mathf.Min(volume, GetVolumeOf(resource));
         resources[resource] -= volume;
 
-        return volume;
+        return new Pile().PutIn(resource, volume);
     }
 
     public Pile TakeOut(Pile pile)
@@ -85,7 +85,7 @@ public class Pile
 
         Pile removed_pile = new Pile();
         foreach (Resource resource in pile.Resources)
-            removed_pile.PutIn(resource, TakeOut(resource, pile.GetVolumeOf(resource) * fraction));
+            removed_pile.PutIn(TakeOut(resource, pile.GetVolumeOf(resource) * fraction));
 
         return removed_pile;
     }
