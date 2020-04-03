@@ -61,6 +61,22 @@ public class Stock : MonoBehaviour, HasVariables
         return request;
     }
 
+    public Request MakeRequest(Resource resource, float usage_per_second)
+    {
+        Pile usage_per_second_pile = new Pile();
+        usage_per_second_pile.PutIn(resource, usage_per_second);
+
+        return MakeRequest(usage_per_second_pile);
+    }
+
+    public Request MakeRequest()
+    {
+        Request request = new Request(this, new Pile());
+        requests.Add(request);
+
+        return request;
+    }
+
 
     //Resource units here are [Pile Unit] per second
     public class Request
