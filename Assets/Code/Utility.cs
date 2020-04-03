@@ -109,9 +109,10 @@ public static class Utility
 
     public static List<T> Sorted<T, U>(this List<T> list, Func<T, U> comparable_fetcher) where U : IComparable
     {
-        list.Sort((a, b) => (comparable_fetcher(a).CompareTo(comparable_fetcher(b))));
+        List<T> sorted = new List<T>(list);
+        sorted.Sort((a, b) => (comparable_fetcher(a).CompareTo(comparable_fetcher(b))));
 
-        return list;
+        return sorted;
     }
 
     public static List<T> Sorted<T, U>(this IEnumerable<T> enumerable, Func<T, U> comparable_fetcher) where U : IComparable
