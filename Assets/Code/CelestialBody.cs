@@ -43,8 +43,10 @@ public class CelestialBody : MonoBehaviour
                 if (other_surface_deposit == surface_deposit)
                     continue;
 
-                if (surface_deposit.transform.position.Distance(other_surface_deposit.transform.position) <=
-                    (surface_deposit.Extent + other_surface_deposit.Extent))
+                float distance = surface_deposit.transform.position
+                    .Distance(other_surface_deposit.transform.position);
+
+                if (distance <= surface_deposit.Extent)
                 {
                     surface_deposit.AddTo(other_surface_deposit.Composition.Normalized() * other_surface_deposit.Volume);
 
