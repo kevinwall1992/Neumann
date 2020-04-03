@@ -3133,6 +3133,20 @@ MonoBehaviour:
     Cursor:
       Texture: {fileID: 2800000, guid: 96fe40f23c06f3f47a0ae4d2973b7d47, type: 3}
       Hotspot: {x: 31, y: 51}
+  LoadTask:
+    Sprite: {fileID: 21300000, guid: 8eccf273d02d6294c8ea1dfc1d39048f, type: 3}
+    Color: {r: 0.7735849, g: 0.48264438, b: 0.21529014, a: 1}
+    Description: Load
+    Cursor:
+      Texture: {fileID: 2800000, guid: 80cf257b0143189418d61624c24e781a, type: 3}
+      Hotspot: {x: 31, y: 63}
+  UnloadTask:
+    Sprite: {fileID: 21300000, guid: 1413c89d8c08011438ed108443455718, type: 3}
+    Color: {r: 0.7725491, g: 0.48235297, b: 0.21568629, a: 1}
+    Description: Unload
+    Cursor:
+      Texture: {fileID: 2800000, guid: 96fe40f23c06f3f47a0ae4d2973b7d47, type: 3}
+      Hotspot: {x: 31, y: 51}
   RefineTask:
     Sprite: {fileID: 21300000, guid: 546a65843743aac4b8c9333889bd8643, type: 3}
     Color: {r: 0.6273585, g: 0.9717338, b: 1, a: 1}
