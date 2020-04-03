@@ -1795,7 +1795,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 932107602}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a48efa76ccbb82c4282110af94add8d3, type: 3}
+  m_Script: {fileID: 11500000, guid: a3a6dadce89e2584ea5b0bf80370b0b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Regolith

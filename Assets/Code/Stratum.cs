@@ -19,18 +19,18 @@ public class Stratum : MonoBehaviour
 
     }
 
-    public float GetVolumeWithinRange(Vector3 position, float range, Resource resource = null)
+    public virtual float GetVolumeWithinRange(Vector3 position, float range, Resource resource = null)
     {
         return Deposits.Sum(deposit => deposit.GetVolumeWithinRange(position, range, resource));
     }
 
-    public float GetConcentrationByVolume(Vector3 position, float range, Resource resource)
+    public virtual float GetConcentrationByVolume(Vector3 position, float range, Resource resource)
     {
         return GetVolumeWithinRange(position, range, resource) / 
                GetVolumeWithinRange(position, range);
     }
 
-    public Pile TakeSample(Vector3 position, float range, float volume)
+    public virtual Pile TakeSample(Vector3 position, float range, float volume)
     {
         float fraction = Mathf.Min(1, volume / GetVolumeWithinRange(position, range));
 

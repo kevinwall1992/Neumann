@@ -4,9 +4,12 @@ using System.Collections;
 public class Asteroid : CelestialBody
 {
     [SerializeField]
-    Stratum regolith = null, rock = null;
+    Regolith regolith = null;
 
-    public Stratum Regolith { get { return regolith; } }
+    [SerializeField]
+    Stratum rock = null;
+
+    public Regolith Regolith { get { return regolith; } }
     public Stratum Rock { get { return rock; } }
 
     protected override void Start()
