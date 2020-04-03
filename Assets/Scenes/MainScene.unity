@@ -3126,13 +3126,6 @@ MonoBehaviour:
     Cursor:
       Texture: {fileID: 2800000, guid: 686f6a4d10b82004692c425ed78582be, type: 3}
       Hotspot: {x: 8, y: 8}
-  ProductionTask:
-    Sprite: {fileID: 21300000, guid: cc03f02ba94b35e4d96c2ffd362f61e7, type: 3}
-    Color: {r: 0.7134626, g: 0.2783019, b: 1, a: 1}
-    Description: Produce
-    Cursor:
-      Texture: {fileID: 0}
-      Hotspot: {x: 0, y: 0}
   ChooseOperation:
     Sprite: {fileID: 21300000, guid: cba97b6026fee2344b2882883ec39a92, type: 3}
     Color: {r: 0, g: 0.85353756, b: 1, a: 1}
