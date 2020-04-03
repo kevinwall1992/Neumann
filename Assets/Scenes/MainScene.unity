@@ -3126,6 +3126,13 @@ MonoBehaviour:
     Cursor:
       Texture: {fileID: 2800000, guid: 686f6a4d10b82004692c425ed78582be, type: 3}
       Hotspot: {x: 8, y: 8}
+  DrillTask:
+    Sprite: {fileID: 21300000, guid: 71e0e0ff13762a744880e945feab41ec, type: 3}
+    Color: {r: 0.5849056, g: 0.44882932, b: 0.35590956, a: 1}
+    Description: Drill
+    Cursor:
+      Texture: {fileID: 2800000, guid: 96fe40f23c06f3f47a0ae4d2973b7d47, type: 3}
+      Hotspot: {x: 31, y: 51}
   RefineTask:
     Sprite: {fileID: 21300000, guid: 546a65843743aac4b8c9333889bd8643, type: 3}
     Color: {r: 0.6273585, g: 0.9717338, b: 1, a: 1}

@@ -16,6 +16,7 @@ public class Style : MonoBehaviour
     public Operation MoveTask;
     public Operation AttackTask;
     public Operation BuildTask;
+    public Operation DrillTask;
     public Operation RefineTask;
     public Operation ConvertTask;
 
