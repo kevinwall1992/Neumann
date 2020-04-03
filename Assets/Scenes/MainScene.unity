@@ -3133,6 +3133,13 @@ MonoBehaviour:
     Cursor:
       Texture: {fileID: 2800000, guid: 80cf257b0143189418d61624c24e781a, type: 3}
       Hotspot: {x: 31, y: 63}
+  ConvertTask:
+    Sprite: {fileID: 21300000, guid: cc03f02ba94b35e4d96c2ffd362f61e7, type: 3}
+    Color: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
+    Description: Make
+    Cursor:
+      Texture: {fileID: 0}
+      Hotspot: {x: 0, y: 0}
   ChooseOperation:
     Sprite: {fileID: 21300000, guid: cba97b6026fee2344b2882883ec39a92, type: 3}
     Color: {r: 0, g: 0.85353756, b: 1, a: 1}
