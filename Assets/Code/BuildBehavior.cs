@@ -18,14 +18,20 @@ public class BuildBehavior : Behavior
     {
         base.Update();
 
-        this.Start<SeekBehavior>().Target = BuildTask.ConstructionSite;
-
-        if (!Builder.IsWithinReach(BuildTask.ConstructionSite))
+        if (!Builder.IsWithinReach(BuildTask.ConstructionSite, BuildTask.ConstructionSiteSize))
         {
+            Vector3 edge_of_construction_site =
+                BuildTask.ConstructionSite +
+                (transform.position - BuildTask.ConstructionSite).normalized * Builder.Reach * 0.9f;
+
+            this.Start<SeekBehavior>().Target = edge_of_construction_site;
+
             Builder.StopBuilding();
         }
         else
         {
+            this.Stop<SeekBehavior>();
+
             if (BuildTask.Project == null)
                 BuildTask.PlaceBlueprint();
 

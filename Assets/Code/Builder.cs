@@ -23,7 +23,7 @@ public class Builder : Able
             if (Project == null)
                 return false;
             
-            return IsWithinReach(Project.transform.position);
+            return IsWithinReach(Project.transform.position, Project.transform.localScale.x);
         }
     }
 
@@ -76,9 +76,9 @@ public class Builder : Able
         Project = null;
     }
 
-    public bool IsWithinReach(Vector3 position)
+    public bool IsWithinReach(Vector3 position, float size)
     {
-        return Vector3.Distance(transform.position, position) <= Reach;
+        return (Vector3.Distance(transform.position, position) - size) <= Reach;
     }
 
 
@@ -92,6 +92,7 @@ public class BuildTask : Task
     public Buildable Blueprint { get; private set; }
 
     public Vector3 ConstructionSite { get { return Target.Position; } }
+    public float ConstructionSiteSize { get { return Blueprint.transform.localScale.x; } }
 
     public Buildable Project { get; private set; }
     public override bool IsComplete
