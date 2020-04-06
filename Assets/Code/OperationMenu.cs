@@ -17,11 +17,10 @@ public class OperationMenu : Drawer
 
         set
         {
-            if (value != null)
-                abilities = value;
-            else
-                abilities = new List<Task>();
-
+            abilities = value;
+            if (abilities == null)
+                return;
+            
             Reset();
 
             List<Operation> operations =
