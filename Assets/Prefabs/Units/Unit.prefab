@@ -47,8 +47,7 @@ MonoBehaviour:
   Unit: {fileID: 9071426788684750279}
   BaseHeight: 0.6
   DefaultMaterial: {fileID: 2100000, guid: 5a7cc68e793d25a4d84257c624b83380, type: 2}
-  BuildableMaterial: {fileID: 2100000, guid: 3872fa012cdac3c48b9cab9d55b496b2, type: 2}
-  Texture: {fileID: 2800000, guid: 5cf7839f57b68d749ac0862ce8bdc954, type: 3}
+  BuildableShader: {fileID: 4800000, guid: a11f4dd0d61ab73499ed679d66410dba, type: 3}
   ColorName: MaterialColor
   YMaskName: YMask
 --- !u!114 &5455185099661590712

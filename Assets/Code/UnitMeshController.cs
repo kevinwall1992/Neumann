@@ -10,8 +10,7 @@ public class UnitMeshController : MonoBehaviour
     public Unit Unit;
     public float BaseHeight = 1;
     public Material DefaultMaterial;
-    public Material BuildableMaterial;
-    public Texture Texture;
+    public Shader BuildableShader;
     public string ColorName;
     public string YMaskName;
 
@@ -31,7 +30,9 @@ public class UnitMeshController : MonoBehaviour
     private void Start()
     {
         default_material_instance = new Material(DefaultMaterial);
-        buildable_material_instance = new Material(BuildableMaterial);
+
+        buildable_material_instance = new Material(DefaultMaterial);
+        buildable_material_instance.shader = BuildableShader;
     }
 
     private void Update()
