@@ -36,6 +36,8 @@ public class Builder : Able
     {
         if (CanBuildSelf && Scene.Main.Prefabs.Units.ContainsKey(Unit.Name))
             Blueprints.Add(Scene.Main.Prefabs.Units[Unit.Name].Buildable);
+
+        NanolathingLineController.Line.gameObject.SetActive(true);
     }
 
     void Update()
