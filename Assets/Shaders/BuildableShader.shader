@@ -48,7 +48,7 @@
 				fragment_data.screen_position = UnityObjectToClipPos(vertex_data.position);
 				fragment_data.texture_coordinates = TRANSFORM_TEX(vertex_data.texture_coordinates, MaterialTexture);
 
-				fragment_data.world_position = vertex_data.position;
+				fragment_data.world_position = mul(unity_ObjectToWorld, vertex_data.position);
 
                 return fragment_data;
             }
