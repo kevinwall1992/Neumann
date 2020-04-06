@@ -141,6 +141,10 @@ public class OperationTile : Tile
         output_node.gameObject.SetActive(Operation.HasOutput);
         goto_node.gameObject.SetActive(Operation.TakesGoto);
 
+        if (Operation is BuildTask)
+            Image.color = Image.color.AlphaChangedTo(this.IsPointedAt() ? 1 : 0.0f);
+
+
         if (IsInProgramInterface)
         {
             if (input_node.VariableTile != null)
