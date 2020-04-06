@@ -183,9 +183,15 @@ MonoBehaviour:
         elementIcon: {fileID: 0}
       reqReferences: {fileID: 0}
       isExpanded: 1
-      _keyValues: []
-      _keys: []
-      _values: []
+      _keyValues:
+      - Name: Iron
+      - Name: Energy
+      _keys:
+      - Name: Iron
+      - Name: Energy
+      _values:
+      - 5
+      - 10
   RetainedResources:
     resources:
       reorderableList:
@@ -210,9 +216,12 @@ MonoBehaviour:
         elementIcon: {fileID: 0}
       reqReferences: {fileID: 0}
       isExpanded: 1
-      _keyValues: []
-      _keys: []
-      _values: []
+      _keyValues:
+      - Name: Iron
+      _keys:
+      - Name: Iron
+      _values:
+      - 5
   CompletionVariableName: '% Complete'
   Foundation:
     resources:
