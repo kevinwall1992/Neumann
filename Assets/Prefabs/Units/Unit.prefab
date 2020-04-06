@@ -264,7 +264,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Unnamed Unit
   Icon: {fileID: 21300000, guid: 3db4fcdcae5060f4d806e6882a93ba3d, type: 3}
-  Color: {r: 1, g: 0, b: 0.036886215, a: 1}
   selection_box: {fileID: 4965214135156403404}
 --- !u!114 &5901415352359774616
 MonoBehaviour:
