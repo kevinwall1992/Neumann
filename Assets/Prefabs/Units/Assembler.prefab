@@ -17,6 +17,8 @@ MonoBehaviour:
   Reach: 4
   Blueprints: []
   CanBuildSelf: 1
+  FixedConstructionSite: {x: 0, y: 0, z: 0}
+  UseFixedConstructionSite: 0
 --- !u!114 &8958422492338022333
 MonoBehaviour:
   m_ObjectHideFlags: 0

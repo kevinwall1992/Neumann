@@ -378,6 +378,15 @@ public static class InputUtility
         if (game_object.transform is RectTransform)
             return (game_object.transform as RectTransform).ContainsMouse();
 
+        Collider collider = game_object.GetComponent<SphereCollider>();
+        if (collider != null)
+        {
+            RaycastHit hit_info;
+            return collider.Raycast(Scene.Main.Camera.ScreenPointToRay(Input.mousePosition), 
+                                    out hit_info, 
+                                    10000);
+        }
+
         return false;
     }
 

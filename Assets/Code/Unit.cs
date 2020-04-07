@@ -76,7 +76,11 @@ public class Unit : MonoBehaviour, HasVariables
             Task = null;
 
         if(this.UseMouseLeftRelease())
-            if(this.IsTouched())
-                Scene.Main.UnitInterface.Unit = this;
+            if(this.IsPointedAt())
+                if(Scene.Main.UnitInterface.Unit == null || 
+                   !Scene.Main.UnitInterface.Unit.IsPointedAt() || 
+                   (this.HasComponent<Motile>() && 
+                        !Scene.Main.UnitInterface.Unit.HasComponent<Motile>()))
+                    Scene.Main.UnitInterface.Unit = this;
     }
 }

@@ -19,6 +19,8 @@ MonoBehaviour:
   - {fileID: 1190232214494264456, guid: bc2e7b3a017073846bea5bd8df8b895a, type: 3}
   - {fileID: 2771337375850466052, guid: 3eda3457a4ab0424fad8dab5d84bc514, type: 3}
   CanBuildSelf: 0
+  FixedConstructionSite: {x: 0, y: 0, z: 0}
+  UseFixedConstructionSite: 1
 --- !u!1001 &487130517475133325
 PrefabInstance:
   m_ObjectHideFlags: 0

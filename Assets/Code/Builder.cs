@@ -14,6 +14,8 @@ public class Builder : Profession
     public float Reach = 4;
     public List<Buildable> Blueprints = new List<Buildable>();
     public bool CanBuildSelf = false;
+    public Vector3 FixedConstructionSite;
+    public bool UseFixedConstructionSite;
 
     public Buildable Project { get; set; }
     public bool IsProjectWithinReach
@@ -29,7 +31,12 @@ public class Builder : Profession
 
     public override IEnumerable<Operation> Abilities
     {
-        get { return Blueprints.Select(project => new BuildTask(project)); }
+        get
+        {
+            return Blueprints.Select(project => UseFixedConstructionSite ? 
+                new BuildTask(project, Unit.Physical.Position + FixedConstructionSite) : 
+                new BuildTask(project));
+        }
     }
 
     protected void Start()
@@ -89,20 +96,46 @@ public class Builder : Profession
 [System.Serializable]
 public class BuildTask : Task
 {
+    Vector3 fixed_construction_site;
+    bool has_fixed_construction_site;
+
     public Buildable Blueprint { get; private set; }
 
-    public Vector3 ConstructionSite { get { return Target.Position; } }
+    public Vector3 ConstructionSite
+    {
+        get
+        {
+            if (has_fixed_construction_site)
+                return fixed_construction_site;
+            else
+                return Target.Position;
+        }
+    }
     public float ConstructionSiteSize { get { return Blueprint.transform.localScale.x; } }
 
     public Buildable Project { get; private set; }
+
     public override bool IsComplete
     {
         get{ return Project == null ? false : !Project.IsProject; }
     }
 
+    public override bool TakesInput
+    {
+        get { return !has_fixed_construction_site; }
+    }
+
     public BuildTask(Buildable blueprint)
     {
         Blueprint = blueprint;
+    }
+
+    public BuildTask(Buildable blueprint, Vector3 construction_site)
+    {
+        Blueprint = blueprint;
+
+        fixed_construction_site = construction_site;
+        has_fixed_construction_site = true;
     }
 
     public Buildable PlaceBlueprint()
@@ -115,7 +148,10 @@ public class BuildTask : Task
 
     public override Operation Instantiate()
     {
-        return new BuildTask(Blueprint);
+        if (has_fixed_construction_site)
+            return new BuildTask(Blueprint, fixed_construction_site);
+        else
+            return new BuildTask(Blueprint);
     }
 
 
