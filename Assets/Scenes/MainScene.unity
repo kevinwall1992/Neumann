@@ -3203,6 +3203,34 @@ MonoBehaviour:
     Cursor:
       Texture: {fileID: 2800000, guid: f2ba9cf46eadb494c9c6caa28cae1125, type: 3}
       Hotspot: {x: 31, y: 31}
+  TurnOnOperation:
+    Sprite: {fileID: 21300000, guid: b56d7b94425219c499cd5b92b8fb80df, type: 3}
+    Color: {r: 0.6698113, g: 0.58450514, b: 0.58450514, a: 1}
+    Description: On
+    Cursor:
+      Texture: {fileID: 0}
+      Hotspot: {x: 0, y: 0}
+  TurnOffOperation:
+    Sprite: {fileID: 21300000, guid: b20e8fa64aeaf184e999e9f3a88f98f0, type: 3}
+    Color: {r: 0.3160377, g: 1, b: 0.41336253, a: 1}
+    Description: Off
+    Cursor:
+      Texture: {fileID: 0}
+      Hotspot: {x: 0, y: 0}
+  IncreasePowerOperation:
+    Sprite: {fileID: 21300000, guid: 777e6257e605cc942be2f32c65740649, type: 3}
+    Color: {r: 1, g: 0.24484563, b: 0, a: 1}
+    Description: Increase Power
+    Cursor:
+      Texture: {fileID: 0}
+      Hotspot: {x: 0, y: 0}
+  DecreasePowerOperation:
+    Sprite: {fileID: 21300000, guid: 8bc515dd95f9a2d49adb91a172dcc494, type: 3}
+    Color: {r: 0, g: 0.3807745, b: 1, a: 1}
+    Description: Decrease Power
+    Cursor:
+      Texture: {fileID: 0}
+      Hotspot: {x: 0, y: 0}
 --- !u!4 &1476563451
 Transform:
   m_ObjectHideFlags: 0

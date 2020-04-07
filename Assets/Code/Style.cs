@@ -28,6 +28,10 @@ public class Style : MonoBehaviour
     public Operation InterruptOperation;
     public Operation YieldOperation;
     public Operation SelectWasteSiteOperation;
+    public Operation TurnOnOperation;
+    public Operation TurnOffOperation;
+    public Operation IncreasePowerOperation;
+    public Operation DecreasePowerOperation;
 
     public float Scale
     {
