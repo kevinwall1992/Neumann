@@ -6,14 +6,17 @@ public class Waster : MonoBehaviour, Able
 {
     public Vector3 WasteSite;
 
+    public bool WasteNot { get; set; }
+
     public IEnumerable<Operation> Abilities
     {
-        get { return Utility.List(new SelectWasteSiteOperation()); }
+        get { return WasteNot ? null : Utility.List(new SelectWasteSiteOperation()); }
     }
 
     void Start()
     {
         WasteSite = transform.position + new Vector3(5, 0, 0);
+        WasteNot = false;
     }
 
     void Update()

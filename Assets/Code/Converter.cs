@@ -22,6 +22,11 @@ public class Converter : Profession
 
     void Update()
     {
+        Waster.WasteNot = true;
+        foreach (ConvertTask convert_task in ConvertTasks)
+            if (convert_task.Waste.Volume > 0)
+                Waster.WasteNot = false;
+
         if (Unit.Task is ConvertTask)
             this.Start<ConvertBehavior>();
         else
