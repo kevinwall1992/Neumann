@@ -35,11 +35,7 @@ public class World : MonoBehaviour, HasVariables
 
     void Update()
     {
-        if(OperationTile.Selected == null && 
-           InputUtility.WasMouseRightReleased() && 
-           !InputUtility.DidDragOccur() &&
-           Asteroid.TerrainCollider.gameObject.IsTouched())
-            Scene.Main.UnitInterface.Unit = null;
+        
     }
 
     public string MemorizePosition(Vector3 position)

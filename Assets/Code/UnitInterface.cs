@@ -103,6 +103,9 @@ public class UnitInterface : UIElement
                     break;
                 }
         }
+
+        if (InputUtility.WasMouseRightReleased())
+            Unit = null;
     }
 
     public void Hide()
