@@ -5,14 +5,14 @@ using System.Collections.Generic;
 
 
 [RequireComponent(typeof(Waster))]
-public class Refiner : Able
+public class Refiner : Profession
 {
     public float EnergyPerSecond;
     public float VolumePerSecond;
 
     public List<RefineTask> RefineTasks = new List<RefineTask>();
 
-    public override IEnumerable<Task> Abilities { get { return RefineTasks; } }
+    public override IEnumerable<Operation> Abilities { get { return RefineTasks; } }
 
     public Waster Waster { get { return GetComponent<Waster>(); } }
 

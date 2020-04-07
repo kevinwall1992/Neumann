@@ -1,14 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Unit))]
-public class Thinker : MonoBehaviour
+public class Thinker : MonoBehaviour, Able
 {
     System.DateTime next_think;
     float leftover_thoughts = 0;
 
     public float ThinksPerSecond;
     public float ThoughtsPerSecond;
+
+    public IEnumerable<Operation> Abilities
+    {
+        get
+        {
+            return Utility.List<Operation>(new ChooseOperation(),
+                                           new WriteOperation(),
+                                           new InterruptOperation(),
+                                           new YieldOperation());
+        }
+    }
 
     public Unit Unit { get { return GetComponent<Unit>(); } }
 

@@ -3,15 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(Motile))]
-public class Loader : Able
+public class Loader : Profession
 {
     public float Volume;
     public Pile Hold;
     public float DistanceTolerance;
     public float LoadRate;
 
-    public override IEnumerable<Task> Abilities {
-        get { return Utility.List<Task>(new LoadTask(), new UnloadTask()); }
+    public override IEnumerable<Operation> Abilities {
+        get { return Utility.List<Operation>(new LoadTask(), new UnloadTask()); }
     }
 
     public bool IsLoaded { get { return Hold.Volume == Volume; } }

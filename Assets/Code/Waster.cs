@@ -1,9 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class Waster : MonoBehaviour
+public class Waster : MonoBehaviour, Able
 {
     public Vector3 WasteSite;
+
+    public IEnumerable<Operation> Abilities
+    {
+        get { return Utility.List(new SelectWasteSiteOperation()); }
+    }
 
     void Start()
     {

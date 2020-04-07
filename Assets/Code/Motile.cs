@@ -6,7 +6,7 @@ using RotaryHeart.Lib.SerializableDictionary;
 
 [RequireComponent(typeof(Physical))]
 [RequireComponent(typeof(Buildable))]
-public class Motile : Able
+public class Motile : Profession
 {
     Vector3 target_direction = new Vector3(-1, 0, 0);
 
@@ -24,9 +24,9 @@ public class Motile : Able
     public float DrivePercent { get; set; }
     public float BrakePercent { get; set; }
 
-    public override IEnumerable<Task> Abilities
+    public override IEnumerable<Operation> Abilities
     {
-        get { return Utility.List<Task>(new MoveTask()); }
+        get { return Utility.List<Operation>(new MoveTask()); }
     }
 
     public bool IsFunctioning { get { return !Buildable.IsProject; } }

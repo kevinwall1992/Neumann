@@ -5,14 +5,14 @@ using System.Linq;
 
 
 [RequireComponent(typeof(Waster))]
-public class Processor : Able
+public class Processor : Profession
 {
     public float EnergyPerSecond;
     public float VolumePerSecond;
 
     public List<ProcessTask> ProcessTasks = new List<ProcessTask>();
 
-    public override IEnumerable<Task> Abilities { get { return ProcessTasks; } }
+    public override IEnumerable<Operation> Abilities { get { return ProcessTasks; } }
 
     public Waster Waster { get { return GetComponent<Waster>(); } }
 

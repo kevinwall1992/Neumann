@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Attacker : Able
+public class Attacker : Profession
 {
-    public override IEnumerable<Task> Abilities
+    public override IEnumerable<Operation> Abilities
     {
-        get { return Utility.List<Task>(new AttackTask()); }
+        get { return Utility.List(new AttackTask()); }
     }
 
     void Update()

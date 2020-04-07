@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class Driller : Able
+public class Driller : Profession
 {
     public float EnergyPerSecond;
     public float VolumePerSecond;
 
-    public override IEnumerable<Task> Abilities
+    public override IEnumerable<Operation> Abilities
     {
         get { return Utility.List(new DrillTask()); }
     }

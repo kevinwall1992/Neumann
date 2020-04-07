@@ -5,7 +5,7 @@ using System.Linq;
 
 
 [RequireComponent(typeof(Unit))]
-public class Builder : Able
+public class Builder : Profession
 {
     Stock.Request request = null;
 
@@ -27,7 +27,7 @@ public class Builder : Able
         }
     }
 
-    public override IEnumerable<Task> Abilities
+    public override IEnumerable<Operation> Abilities
     {
         get { return Blueprints.Select(project => new BuildTask(project)); }
     }

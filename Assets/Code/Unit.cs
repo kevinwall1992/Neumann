@@ -19,7 +19,7 @@ public class Unit : MonoBehaviour, HasVariables
     GameObject selection_box = null;
     public GameObject SelectionBox { get { return selection_box; } }
 
-    public List<Task> Abilities
+    public List<Operation> Abilities
     {
         get
         {

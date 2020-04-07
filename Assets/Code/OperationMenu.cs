@@ -10,8 +10,8 @@ public class OperationMenu : Drawer
         get { return GetComponentsInChildren<OperationTile>().ToList(); }
     }
 
-    List<Task> abilities;
-    public List<Task> Abilities
+    List<Operation> abilities;
+    public List<Operation> Abilities
     {
         get { return abilities; }
 
@@ -23,17 +23,7 @@ public class OperationMenu : Drawer
             
             Reset();
 
-            List<Operation> operations =
-            Utility.List<Operation>(new ChooseOperation(),
-                                    new WriteOperation(), 
-                                    new InterruptOperation(),
-                                    new YieldOperation());
-            operations.AddRange(Abilities);
-
-            if (UnitInterface.Unit.HasComponent<Waster>())
-                operations.Add(new SelectWasteSiteOperation());
-
-            foreach (Operation operation in operations)
+            foreach (Operation operation in abilities)
                 Add(OperationTile.Create(operation)).transform.position = SpawnPosition.position;
         }
     }

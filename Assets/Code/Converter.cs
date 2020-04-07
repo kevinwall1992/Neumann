@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 
 [RequireComponent(typeof(Waster))]
-public class Converter : Able
+public class Converter : Profession
 {
     public float EnergyPerSecond;
     public float VolumePerSecond;
 
     public List<ConvertTask> ConvertTasks = new List<ConvertTask>();
 
-    public override IEnumerable<Task> Abilities { get { return ConvertTasks; } }
+    public override IEnumerable<Operation> Abilities { get { return ConvertTasks; } }
 
     public Waster Waster { get { return GetComponent<Waster>(); } }
 
