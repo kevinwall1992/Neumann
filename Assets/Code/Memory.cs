@@ -24,7 +24,9 @@ public class Memory : HasVariables
 
             new_variables.AddRange(memories.Keys
                 .Where(name => !writable_memories.Contains(name) && !variables.ContainsKey(name))
-                .Select(name => new ReadOnlyVariable(name, memories[name])));
+                .Select(name => memories[name] is System.Func<object> ? 
+                                (Variable)(new FunctionVariable(name, memories[name] as System.Func<object>)) : 
+                                (Variable)(new ReadOnlyVariable(name, memories[name]))));
 
             foreach (Variable variable in new_variables)
                 variables[variable.Name] = variable;
@@ -39,6 +41,13 @@ public class Memory : HasVariables
 
     public void Memorize(string name, object memory, bool is_writable = false)
     {
+        if(memory is System.Delegate && !(memory is System.Func<object>))
+        {
+            System.Delegate delegate_ = memory as System.Delegate;
+            if (delegate_.Method.GetParameters().Count() == 0)
+                memory = (System.Func<object>)(() => delegate_.DynamicInvoke());
+        }
+
         memories[name] = memory;
         memory_names[memory] = name;
 
@@ -46,6 +55,11 @@ public class Memory : HasVariables
             writable_memories.Add(name);
         else if (writable_memories.Contains(name))
             writable_memories.Remove(name);
+    }
+
+    public void Memorize(string name, System.Func<object> memory)
+    {
+        Memorize(name, memory, false);
     }
 
     public object Remember(string name)
