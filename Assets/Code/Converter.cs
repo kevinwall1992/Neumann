@@ -28,7 +28,7 @@ public class Converter : Profession
                 Waster.WasteNot = false;
 
         if (Unit.Task is ConvertTask)
-            this.Start<ConvertBehavior>();
+            this.Start<ConvertBehavior>().ConvertTask = Unit.Task as ConvertTask;
         else
             this.Stop<ConvertBehavior>();
     }
@@ -43,8 +43,22 @@ public class Converter : Profession
 
 public class ConvertBehavior : EnergyRequestBehavior
 {
+    public ConvertTask ConvertTask { get; set; }
+
     public override float EnergyPerSecond { get { return Converter.EnergyPerSecond; } }
-    public override float UsageFraction { get { return ConvertTask.GetTransportEfficiency(); } }
+    public override float UsageFraction
+    {
+        get
+        {
+            if (Converter.Waster.WasteNot)
+                return 1;
+
+            float distance = Unit.Physical.Position
+                .Distance(Converter.Waster.WasteSite);
+
+            return ConvertTask.GetTransportEfficiency(distance);
+        }
+    }
 
     public override Pile BaseUsagePerSecond
     {
@@ -56,7 +70,6 @@ public class ConvertBehavior : EnergyRequestBehavior
     }
 
     Converter Converter { get { return GetComponent<Converter>(); } }
-    ConvertTask ConvertTask { get { return Unit.Task as ConvertTask; } }
 
     protected override void Update()
     {
@@ -111,11 +124,6 @@ public class ConvertTask : TransportEfficiencyTask
     public ConvertTask()
     {
 
-    }
-
-    public float GetTransportEfficiency()
-    {
-        return base.GetTransportEfficiency(Unit.GetComponent<Waster>().WasteSite);
     }
 
     public override Operation Instantiate()

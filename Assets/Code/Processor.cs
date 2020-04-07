@@ -102,16 +102,21 @@ public abstract class TransportEfficiencyTask : Task
 
     public TransportEfficiencyTask() { }
 
-    public float GetTransportEfficiency(Vector3 position)
+    public float GetTransportEfficiency(float distance)
     {
         float transport_efficiency = Mathf.Pow(0.5f,
-            (Unit.Physical.Position.Distance(position) - OptimalDistance) /
+            (distance - OptimalDistance) /
             (HalfDistance - OptimalDistance));
 
         if (transport_efficiency > 1)
             transport_efficiency = 1;
 
         return transport_efficiency;
+    }
+
+    public float GetTransportEfficiency(Vector3 position)
+    {
+        return GetTransportEfficiency(Unit.Physical.Position.Distance(position));
     }
 }
 
