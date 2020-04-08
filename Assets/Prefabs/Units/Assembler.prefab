@@ -308,6 +308,16 @@ PrefabInstance:
       propertyPath: RetainedResources.resources._values.Array.data[0]
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7013136166321163157, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 7013136166321163157, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.887
+      objectReference: {fileID: 0}
     - target: {fileID: 9071426788684750279, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
         type: 3}
       propertyPath: Name
