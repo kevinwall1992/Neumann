@@ -78,7 +78,7 @@ public class Builder : Profession
 
     public bool IsWithinReach(Vector3 position, float size)
     {
-        return (Vector3.Distance(transform.position, position) - size) <= Reach;
+        return (Vector3.Distance(transform.position, position) - (size + Unit.Physical.Size)) <= Reach;
     }
 
 
