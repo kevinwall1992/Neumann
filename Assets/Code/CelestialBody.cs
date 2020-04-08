@@ -98,4 +98,10 @@ public class CelestialBody : MonoBehaviour
 
         return hit.point;
     }
+
+    //In W/m^2
+    public float GetSolarFlux(Vector3 position)
+    {
+        return 1300;
+    }
 }
