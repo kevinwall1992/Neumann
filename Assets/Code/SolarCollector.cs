@@ -17,10 +17,13 @@ public class SolarCollector : Profession
             float flux_efficiency = Mathf.Pow(0.5f,
                 (flux - OptimalFlux) /
                 (HalfFlux - OptimalFlux));
+            if (flux_efficiency > 1)
+                flux_efficiency = 1 + (flux_efficiency - 1) / 4;
 
+            float total_efficiency = Mathf.Min(1, Efficiency * flux_efficiency);
             float area = Mathf.Pow((Unit.Physical.Size * 2), 2);
 
-            return Measures.JoulesToEnergyUnits(Efficiency * flux_efficiency * flux * area);
+            return Measures.JoulesToEnergyUnits(total_efficiency * flux * area);
         }
     }
 
