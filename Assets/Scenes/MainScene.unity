@@ -2556,6 +2556,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8c16132e993d774e8c421858568b435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Radius: 6370000
+  Density: 5500
   surface: {fileID: 1018788363}
   regolith: {fileID: 932107604}
   rock: {fileID: 1989613403}

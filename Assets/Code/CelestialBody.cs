@@ -9,12 +9,19 @@ public class CelestialBody : MonoBehaviour
 {
     IEnumerable<SurfaceDeposit> SurfaceDeposits { get { return Surface.GetComponentsInChildren<SurfaceDeposit>(); } }
 
+    public float Radius;
+    public float Density;
+
+    public float Mass { get { return Density * 4 * Mathf.PI * Mathf.Pow(Radius, 3) / 3.0f; } }
+
     public Terrain Terrain { get { return GetComponent<Terrain>(); } }
     public TerrainCollider TerrainCollider { get { return GetComponent<TerrainCollider>(); } }
 
     [SerializeField]
     Stratum surface = null;
     public Stratum Surface { get { return surface; } }
+
+    public float SurfaceGravity { get { return GetGravity(0); } }
 
     public bool IsPointedAt
     {
@@ -27,7 +34,7 @@ public class CelestialBody : MonoBehaviour
 
     protected virtual void Start()
     {
-
+        Scene.Main.World.Memory.Memorize("Gravity", () => SurfaceGravity);
     }
 
     protected virtual void Update()
@@ -97,6 +104,16 @@ public class CelestialBody : MonoBehaviour
         TerrainCollider.Raycast(Scene.Main.Camera.ScreenPointToRay(Input.mousePosition), out hit, 1000);
 
         return hit.point;
+    }
+
+    public float GetGravity(float height)
+    {
+        float distance = Radius + height;
+
+        return 6.674f *
+               Mathf.Pow(10, -11) *
+               Mass /
+               (distance * distance);
     }
 
     //In W/m^2

@@ -4,9 +4,6 @@ using System.Collections.Generic;
 
 public class Physics : MonoBehaviour
 {
-    //float kinetic_friction_coefficient = 0.5f;
-    Vector3 gravity = new Vector3(0, -9.8f, 0);
-
     IEnumerable<Physical> Physicals { get { return GetComponentsInChildren<Physical>(); } }
 
     World World { get { return GetComponentInParent<World>(); } }
@@ -18,6 +15,8 @@ public class Physics : MonoBehaviour
 
     void Update()
     {
+        Vector3 gravity = new Vector3(0, -Scene.Main.World.Asteroid.SurfaceGravity, 0);
+
         foreach (Physical physical in Physicals)
         {
             bool is_stationary = IsStationary(physical);
