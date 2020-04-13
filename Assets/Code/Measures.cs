@@ -14,4 +14,16 @@ public static class Measures
     {
         return joules / JoulesToEnergyUnitsRatio;
     }
+
+
+    //Band-aid solution for scale issues.
+    public static float WorldUnitsToMeters(float world_units)
+    {
+        return world_units / Scene.Main.World.PhysicalScale;
+    }
+
+    public static float MetersToWorldUnits(float meters)
+    {
+        return meters * Scene.Main.World.PhysicalScale;
+    }
 }

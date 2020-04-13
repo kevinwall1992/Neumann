@@ -45,6 +45,19 @@ public class Physical : MonoBehaviour
     public float FrictionCoefficient_Parallel { get; set; }
     public float FrictionCoefficient_Perpendicular { get; set; }
 
+    public float KineticEnergy
+    {
+        get
+        {
+            return Mathf.Pow(Measures.WorldUnitsToMeters(Velocity.magnitude), 2) * Mass / 2;
+        }
+
+        set
+        {
+           Velocity = Velocity.normalized * Measures.MetersToWorldUnits(Mathf.Sqrt(2 * value / Mass));
+        }
+    }
+
     public SphereCollider Collider { get { return GetComponent<SphereCollider>(); } }
 
     public bool IsTouchingTerrain

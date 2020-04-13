@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(Physics))]
 public class World : MonoBehaviour, HasVariables
 {
+    public float PhysicalScale;
+
     [SerializeField]
     Asteroid asteroid = null;
     public Asteroid Asteroid { get { return asteroid; } }
