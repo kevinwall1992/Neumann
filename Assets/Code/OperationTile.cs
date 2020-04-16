@@ -174,12 +174,20 @@ public class OperationTile : Tile
                     operation.Goto = goto_node.GotoOperationTile.Operation;
 
                 Unit.Program.Add(operation);
-                if (Unit.Program.Next == null)
-                    Unit.Program.Next = operation;
-                if (operation is Task && (Unit.Task == null || !Input.GetKey(KeyCode.LeftShift)))
+                if(Input.GetKey(KeyCode.LeftShift))
                 {
-                    Unit.Task = null;
-                    operation.Execute(Unit);
+                    if(Unit.Program.Next == null)
+                        Unit.Program.Next = operation;
+                }
+                else
+                {
+                    Unit.Program.Next = operation;
+
+                    if (operation is Task)
+                    {
+                        Unit.Task = null;
+                        operation.Execute(Unit);
+                    }
                 }
 
                 input_node.VariableTile = null;
