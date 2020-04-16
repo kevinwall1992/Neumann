@@ -72,9 +72,6 @@ public class Physical : MonoBehaviour
 
     void Start()
     {
-        Velocity = Vector3.zero;
-        Force = Vector3.zero;
-
         FrictionCoefficient_Parallel = 0.6f;
         FrictionCoefficient_Perpendicular = 0.6f;
     }
