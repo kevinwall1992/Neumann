@@ -273,6 +273,22 @@ public static class MathUtility
 
         return dividend % divisor;
     }
+
+    public static float ZenoLerp(float a, float b, float speed, float critical_distance)
+    {
+        float distance = Mathf.Abs(a - b);
+        float speedup_factor = Mathf.Pow((distance + critical_distance) / distance, 3);
+
+        return Mathf.Lerp(a, b, speed * speedup_factor);
+    }
+
+    public static float ZenoLerpAngle(float a, float b, float speed, float critical_distance)
+    {
+        float distance = Mathf.Abs(a - b);
+        float speedup_factor = Mathf.Pow((distance + critical_distance) / distance, 3);
+
+        return Mathf.LerpAngle(a, b, speed * speedup_factor);
+    }
 }
 
 public abstract class GenericFunction<T>
