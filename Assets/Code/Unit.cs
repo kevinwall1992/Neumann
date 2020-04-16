@@ -36,10 +36,10 @@ public class Unit : MonoBehaviour, HasVariables
     {
         get
         {
-            List<Variable> variables = new List<Variable>();
-
-            variables.AddRange(Mortal.Variables);
-            variables.AddRange(Buildable.Variables);
+            List<Variable> variables = GetComponents<HasVariables>()
+                .SelectMany(has_variables => ReferenceEquals(has_variables, this) ?
+                            new List<Variable>() :
+                            has_variables.Variables).ToList();
 
             variables.AddRange(Memory.Variables);
 
