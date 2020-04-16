@@ -47,6 +47,8 @@ public class Unit : MonoBehaviour, HasVariables
         }
     }
 
+    public IEnumerable<Status> Statuses { get { return GetComponents<Status>(); } }
+
     public Physical Physical { get { return GetComponent<Physical>(); } }
     public Mortal Mortal { get { return GetComponent<Mortal>(); } }
     public Buildable Buildable { get { return GetComponent<Buildable>(); } }
@@ -84,5 +86,13 @@ public class Unit : MonoBehaviour, HasVariables
                    (this.HasComponent<Motile>() && 
                         !Scene.Main.UnitInterface.Unit.HasComponent<Motile>()))
                     Scene.Main.UnitInterface.Unit = this;
+    }
+
+    public T Status<T>() where T : Status
+    {
+        if (this.HasComponent<T>())
+            return GetComponent<T>();
+
+        return gameObject.AddComponent<T>();
     }
 }
