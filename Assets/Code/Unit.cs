@@ -65,6 +65,8 @@ public class Unit : MonoBehaviour, HasVariables
         Memory.Memorize("Deep Iron Concentration", 
             () => 100 * Scene.Main.World.Asteroid.Rock
                 .GetConcentrationByVolume(Physical.Position, 1, new Resource("Iron")));
+
+        Scene.Main.World.Memory.Memorize(Name, this);
     }
 
     void Update()
