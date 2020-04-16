@@ -76,6 +76,9 @@ public class UnitInterface : UIElement
     {
         base.Update();
 
+        if (Unit!= null && Unit.Mortal.IsDead)
+            Unit = null;
+
         if (Unit == null)
         {
             Hide();
