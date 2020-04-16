@@ -31,7 +31,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87d1b15d3f8a57443b12e4b37aded0df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Force: 18
+  Force: 360
   Propellent:
     resources:
       reorderableList:
