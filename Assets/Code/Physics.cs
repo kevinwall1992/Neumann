@@ -99,6 +99,6 @@ public class Physics : MonoBehaviour
 
     bool IsStationary(Physical physical)
     {
-        return physical.HasComponent<Motile>();
+        return !physical.HasComponent<Motile>();
     }
 }
