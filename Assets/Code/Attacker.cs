@@ -9,26 +9,15 @@ public class Attacker : Profession
         get { return Utility.List(new AttackTask()); }
     }
 
-    void Update()
+    public bool IsAttacking { get; private set; }
+
+    protected virtual void Update()
     {
-        if (Task is AttackTask)
-            this.Start<SeekBehavior>().Target = (Task as AttackTask).Target;
+        
     }
-}
 
-public class Gunner : Attacker
-{
-
-}
-
-public class MobileLauncher : Attacker
-{
-
-}
-
-public class SuicideBomber : Attacker
-{
-
+    public void Attack() { IsAttacking = true; }
+    public void StopAttacking() { IsAttacking = false; }
 }
 
 

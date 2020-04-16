@@ -705,11 +705,11 @@ MonoBehaviour:
       _keyValues:
       - Name: Energy
       - Name: Credits
-      - Name: Iron
+      - Name: Iron Parts
       _keys:
       - Name: Energy
       - Name: Credits
-      - Name: Iron
+      - Name: Iron Parts
       _values:
       - 1000
       - 100
@@ -3231,6 +3231,20 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: 8bc515dd95f9a2d49adb91a172dcc494, type: 3}
     Color: {r: 0, g: 0.3807745, b: 1, a: 1}
     Description: Decrease Power
+    Cursor:
+      Texture: {fileID: 0}
+      Hotspot: {x: 0, y: 0}
+  HighFiringAngleOperation:
+    Sprite: {fileID: 21300000, guid: 0669363be6ab8ca498b0c4c0cd60dae4, type: 3}
+    Color: {r: 1, g: 0.5235849, b: 0.5235849, a: 1}
+    Description: High
+    Cursor:
+      Texture: {fileID: 0}
+      Hotspot: {x: 0, y: 0}
+  LowFiringAngleOperation:
+    Sprite: {fileID: 21300000, guid: dfbd6d355accf084bb8f0b2f19655e9c, type: 3}
+    Color: {r: 0.5551326, g: 1, b: 0.504717, a: 1}
+    Description: Low
     Cursor:
       Texture: {fileID: 0}
       Hotspot: {x: 0, y: 0}

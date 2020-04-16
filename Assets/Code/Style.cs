@@ -32,6 +32,8 @@ public class Style : MonoBehaviour
     public Operation TurnOffOperation;
     public Operation IncreasePowerOperation;
     public Operation DecreasePowerOperation;
+    public Operation HighFiringAngleOperation;
+    public Operation LowFiringAngleOperation;
 
     public float Scale
     {
