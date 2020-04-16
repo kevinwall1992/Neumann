@@ -54,8 +54,13 @@ public class Motile : Profession
 
         //Turn towards direction indicated
         Quaternion target_rotation = Quaternion.LookRotation(target_direction);
+
         float target_yaw = target_rotation.eulerAngles.y;
-        Physical.Yaw = Mathf.LerpAngle(Physical.Yaw, target_yaw, Time.deltaTime * TurningSpeed);
+        Physical.Yaw = MathUtility.ZenoLerpAngle(Physical.Yaw, 
+                                                 target_yaw, 
+                                                 Time.deltaTime * TurningSpeed, 
+                                                 MathUtility.DegreesToRadians(5));
+
         float target_pitch = target_rotation.eulerAngles.x;
         Physical.Pitch = Mathf.LerpAngle(Physical.Pitch, target_pitch, Time.deltaTime * TurningSpeed);
 
