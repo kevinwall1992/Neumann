@@ -208,9 +208,9 @@ public static class UIUtility
         return component;
     }
 
-    public static T RequireComponent<T>(this MonoBehaviour mono_behavior) where T : MonoBehaviour
+    public static T RequireComponent<T>(this MonoBehaviour mono_behaviour) where T : MonoBehaviour
     {
-        return RequireComponent<T>(mono_behavior.gameObject);
+        return RequireComponent<T>(mono_behaviour.gameObject);
     }
 
 
@@ -283,9 +283,9 @@ public static class UIUtility
         return game_object.GetComponent<T>() != null;
     }
 
-    public static bool HasComponent<T>(this MonoBehaviour mono_behavior) where T : MonoBehaviour
+    public static bool HasComponent<T>(this MonoBehaviour mono_behaviour) where T : MonoBehaviour
     {
-        return mono_behavior.gameObject.HasComponent<T>();
+        return mono_behaviour.gameObject.HasComponent<T>();
     }
 
     public static bool HasComponent<T>(this Transform transform) where T : MonoBehaviour
@@ -410,9 +410,9 @@ public static class InputUtility
         return Scene.Main.InputModule.IsTouched(game_object);
     }
 
-    public static bool IsTouched(this MonoBehaviour mono_behavior)
+    public static bool IsTouched(this MonoBehaviour mono_behaviour)
     {
-        return mono_behavior.gameObject.IsTouched();
+        return mono_behaviour.gameObject.IsTouched();
     }
 
     public static bool IsTouched(this Transform transform)
