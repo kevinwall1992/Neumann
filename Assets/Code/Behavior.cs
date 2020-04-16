@@ -53,13 +53,18 @@ public static class BehaviorControllerExtensions
         return behavior;
     }
 
+    public static T GetBehavior<T>(this BehaviorController behavior_controller) where T : Behavior
+    {
+        if (!behavior_map.ContainsKey(behavior_controller) ||
+            !behavior_map[behavior_controller].ContainsKey(typeof(T)))
+            return null;
+
+        return behavior_map[behavior_controller][typeof(T)] as T;
+    }
+
     public static void Stop<T>(this BehaviorController behavior_controller) where T : Behavior
     {
-        if (!behavior_map.ContainsKey(behavior_controller) || 
-            !behavior_map[behavior_controller].ContainsKey(typeof(T)))
-            return;
-
-        Behavior behavior = behavior_map[behavior_controller][typeof(T)];
+        Behavior behavior = behavior_controller.GetBehavior<T>();
         if (behavior == null)
             return;
 
