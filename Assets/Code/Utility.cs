@@ -466,6 +466,11 @@ public static class VectorUtility
         return vector;
     }
 
+    public static float AngleBetween(this Vector3 vector, Vector3 other)
+    {
+        return MathUtility.DegreesToRadians(Vector3.Angle(vector, other));
+    }
+
     public static float Distance(this Vector3 vector, Vector3 other) { return Vector3.Distance(vector, other); }
     public static float Dot(this Vector3 vector, Vector3 other) { return Vector3.Dot(vector, other); }
     public static Vector3 Scaled(this Vector3 vector, Vector3 other) { return Vector3.Scale(vector, other); }
