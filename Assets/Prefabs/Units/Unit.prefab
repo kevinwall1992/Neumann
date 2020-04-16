@@ -149,6 +149,7 @@ MonoBehaviour:
     max_value: 100
   BaseImpactFragility: 0.8
   BaseImpactTolerance: 10
+  BaseRadiationHardness: 0.5
 --- !u!114 &5679919706389045170
 MonoBehaviour:
   m_ObjectHideFlags: 0
