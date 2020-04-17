@@ -10,7 +10,13 @@ public class Waster : MonoBehaviour, Able
 
     public IEnumerable<Operation> Abilities
     {
-        get { return WasteNot ? null : Utility.List(new SelectWasteSiteOperation()); }
+        get
+        {
+            if (WasteNot)
+                return new List<Operation>();
+            else
+                return Utility.List<Operation>(new SelectWasteSiteOperation());
+        }
     }
 
     void Start()
