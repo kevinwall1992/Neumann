@@ -3082,13 +3082,13 @@ MonoBehaviour:
     isExpanded: 1
     _keyValues:
     - Energy
-    - Iron
+    - Iron Parts
     - Credits
     - Health
     - '% Complete'
     _keys:
     - Energy
-    - Iron
+    - Iron Parts
     - Credits
     - Health
     - '% Complete'
