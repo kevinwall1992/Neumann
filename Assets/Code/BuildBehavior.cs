@@ -32,7 +32,7 @@ public class BuildBehavior : Behavior
         {
             this.Stop<SeekBehavior>();
 
-            if (BuildTask.Project == null)
+            if (BuildTask.Project == null && BuildTask.IsConstructionSiteClear)
                 BuildTask.PlaceBlueprint();
 
             Builder.Build(BuildTask.Project);

@@ -113,6 +113,24 @@ public class BuildTask : Task
     }
     public float ConstructionSiteSize { get { return Blueprint.transform.localScale.x; } }
 
+    public bool IsConstructionSiteClear
+    {
+        get
+        {
+            IEnumerable<Physical> obstructors = 
+                Scene.Main.World.GetComponentsInChildren<Physical>()
+                    .Where(physical => physical.Position.Distance(ConstructionSite) < 
+                                       (ConstructionSiteSize + physical.Size));
+
+            foreach (Physical physical in obstructors)
+                if ((Project != null && physical.gameObject != Project.gameObject) || 
+                    Blueprint.HasComponent<Motile>() == physical.HasComponent<Motile>())
+                    return false;
+
+            return true;
+        }
+    }
+
     public Buildable Project { get; private set; }
 
     public override bool IsComplete
