@@ -186,5 +186,14 @@ public class ProcessTask : TransportEfficiencyTask
 
 
     public override Style.Operation Style
-    { get { return Scene.Main.Style.ProcessTask; } }
+    {
+        get
+        {
+            Resource principle_component = Product.GetPrincipleComponent();
+
+            return Scene.Main.Style.ProcessTask
+                .WithUnderlay(principle_component.Icon, principle_component.Color)
+                .WithDescriptionAmended(principle_component.Name);
+        }
+    }
 }

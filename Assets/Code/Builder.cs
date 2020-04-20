@@ -174,7 +174,19 @@ public class BuildTask : Task
 
 
     public override Style.Operation Style
-    { get { return Scene.Main.Style.BuildTask; } }
+    {
+        get
+        {
+            if (!Blueprint.HasComponent<Unit>())
+                return Scene.Main.Style.BuildTask;
+
+            Unit unit_blueprint = Blueprint.GetComponent<Unit>();
+
+            return Scene.Main.Style.BuildTask
+                .WithUnderlay(unit_blueprint.Icon, Scene.Main.UnitInterface.Unit.Team.Color)
+                .WithDescriptionAmended(unit_blueprint.Name);
+        }
+    }
 
 
     public static BuildTask CreateHelpBuildTask(Buildable project)

@@ -133,5 +133,14 @@ public class ConvertTask : TransportEfficiencyTask
 
 
     public override Style.Operation Style
-    { get { return Scene.Main.Style.ConvertTask; } }
+    {
+        get
+        {
+            Resource principle_component = Product.GetPrincipleComponent();
+
+            return Scene.Main.Style.ConvertTask
+                .WithUnderlay(principle_component.Icon, principle_component.Color)
+                .WithDescriptionAmended(principle_component.Name);
+        }
+    }
 }

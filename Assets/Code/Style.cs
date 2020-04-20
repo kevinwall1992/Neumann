@@ -67,7 +67,6 @@ public class Style : MonoBehaviour
     }
 
 
-
     [System.Serializable]
     public struct Operation
     {
@@ -75,6 +74,28 @@ public class Style : MonoBehaviour
         public Color Color;
         public string Description;
         public Cursor Cursor;
+
+        [System.NonSerialized]
+        public Sprite Underlay;
+        [System.NonSerialized]
+        public Color UnderlayColor;
+
+        public Operation WithUnderlay(Sprite underlay, Color color)
+        {
+            Operation copy = this;
+            copy.Underlay = underlay;
+            copy.UnderlayColor = color;
+
+            return copy;
+        }
+
+        public Operation WithDescriptionAmended(string amendment)
+        {
+            Operation copy = this;
+            copy.Description += " " + amendment;
+
+            return copy;
+        }
     }
 
     [System.Serializable]

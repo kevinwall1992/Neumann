@@ -118,6 +118,14 @@ public class Pile
         return this / Volume;
     }
 
+    public Resource GetPrincipleComponent()
+    {
+        if (resources.Count == 0)
+            return null;
+
+        return resources.Keys.Sorted(resource => GetVolumeOf(resource)).Last();
+    }
+
     public Pile Copy()
     {
         Pile pile = new Pile();

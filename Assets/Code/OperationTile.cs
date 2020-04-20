@@ -47,6 +47,7 @@ public class OperationTile : Tile
             operation = value;
 
             underlay.color = Color.clear;
+            underlay.sprite = null;
 
             input_node.gameObject.SetActive(false);
             output_node.gameObject.SetActive(false);
@@ -58,22 +59,21 @@ public class OperationTile : Tile
                 Image.color = Operation.Style.Color;
                 description_text.text = Operation.Style.Description;
 
+                if (Operation.Style.Underlay != null)
+                {
+                    underlay.sprite = operation.Style.Underlay;
+                    underlay.color = operation.Style.UnderlayColor;
+                    Image.color = Image.color.AlphaChangedTo(0);
+                }
+
                 if (Operation.TakesInput)
                     input_node.VariableTile = VariableTile.Find(Operation.Input.PrimaryVariableName);
                 if (Operation.HasOutput)
                     output_node.VariableTile = VariableTile.Find(Operation.Output.PrimaryVariableName);
                 if (Operation.TakesGoto)
-                    goto_node.GotoOperationTile = 
+                    goto_node.GotoOperationTile =
                         Scene.Main.UnitInterface.ProgramInterface.Tiles
                         .Find(tile => (tile as OperationTile).Operation == Operation.Goto) as OperationTile;
-
-                if (Operation is Task && (Operation as Task) is BuildTask)
-                {
-                    BuildTask build_task = Operation as BuildTask;
-                    Unit unit_blueprint = build_task.Blueprint.GetComponent<Unit>();
-
-                    underlay.sprite = unit_blueprint.Icon;
-                }
             }
             else
             {
@@ -127,11 +127,25 @@ public class OperationTile : Tile
 
     protected override void Update()
     {
-        if (Operation == null)
+        if (Unit == null || Operation == null)
             return;
 
-        if (Unit != null && Operation is Task && (Operation as Task) is BuildTask)
-            underlay.color = Unit.Team.Color;
+        if (underlay.sprite != null)
+        {
+            float target_image_alpha = 0;
+            float target_underlay_alpha = 1;
+
+            if (this.IsPointedAt())
+            {
+                target_image_alpha = 1;
+                target_underlay_alpha = 0.1f;
+            }
+
+            Image.color = Image.color.AlphaChangedTo(
+                Mathf.Lerp(Image.color.a, target_image_alpha, Time.deltaTime * 5));
+            underlay.color = underlay.color.AlphaChangedTo(
+                Mathf.Lerp(underlay.color.a, target_underlay_alpha, Time.deltaTime * 5));
+        }
 
         description_text.gameObject.SetActive(this.IsPointedAt());
   
@@ -140,9 +154,6 @@ public class OperationTile : Tile
         input_node.gameObject.SetActive(Operation.TakesInput);
         output_node.gameObject.SetActive(Operation.HasOutput);
         goto_node.gameObject.SetActive(Operation.TakesGoto);
-
-        if (Operation is BuildTask)
-            Image.color = Image.color.AlphaChangedTo(this.IsPointedAt() ? 1 : 0.0f);
 
 
         if (IsInProgramInterface)
@@ -298,11 +309,6 @@ public class OperationTile : Tile
         
 
         return operation_tile;
-    }
-
-    public interface Stylish
-    {
-        Style.Operation Style { get; }
     }
 }
 
