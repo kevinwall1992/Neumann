@@ -73,26 +73,31 @@ public class OperationTileIONode : OperationTileNode
         else
             Hide = true;
 
-        if (!InputUtility.DidDragOccur() && this.UseMouseLeftRelease())
+        if (!InputUtility.DidDragOccur() && 
+            IsSelected && 
+            !OperationTile.IsPointedAt() && 
+            this.UseMouseLeftRelease())
         {
-            if(IsSelected && !OperationTile.IsPointedAt())
+            if (Scene.Main.InputModule.ElementTouched != null)
             {
-                if (Scene.Main.InputModule.ElementTouched != null)
-                {
-                    VariableTile variable_tile = InputUtility.GetElementTouched<VariableTile>();
-                    if (variable_tile != null)
-                        VariableTile = variable_tile;
-                    else if (Scene.Main.World.IsPointedAt())
-                        variable_name = Scene.Main.World.MemorizePosition(
-                            Scene.Main.World.Asteroid.GetWorldPositionPointedAt());
-                    else
-                        VariableTile = null;
-                }
+                VariableTile variable_tile = InputUtility.GetElementTouched<VariableTile>();
+                Unit unit = InputUtility.GetElementTouched<Unit>();
+
+                if (variable_tile != null)
+                    VariableTile = variable_tile;
+                else if (unit != null)
+                    variable_name = unit.Id;
+                else if (Scene.Main.World.IsPointedAt())
+                    variable_name = Scene.Main.World.MemorizePosition(
+                        Scene.Main.World.Asteroid.GetWorldPositionPointedAt());
                 else
                     VariableTile = null;
 
-                IsSelected = false;
             }
+            else
+                VariableTile = null;
+
+            IsSelected = false;
         }
     }
 }

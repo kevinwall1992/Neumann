@@ -10,6 +10,8 @@ using System.Linq;
 [RequireComponent(typeof(Thinker))]
 public class Unit : MonoBehaviour, HasVariables
 {
+    string id;
+
     public string Name;
     public Sprite Icon = null;
 
@@ -31,6 +33,7 @@ public class Unit : MonoBehaviour, HasVariables
     public Task Task { get; set; }
     public Program Program { get; set; } = new Program();
     public bool IsSelected { get { return Scene.Main.UnitInterface.Unit == this; } }
+    public string Id { get { return id; } }
 
     public List<Variable> Variables
     {
@@ -68,7 +71,7 @@ public class Unit : MonoBehaviour, HasVariables
             () => 100 * Scene.Main.World.Asteroid.Rock
                 .GetConcentrationByVolume(Physical.Position, 1, new Resource("Iron")));
 
-        Scene.Main.World.Memory.Memorize(Name, this);
+        Scene.Main.World.Memory.Memorize(id = (Name + " Unit " + next_unit_id_number++), this);
     }
 
     void Update()
@@ -95,4 +98,7 @@ public class Unit : MonoBehaviour, HasVariables
 
         return gameObject.AddComponent<T>();
     }
+
+
+    static int next_unit_id_number = 0;
 }
