@@ -34,7 +34,7 @@ public class Builder : Profession
         get
         {
             return Blueprints.Select(project => UseFixedConstructionSite ? 
-                new BuildTask(project, Unit.Physical.Position + FixedConstructionSite) : 
+                new BuildTask(project, FixedConstructionSite) : 
                 new BuildTask(project));
         }
     }
@@ -106,7 +106,7 @@ public class BuildTask : Task
         get
         {
             if (has_fixed_construction_site)
-                return fixed_construction_site;
+                return Unit.transform.TransformPoint(fixed_construction_site);
             else
                 return Target.Position;
         }
