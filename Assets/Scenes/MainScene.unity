@@ -3112,11 +3112,11 @@ MonoBehaviour:
     - Sprite: {fileID: 21300000, guid: 6fed837e727671e4d8d6503b52db2a92, type: 3}
       Color: {r: 0.99507403, g: 1, b: 0.740566, a: 1}
       Units: '%'
+    - Sprite: {fileID: 21300000, guid: f0902788bc9576c41a1b7c554fa8f697, type: 3}
+      Color: {r: 1, g: 0.86307764, b: 0, a: 1}
+      Units: 
     - Sprite: {fileID: 21300000, guid: c4d0a451fd2472a46898a332d5848a78, type: 3}
       Color: {r: 1, g: 1, b: 1, a: 1}
-      Units: 
-    - Sprite: {fileID: 21300000, guid: f0902788bc9576c41a1b7c554fa8f697, type: 3}
-      Color: {r: 1, g: 0.83113897, b: 0, a: 1}
       Units: 
   MoveTask:
     Sprite: {fileID: 21300000, guid: bf2b79b227caa2542a842aad625f32e1, type: 3}
