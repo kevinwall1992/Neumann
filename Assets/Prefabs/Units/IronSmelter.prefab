@@ -16,7 +16,7 @@ MonoBehaviour:
   VolumePerSecond: 1
   ProcessTasks:
   - OptimalDistance: 10
-    HalfDistance: 5
+    HalfDistance: 15
     Feedstock:
       resources:
         reorderableList:
@@ -165,6 +165,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: factory
       objectReference: {fileID: 0}
+    - target: {fileID: 706967357084658734, guid: ccd01ac7e6e9b134f89a1b21a8eebf43,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cbd223b184e4fc5438218190ce57a3df, type: 2}
+    - target: {fileID: 1726152507137911604, guid: ccd01ac7e6e9b134f89a1b21a8eebf43,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cbd223b184e4fc5438218190ce57a3df, type: 2}
+    - target: {fileID: 2851516883541130637, guid: ccd01ac7e6e9b134f89a1b21a8eebf43,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cbd223b184e4fc5438218190ce57a3df, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccd01ac7e6e9b134f89a1b21a8eebf43, type: 3}
 --- !u!1001 &6324474356788263271
@@ -247,7 +262,7 @@ PrefabInstance:
     - target: {fileID: 1557146464982453639, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
         type: 3}
       propertyPath: m_Name
-      value: Smelter
+      value: IronSmelter
       objectReference: {fileID: 0}
     - target: {fileID: 5082210193747183251, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
         type: 3}
@@ -272,7 +287,7 @@ PrefabInstance:
     - target: {fileID: 9071426788684750279, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
         type: 3}
       propertyPath: Name
-      value: Smelter
+      value: Iron Smelter
       objectReference: {fileID: 0}
     - target: {fileID: 9071426788684750279, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
         type: 3}
