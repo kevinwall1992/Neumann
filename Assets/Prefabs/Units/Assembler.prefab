@@ -233,80 +233,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Assembler
       objectReference: {fileID: 0}
-    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+    - target: {fileID: 5082210193747183251, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
         type: 3}
-      propertyPath: RequiredResources.resources._keyValues.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
-        type: 3}
-      propertyPath: RequiredResources.resources._keys.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
-        type: 3}
-      propertyPath: RequiredResources.resources._values.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
-        type: 3}
-      propertyPath: RetainedResources.resources._keyValues.Array.size
+      propertyPath: BaseHeight
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
-        type: 3}
-      propertyPath: RetainedResources.resources._keys.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
-        type: 3}
-      propertyPath: RetainedResources.resources._values.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
-        type: 3}
-      propertyPath: RequiredResources.resources._keyValues.Array.data[0].Name
-      value: Energy
-      objectReference: {fileID: 0}
-    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
-        type: 3}
-      propertyPath: RequiredResources.resources._keys.Array.data[0].Name
-      value: Energy
-      objectReference: {fileID: 0}
-    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
-        type: 3}
-      propertyPath: RequiredResources.resources._values.Array.data[0]
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
-        type: 3}
-      propertyPath: RequiredResources.resources._values.Array.data[1]
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
-        type: 3}
-      propertyPath: RequiredResources.resources._keyValues.Array.data[1].Name
-      value: Iron
-      objectReference: {fileID: 0}
-    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
-        type: 3}
-      propertyPath: RequiredResources.resources._keys.Array.data[1].Name
-      value: Iron
-      objectReference: {fileID: 0}
-    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
-        type: 3}
-      propertyPath: RetainedResources.resources._keyValues.Array.data[0].Name
-      value: Iron
-      objectReference: {fileID: 0}
-    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
-        type: 3}
-      propertyPath: RetainedResources.resources._keys.Array.data[0].Name
-      value: Iron
-      objectReference: {fileID: 0}
-    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
-        type: 3}
-      propertyPath: RetainedResources.resources._values.Array.data[0]
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7013136166321163157, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
         type: 3}
