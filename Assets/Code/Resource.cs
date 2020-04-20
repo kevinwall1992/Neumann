@@ -8,6 +8,16 @@ public class Resource
 {
     public string Name;
 
+    public Sprite Icon
+    {
+        get { return Scene.Main.Style.Variables[Name].Sprite; }
+    }
+
+    public Color Color
+    {
+        get { return Scene.Main.Style.Variables[Name].Color; }
+    }
+
     public Resource(string name)
     {
         Name = name;
