@@ -8,7 +8,7 @@ using RotaryHeart.Lib.SerializableDictionary;
 [RequireComponent(typeof(Buildable))]
 public class Motile : Profession
 {
-    Vector3 target_direction = new Vector3(-1, 0, 0);
+    Vector3 target_direction;
 
     Stock.Request request = null;
 
@@ -34,6 +34,10 @@ public class Motile : Profession
     public Physical Physical { get { return GetComponent<Physical>(); } }
     public Buildable Buildable { get { return GetComponent<Buildable>(); } }
 
+    void Start()
+    {
+        target_direction = Unit.Physical.Direction;
+    }
 
     void Update()
     {
