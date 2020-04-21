@@ -5,9 +5,14 @@ using System.Collections.Generic;
 
 public class Buildable : MonoBehaviour, HasVariables
 {
-    public Pile RequiredResources = new Pile();
-    public Pile RetainedResources = new Pile();
+    public Pile StructuralMaterials = new Pile();
+    public Pile ProcessMaterials = new Pile();
     public string CompletionVariableName = "% Complete";
+
+    public Pile RequiredMaterials
+    {
+        get { return StructuralMaterials.Copy().PutIn(ProcessMaterials); }
+    }
 
     [HideInInspector]
     public Pile Foundation;
@@ -15,7 +20,7 @@ public class Buildable : MonoBehaviour, HasVariables
     {
         get
         {
-            if (!IsProject || RequiredResources.Volume == 0)
+            if (!IsProject || RequiredMaterials.Volume == 0)
                 return 1;
 
             if (Foundation.Volume == 0)
@@ -23,7 +28,7 @@ public class Buildable : MonoBehaviour, HasVariables
 
             return Mathf.Min(1, Foundation.Resources.Min(resource => 
                 Foundation.GetVolumeOf(resource) / 
-                RequiredResources.GetVolumeOf(resource)));
+                RequiredMaterials.GetVolumeOf(resource)));
         }
     }
     public bool IsProject { get; set; }
@@ -48,11 +53,11 @@ public class Buildable : MonoBehaviour, HasVariables
     
     void Update()
     {
-        if(IsProject && Foundation.Volume >= RequiredResources.Volume)
+        if(IsProject && Foundation.Volume >= RequiredMaterials.Volume)
         {
             if(this.HasComponent<Unit>())
             GetComponent<Unit>().Team.Stock.Pile.PutIn(Foundation.Normalized() * 
-                (Foundation.Volume - RequiredResources.Volume));
+                (Foundation.Volume - RequiredMaterials.Volume));
             IsProject = false;
         }
     }

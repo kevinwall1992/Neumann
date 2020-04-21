@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 072a5d002d520304c989e24fa4031dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequiredResources:
+  StructuralMaterials:
     resources:
       reorderableList:
         canAdd: 1
@@ -188,14 +188,11 @@ MonoBehaviour:
       isExpanded: 1
       _keyValues:
       - Name: Iron Parts
-      - Name: Energy
       _keys:
       - Name: Iron Parts
-      - Name: Energy
       _values:
-      - 5
       - 10
-  RetainedResources:
+  ProcessMaterials:
     resources:
       reorderableList:
         canAdd: 1
@@ -220,11 +217,14 @@ MonoBehaviour:
       reqReferences: {fileID: 0}
       isExpanded: 1
       _keyValues:
-      - Name: Iron
+      - Name: Energy
+      - Name: Tools
       _keys:
-      - Name: Iron
+      - Name: Energy
+      - Name: Tools
       _values:
-      - 5
+      - 70
+      - 30
   CompletionVariableName: '% Complete'
   Foundation:
     resources:

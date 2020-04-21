@@ -57,7 +57,7 @@ public class Builder : Profession
         if(IsProjectWithinReach)
         {
             if(request == null)
-                request = Unit.Team.Stock.MakeRequest(Project.RequiredResources.Normalized() * Rate);
+                request = Unit.Team.Stock.MakeRequest(Project.RequiredMaterials.Normalized() * Rate);
 
             NanolathingLineController.NanolathingRate = Rate * request.Yield;
             NanolathingLineController.Target = Project.transform.position + new Vector3(0, 0.5f, 0);
