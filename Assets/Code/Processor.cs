@@ -63,8 +63,7 @@ public class ProcessBehavior : ApplianceBehavior
             float maximum_concentration = ProcessTask.Feedstock.GetVolumeOf(resource) /
                                           ProcessTask.Feedstock.Volume;
 
-            float actual_concentration = Scene.Main.World.Asteroid.Regolith
-                .GetConcentrationByVolume(ProcessTask.Target.Position, range, resource);
+            float actual_concentration = sample.GetVolumeOf(resource) / sample.Volume;
 
             sample_concentration = Mathf.Min(sample_concentration, actual_concentration /
                                                                    maximum_concentration);
