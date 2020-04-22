@@ -47,7 +47,9 @@ public class Stock : MonoBehaviour, HasVariables
         {
             if (request.UsagePerSecond.Volume > 0)
             {
-                request.Yield = request.UsagePerSecond.Resources.Min(resource => resource_yields[resource]);
+                request.Yield = request.UsagePerSecond.Resources.Min(resource => 
+                    request.UsagePerSecond.GetVolumeOf(resource) > 0 ? resource_yields[resource] : 1);
+
                 request.Disbursement = Pile.TakeOut(request.UsagePerSecond * request.Yield * Time.deltaTime);
             }
         }
