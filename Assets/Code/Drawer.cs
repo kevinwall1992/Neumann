@@ -52,9 +52,18 @@ public class Drawer : UIElement
     {
         base.Update();
 
-        foreach (Tile tile in Tiles)
+        List<Tile> tiles = new List<Tile>(Tiles);
+
+        if (this.IsModulusUpdate(10))
+            foreach (Tile tile in tiles)
+                tile.IsPositioned = false;
+
+        foreach (Tile tile in tiles)
         {
-            int index = Tiles.IndexOf(tile);
+            if (tile.IsPositioned)
+                continue;
+
+            int index = tiles.IndexOf(tile);
             if (insertion_preview_index >= 0 && 
                 index >= insertion_preview_index)
                 index++;
@@ -75,14 +84,16 @@ public class Drawer : UIElement
                             direction.y * (IsVertical ? row : column));
 
             tile.transform.position = Vector3.Lerp(tile.transform.position, tile_target_position, 4 * Time.deltaTime);
+            if (tile.transform.position.Distance(tile_target_position) < 0.5f)
+                tile.IsPositioned = true;
         }
 
 
         RectTransform parent_transform = transform.parent as RectTransform;
         float effective_rows_visible = 0;
-        if (Tiles.Count() > 0)
+        if (tiles.Count() > 0)
         {
-            int effective_tile_count = Tiles.Count() + (insertion_preview_index >= 0 ? 1 : 0);
+            int effective_tile_count = tiles.Count() + (insertion_preview_index >= 0 ? 1 : 0);
 
             effective_rows_visible = Mathf.Min(RowsVisible, Mathf.Max(1, 
                 (effective_tile_count - 1) / ElementsPerRow + 1));

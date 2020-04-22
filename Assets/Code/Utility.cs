@@ -298,6 +298,15 @@ public static class UIUtility
     {
         return Color.Lerp(color, other, factor);
     }
+
+    public static bool IsModulusUpdate(this MonoBehaviour mono_behaviour, int divisor)
+    {
+        if (!update_counts.ContainsKey(mono_behaviour))
+            update_counts[mono_behaviour] = 0;
+
+        return update_counts[mono_behaviour]++ % divisor == 0;
+    }
+    static Dictionary<MonoBehaviour, int> update_counts = new Dictionary<MonoBehaviour, int>();
 }
 
 public static class InputUtility

@@ -13,6 +13,8 @@ public class Tile : DraggableUIElement
     Image selection_overlay = null;
     public Image SelectionOverlay { get { return selection_overlay; } }
 
+    public bool IsPositioned { get; set; } = false;
+
     public Drawer Drawer { get { return GetComponentInParent<Drawer>(); } }
 
     public override void OnDrag(PointerEventData eventData)
@@ -20,5 +22,6 @@ public class Tile : DraggableUIElement
         base.OnDrag(eventData);
 
         transform.position = Input.mousePosition;
+        IsPositioned = false;
     }
 }
