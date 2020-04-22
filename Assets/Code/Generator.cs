@@ -30,16 +30,7 @@ public class Generator : Profession
 
     public override IEnumerable<Operation> Abilities
     {
-        get
-        {
-            List<Operation> abilities = 
-                Utility.List<Operation>(new ChangePowerOperation(-0.2f), 
-                                        new ChangePowerOperation(0.2f), 
-                                        new TurnOffOperation(), 
-                                        new TurnOnOperation());
-
-            return abilities;                               
-        }
+        get { return new List<Operation>(); }
     }
 
     public Converter Converter { get { return GetComponent<Converter>(); } }
