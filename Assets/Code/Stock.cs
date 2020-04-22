@@ -26,6 +26,11 @@ public class Stock : MonoBehaviour, HasVariables
 
     private void Update()
     {
+        foreach (Request request in requests)
+            foreach (Resource resource in request.UsagePerSecond.Resources)
+                if (!Pile.Resources.Contains(resource))
+                    Pile.PutIn(resource, 0);
+
         Dictionary<Resource, float> resource_yields = new Dictionary<Resource, float>();
         foreach (Resource resource in Pile.Resources)
         {
