@@ -19,13 +19,10 @@ public class Physics : MonoBehaviour
 
         foreach (Physical physical in Physicals)
         {
-            bool is_stationary = IsStationary(physical);
-            bool is_projectile = physical.HasComponent<Projectile>();
-
             float terrain_height = World.Asteroid.GetSurfaceHeight(physical.Position);
             bool below_terrain = physical.Position.y < terrain_height;
 
-            if (!is_projectile)
+            if (!(physical.Layer == Layer.Projectile))
             {
                 //Interactions
 
@@ -34,7 +31,7 @@ public class Physics : MonoBehaviour
                     if (physical == neighbor)
                         continue;
 
-                    if (is_stationary != IsStationary(neighbor))
+                    if (physical.Layer != neighbor.Layer)
                         continue;
 
                     float distance = physical.Position.Distance(neighbor.Position);
@@ -74,7 +71,7 @@ public class Physics : MonoBehaviour
                                           physical.FrictionCoefficient_Perpendicular;
 
                     //Normal Force
-                    if (!is_stationary)
+                    if (physical.Layer != Layer.Building)
                         physical.Force += normal_force;
 
                     if (below_terrain)
@@ -94,7 +91,7 @@ public class Physics : MonoBehaviour
                 }
             }
 
-            if (is_stationary)
+            if (physical.Layer == Layer.Building)
             {
                 physical.Position = physical.Position.YChangedTo(terrain_height);
                 physical.Velocity = physical.Velocity.YChangedTo(0);
@@ -107,8 +104,5 @@ public class Physics : MonoBehaviour
         }
     }
 
-    bool IsStationary(Physical physical)
-    {
-        return !physical.HasComponent<Motile>() && !physical.HasComponent<Projectile>();
-    }
+    public enum Layer { None, Building, Vehicle, Projectile }
 }

@@ -58,6 +58,8 @@ public class Physical : MonoBehaviour
         }
     }
 
+    public Physics.Layer Layer { get; set; } = Physics.Layer.None;
+
     public SphereCollider Collider { get { return GetComponent<SphereCollider>(); } }
 
     public bool IsTouchingTerrain
@@ -74,6 +76,13 @@ public class Physical : MonoBehaviour
     {
         FrictionCoefficient_Parallel = 0.6f;
         FrictionCoefficient_Perpendicular = 0.6f;
+
+        if (this.HasComponent<Motile>())
+            Layer = Physics.Layer.Vehicle;
+        else if (this.HasComponent<Projectile>())
+            Layer = Physics.Layer.Projectile;
+        else
+            Layer = Physics.Layer.Building;
     }
 
     void AccelerationUpdate()
