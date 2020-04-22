@@ -45,27 +45,28 @@ public class ProgramInterface : Drawer
         if (Program == null)
             return;
 
-        IEnumerable<Operation> operations = OperationTiles.Select(operation_tile => operation_tile.Operation);
+        List<OperationTile> operation_tiles = OperationTiles;
+        IEnumerable<Operation> operations = operation_tiles.Select(operation_tile => operation_tile.Operation);
 
         foreach(Operation operation in Program)
             if (!operations.Contains(operation))
                 base.Add(OperationTile.Create(operation)).transform.position = SpawnPosition.position;
 
-        foreach(OperationTile operation_tile in OperationTiles)
+        foreach(OperationTile operation_tile in operation_tiles)
             if(!Program.Contains(operation_tile.Operation))
             {
                 base.Remove(operation_tile);
                 GameObject.Destroy(operation_tile.gameObject);
             }
 
-
-        foreach(Operation operation in Program)
-            OperationTiles.Find(operation_tile => operation_tile.Operation == operation)
+        operation_tiles = OperationTiles;
+        foreach (Operation operation in Program)
+            operation_tiles.Find(operation_tile => operation_tile.Operation == operation)
                 .transform.SetAsFirstSibling();
 
         if (Unit.Program.Next != null)
         {
-            OperationTile operation_tile = OperationTiles.Find(operation_tile_ => 
+            OperationTile operation_tile = operation_tiles.Find(operation_tile_ => 
                 operation_tile_.Operation == Unit.Program.Next);
             if (operation_tile.IsBeingDragged)
                 return;
