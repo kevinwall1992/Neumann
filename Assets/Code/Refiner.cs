@@ -5,9 +5,8 @@ using System.Collections.Generic;
 
 
 [RequireComponent(typeof(Waster))]
-public class Refiner : Profession
+public class Refiner : Appliance
 {
-    public float EnergyPerSecond;
     public float VolumePerSecond;
 
     public List<RefineTask> RefineTasks = new List<RefineTask>();
@@ -31,9 +30,8 @@ public class Refiner : Profession
 }
 
 
-public class RefineBehavior : EnergyRequestBehavior
+public class RefineBehavior : ApplianceBehavior
 {
-    public override float EnergyPerSecond { get { return Refiner.EnergyPerSecond; } }
     public override float UsageFraction { get { return RefineTask.GetTransportEfficiency(); } }
 
     Refiner Refiner { get { return GetComponent<Refiner>(); } }

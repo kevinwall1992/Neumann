@@ -5,9 +5,8 @@ using System.Linq;
 
 
 [RequireComponent(typeof(Waster))]
-public class Processor : Profession
+public class Processor : Appliance
 {
-    public float EnergyPerSecond;
     public float VolumePerSecond;
 
     public List<ProcessTask> ProcessTasks = new List<ProcessTask>();
@@ -30,9 +29,8 @@ public class Processor : Profession
     }
 }
 
-public class ProcessBehavior : EnergyRequestBehavior
+public class ProcessBehavior : ApplianceBehavior
 {
-    public override float EnergyPerSecond { get { return Processor.EnergyPerSecond; } }
     public override float UsageFraction { get { return ProcessTask.GetTransportEfficiency(); } }
 
     Processor Processor { get { return GetComponent<Processor>(); } }

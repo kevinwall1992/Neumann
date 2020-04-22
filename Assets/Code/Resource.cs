@@ -42,4 +42,5 @@ public class Resource
 
 
     public static Resource Energy { get { return new Resource("Energy"); } }
+    public static Resource Tools { get { return new Resource("Tools"); } }
 }

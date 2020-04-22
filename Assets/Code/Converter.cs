@@ -4,9 +4,8 @@ using System.Collections.Generic;
 
 
 [RequireComponent(typeof(Waster))]
-public class Converter : Profession
+public class Converter : Appliance
 {
-    public float EnergyPerSecond;
     public float VolumePerSecond;
 
     public List<ConvertTask> ConvertTasks = new List<ConvertTask>();
@@ -41,11 +40,10 @@ public class Converter : Profession
 }
 
 
-public class ConvertBehavior : EnergyRequestBehavior
+public class ConvertBehavior : ApplianceBehavior
 {
     public ConvertTask ConvertTask { get; set; }
 
-    public override float EnergyPerSecond { get { return Converter.EnergyPerSecond; } }
     public override float UsageFraction
     {
         get

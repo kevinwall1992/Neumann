@@ -3,9 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class Driller : Profession
+public class Driller : Appliance
 {
-    public float EnergyPerSecond;
     public float VolumePerSecond;
 
     public override IEnumerable<Operation> Abilities
@@ -27,9 +26,8 @@ public class Driller : Profession
     }
 }
 
-public class DrillBehavior : EnergyRequestBehavior
+public class DrillBehavior : ApplianceBehavior
 {
-    public override float EnergyPerSecond { get { return Driller.EnergyPerSecond; } }
     public override float UsageFraction { get { return DrillTask.GetTransportEfficiency(); } }
 
     Driller Driller { get { return GetComponent<Driller>(); } }
