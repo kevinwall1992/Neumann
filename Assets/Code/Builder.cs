@@ -43,8 +43,6 @@ public class Builder : Profession
     {
         if (CanBuildSelf && Scene.Main.Prefabs.Units.ContainsKey(Unit.Name))
             Blueprints.Add(Scene.Main.Prefabs.Units[Unit.Name].Buildable);
-
-        NanolathingLineController.Line.gameObject.SetActive(true);
     }
 
     void Update()
@@ -54,7 +52,9 @@ public class Builder : Profession
         else
             this.Stop<BuildBehavior>();
 
-        if(IsProjectWithinReach)
+        NanolathingLineController.Line.gameObject.SetActive(IsProjectWithinReach);
+
+        if (IsProjectWithinReach)
         {
             if(request == null)
                 request = Unit.Team.Stock.MakeRequest(Project.RequiredMaterials.Normalized() * Rate);
