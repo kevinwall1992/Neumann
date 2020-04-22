@@ -2,6 +2,7 @@
 using System.Collections;
 using RotaryHeart.Lib.SerializableDictionary;
 
+[ExecuteAlways]
 public class Style : MonoBehaviour
 {
     public Cursor DefaultCursor;
@@ -35,13 +36,11 @@ public class Style : MonoBehaviour
     public Operation HighFiringAngleOperation;
     public Operation LowFiringAngleOperation;
 
-    public float Scale
-    {
-        get
-        {
-            return (Scene.Main.Canvas.transform as RectTransform).rect.height / BaseCanvasHeight;
-        }
-    }
+    float scale;
+    public float Scale { get { return scale; } }
+
+    float tile_size;
+    public float TileSize { get { return tile_size; } }
 
     public float Padding
     {
@@ -49,21 +48,29 @@ public class Style : MonoBehaviour
         {
             return BasePadding * Scale;
         }
-    }
-
-    public float TileSize
-    {
-        get
-        {
-            float vertical_space = (OperationMenu.transform as RectTransform).rect.height - Padding;
-
-            return vertical_space / VerticalTileCount - Padding;
-        }
-    }
+    } 
 
     public float ViewSize
     {
         get { return BaseViewSize * Scale; }
+    }
+
+    private void Start()
+    {
+
+    }
+
+    private void Update()
+    {
+        Recompute();
+    }
+
+    void Recompute()
+    {
+        scale = (Scene.Main.Canvas.transform as RectTransform).rect.height / BaseCanvasHeight;
+
+        float vertical_space = (OperationMenu.transform as RectTransform).rect.height - Padding;
+        tile_size = vertical_space / VerticalTileCount - Padding;
     }
 
 
