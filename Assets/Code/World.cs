@@ -22,11 +22,12 @@ public class World : MonoBehaviour, HasVariables
 
     public Memory Memory { get; private set; } = new Memory();
 
+    List<Variable> variables = new List<Variable>();
     public List<Variable> Variables
     {
         get
         {
-            return Memory.Variables.Merged(PlayerTeam.Stock.Variables);
+            return variables;
         }
     }
 
@@ -37,7 +38,7 @@ public class World : MonoBehaviour, HasVariables
 
     void Update()
     {
-        
+        variables = Memory.Variables.Merged(PlayerTeam.Stock.Variables);
     }
 
     public string MemorizePosition(Vector3 position)
