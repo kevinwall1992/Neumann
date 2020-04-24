@@ -70,6 +70,11 @@ public class Memory : HasVariables
         return memories[name];
     }
 
+    public void Forget(string name)
+    {
+        memories.Remove(name);
+    }
+
     //Remembers the last Memorize()d name for memory
     //e.g. Storing the number "7" twice means the second
     //name you gave it will be returned here.
