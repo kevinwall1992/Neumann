@@ -45,8 +45,9 @@ MonoBehaviour:
       _keys:
       - Name: Silicon
       _values:
-      - 0.5
-    SeparationEfficiency: 0.5
+      - 0.85
+    GangueAffinity: 0.3
+    MaximumConcentration: 0.8
 --- !u!114 &8590323948738281865
 MonoBehaviour:
   m_ObjectHideFlags: 0
