@@ -7,21 +7,24 @@ public class CircleLineController : MonoBehaviour
     [SerializeField]
     LineRenderer line = null;
 
-    public int SampleCount = 20;
+    public int SampleCount = 36;
+    public float Radius;
+
+    public LineRenderer Line { get { return line; } }
 
     void Start()
     {
-        line.loop = true;
+        Line.loop = true;
     }
 
     void Update()
     {
-        line.positionCount = SampleCount;
+        Line.positionCount = SampleCount;
         for (int i = 0; i < SampleCount; i++)
         {
             float radians = 2 * Mathf.PI * i / SampleCount;
 
-            line.SetPosition(i, new Vector3(Mathf.Sin(radians), 0, Mathf.Cos(radians)));
+            Line.SetPosition(i, new Vector3(Mathf.Sin(radians), 0, Mathf.Cos(radians)) * Radius) ;
         }
     }
 }
