@@ -278,17 +278,17 @@ public static class UIUtility
         return transform.FindAncestor(name).GetComponent<T>();
     }
 
-    public static bool HasComponent<T>(this GameObject game_object) where T : MonoBehaviour
+    public static bool HasComponent<T>(this GameObject game_object)
     {
         return game_object.GetComponent<T>() != null;
     }
 
-    public static bool HasComponent<T>(this MonoBehaviour mono_behaviour) where T : MonoBehaviour
+    public static bool HasComponent<T>(this MonoBehaviour mono_behaviour)
     {
         return mono_behaviour.gameObject.HasComponent<T>();
     }
 
-    public static bool HasComponent<T>(this Transform transform) where T : MonoBehaviour
+    public static bool HasComponent<T>(this Transform transform)
     {
         return transform.gameObject.HasComponent<T>();
     }
