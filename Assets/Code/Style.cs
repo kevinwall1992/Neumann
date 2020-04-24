@@ -14,6 +14,8 @@ public class Style : MonoBehaviour
 
     public VariableStyleMap Variables;
 
+    public string EnergyUsageVariableName;
+
     public Operation MoveTask;
     public Operation AttackTask;
     public Operation BuildTask;

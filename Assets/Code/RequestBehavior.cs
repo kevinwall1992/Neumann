@@ -45,4 +45,18 @@ public abstract class EnergyRequestBehavior : RequestBehavior
     {
         get { return new Pile().PutIn(Resource.Energy, EnergyPerSecond); }
     }
+
+    protected override void Start()
+    {
+        base.Start();
+
+        Unit.Memory.Memorize(Scene.Main.Style.EnergyUsageVariableName, () => EnergyPerSecond);
+    }
+
+    protected override void OnDestroy()
+    {
+        Unit.Memory.Forget(Scene.Main.Style.EnergyUsageVariableName);
+
+        base.OnDestroy();
+    }
 }

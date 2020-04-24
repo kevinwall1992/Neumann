@@ -3118,6 +3118,7 @@ MonoBehaviour:
     - Sprite: {fileID: 21300000, guid: c4d0a451fd2472a46898a332d5848a78, type: 3}
       Color: {r: 1, g: 1, b: 1, a: 1}
       Units: 
+  EnergyUsageVariableName: Energy Usage
   MoveTask:
     Sprite: {fileID: 21300000, guid: bf2b79b227caa2542a842aad625f32e1, type: 3}
     Color: {r: 0, g: 1, b: 0.03644657, a: 1}
