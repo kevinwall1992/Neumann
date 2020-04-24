@@ -5,6 +5,9 @@ using System.Linq;
 
 public class Stock : MonoBehaviour, HasVariables
 {
+    float last_energy_volume = 0;
+    float last_tool_volume = 0;
+
     public Pile Pile = new Pile();
 
     List<Request> requests = new List<Request>();
@@ -13,19 +16,39 @@ public class Stock : MonoBehaviour, HasVariables
     {
         get
         {
-            return new List<Variable>(Pile.Resources.Select(resource => 
+            return new List<Variable>(Pile.Resources.Select(resource =>
                 new FunctionVariable(resource.Name, () => Pile.GetVolumeOf(resource))
                     .Stylize(Scene.Main.Style.Variables[resource.Name])));
         }
     }
 
+    public float EnergyVolume { get { return Pile.GetVolumeOf(Resource.Energy); } }
+    public float EnergyProduction { get; private set; }
+    public float EnergyRatio { get; private set; }
+
+    public float ToolVolume { get { return Pile.GetVolumeOf(Resource.Tools); } }
+    public float ToolProduction { get; private set; }
+    public float ToolRatio { get; private set; }
+
     private void Start()
     {
-        
+        Scene.Main.World.Memory.Memorize("Energy Production", () => EnergyProduction);
+        Scene.Main.World.Memory.Memorize("Energy Ratio", () => EnergyRatio);
+
+        Scene.Main.World.Memory.Memorize("Tool Production", () => ToolProduction);
+        Scene.Main.World.Memory.Memorize("Tool Ratio", () => ToolRatio);
     }
 
     private void Update()
     {
+        EnergyProduction = EnergyVolume - last_energy_volume;
+        EnergyRatio = EnergyProduction / 
+                      requests.Sum(request => request.UsagePerSecond.GetVolumeOf(Resource.Energy));
+
+        ToolProduction = ToolVolume - last_tool_volume;
+        ToolRatio = ToolProduction /
+                    requests.Sum(request => request.UsagePerSecond.GetVolumeOf(Resource.Tools));
+
         foreach (Request request in requests)
             foreach (Resource resource in request.UsagePerSecond.Resources)
                 if (!Pile.Resources.Contains(resource))
@@ -53,6 +76,9 @@ public class Stock : MonoBehaviour, HasVariables
                 request.Disbursement = Pile.TakeOut(request.UsagePerSecond * request.Yield * Time.deltaTime);
             }
         }
+
+        last_energy_volume = EnergyVolume;
+        last_tool_volume = ToolVolume;
     }
 
     public float GetUsagePerSecond(Resource resource)
