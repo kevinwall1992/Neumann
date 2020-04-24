@@ -20,9 +20,9 @@ public class OperationTileNode : MonoBehaviour
     BezierLineController bezier_line_controller = null;
     protected BezierLineController BezierLineController { get { return bezier_line_controller; } }
 
-    protected OperationTile OperationTile { get { return GetComponentInParent<OperationTile>(); } }
-
     protected bool Hide { get; set; } = true;
+
+    public OperationTile OperationTile { get { return GetComponentInParent<OperationTile>(); } }
 
     public bool IsSelected
     {

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(Motile))]
-public class Loader : Profession
+public class Loader : Profession, HasLoadSite, HasUnloadSite
 {
     public float Volume;
     public Pile Hold;
@@ -16,6 +16,13 @@ public class Loader : Profession
 
     public bool IsLoaded { get { return Hold.Volume == Volume; } }
     public bool IsUnloaded { get { return Hold.Volume == 0; } }
+
+    public bool HasLoadSite { get { return Unit.Task is LoadTask; } }
+    public Vector3 LoadSite { get { return (Unit.Task as LoadTask).Target.Position; } }
+    public float LoadSiteRadius { get { return GetRange(Volume); } }
+
+    public bool HasUnloadSite { get { return Unit.Task is UnloadTask; } }
+    public Vector3 UnloadSite { get { return (Unit.Task as UnloadTask).Target.Position; } }
 
     void Start()
     {
@@ -138,4 +145,18 @@ public class UnloadTask : Task
 
     public override Style.Operation Style
     { get { return Scene.Main.Style.UnloadTask; } }
+}
+
+
+public interface HasLoadSite
+{
+    bool HasLoadSite { get; }
+    Vector3 LoadSite { get; }
+    float LoadSiteRadius { get; }
+}
+
+public interface HasUnloadSite
+{
+    bool HasUnloadSite { get; }
+    Vector3 UnloadSite { get; }
 }
