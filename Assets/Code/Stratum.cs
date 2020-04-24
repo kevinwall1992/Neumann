@@ -19,6 +19,20 @@ public class Stratum : MonoBehaviour
 
     }
 
+    public Deposit GetNearestOverlappingDeposit(Vector3 position)
+    {
+        IEnumerable<Deposit> overlapping_deposits = 
+            Deposits.Where(deposit => deposit.transform.position.Distance(position) <= 
+                                      deposit.Extent);
+
+        if (overlapping_deposits.Count() == 0)
+            return null;
+
+        return overlapping_deposits
+            .Sorted(deposit => deposit.transform.position.Distance(position))
+            .First();
+    }
+
     public virtual float GetVolumeWithinRange(Vector3 position, float range, Resource resource = null)
     {
         return Deposits.Sum(deposit => deposit.GetVolumeWithinRange(position, range, resource));
