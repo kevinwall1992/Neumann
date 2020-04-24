@@ -11,6 +11,15 @@ public abstract class Variable
     public abstract object Read();
     public virtual void Write(object value) { }
 
+    public T Read<T>(T default_value = default(T))
+    {
+        object value = Read();
+        if (value is T)
+            return (T)value;
+
+        return default_value;
+    }
+
     public override bool Equals(object obj)
     {
         Variable other = obj as Variable;
