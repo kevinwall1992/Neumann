@@ -31,10 +31,14 @@ public class Processor : Appliance
 
 public class ProcessBehavior : ApplianceBehavior
 {
-    public override float UsageFraction { get { return ProcessTask.GetTransportEfficiency(); } }
+    public override float UsageFraction
+    { get { return ProcessTask.GetTransportEfficiency(); } }
 
-    Processor Processor { get { return GetComponent<Processor>(); } }
-    ProcessTask ProcessTask { get { return Unit.Task as ProcessTask; } }
+    public override bool IsProducingTools
+    { get { return ProcessTask.Product.Resources.Contains(Resource.Tools); } }
+
+    public Processor Processor { get { return GetComponent<Processor>(); } }
+    public ProcessTask ProcessTask { get { return Unit.Task as ProcessTask; } }
 
     protected override void Start()
     {
@@ -73,11 +77,29 @@ public class ProcessBehavior : ApplianceBehavior
                                 sample_concentration *
                                 sample_volume;
 
-        Unit.Team.Stock.Pile
-            .PutIn(ProcessTask.Product.Normalized() * 
-                   sample.TakeOut(ProcessTask.Feedstock.Normalized() * removed_volume).Volume * 
-                   (ProcessTask.Product.Volume / ProcessTask.Feedstock.Volume));
+        Pile product =
+            ProcessTask.Product.Normalized() *
+            sample.TakeOut(ProcessTask.Feedstock.Normalized() * removed_volume).Volume *
+            (ProcessTask.Product.Volume / ProcessTask.Feedstock.Volume);
 
+        if (IsProducingTools)
+        {
+            float tools_produced = product.TakeOut(Resource.Tools).Volume;
+            float net_tools = tools_produced -
+                              YieldAdjustedUsageFraction * 
+                              Appliance.ToolsPerSecond * 
+                              Time.deltaTime;
+
+            if (net_tools < 0)
+            {
+                Unit.Team.Stock.Pile.TakeOut(Resource.Tools, -net_tools);
+                Unit.Task = null;
+            }
+            else
+                Unit.Team.Stock.Pile.PutIn(Resource.Tools, net_tools);
+        }
+
+        Unit.Team.Stock.Pile.PutIn(product);
         Scene.Main.World.Asteroid.Litter(Processor.Waster.WasteSite, sample);
 
         base.Update();

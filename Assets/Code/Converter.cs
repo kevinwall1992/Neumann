@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 
 [RequireComponent(typeof(Waster))]
@@ -67,6 +68,9 @@ public class ConvertBehavior : ApplianceBehavior
         }
     }
 
+    public override bool IsProducingTools
+    { get { return ConvertTask.Product.Resources.Contains(Resource.Tools); } }
+
     Converter Converter { get { return GetComponent<Converter>(); } }
 
     protected override void Update()
@@ -83,9 +87,26 @@ public class ConvertBehavior : ApplianceBehavior
         float waste_ratio = ConvertTask.Waste.Volume /
                             (ConvertTask.Product.Volume + ConvertTask.Waste.Volume);
 
-        Unit.Team.Stock.Pile.PutIn(ConvertTask.Product.Normalized() *
-                                   volume *
-                                   (1 - waste_ratio));
+        Pile product = ConvertTask.Product.Normalized() *
+                       volume *
+                       (1 - waste_ratio);
+
+        if (IsProducingTools)
+        {
+            float tools_produced = product.TakeOut(Resource.Tools).Volume;
+            float net_tools = tools_produced -
+                              Appliance.ToolsPerSecond * Time.deltaTime;
+
+            if (net_tools < 0)
+            {
+                Unit.Team.Stock.Pile.TakeOut(Resource.Tools, -net_tools);
+                Unit.Task = null;
+            }
+            else
+                Unit.Team.Stock.Pile.PutIn(Resource.Tools, net_tools);
+        }
+
+        Unit.Team.Stock.Pile.PutIn(product);
 
         Scene.Main.World.Asteroid
             .Litter(Converter.Waster.WasteSite, ConvertTask.Waste.Normalized() *
