@@ -1,0 +1,255 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5713965591724604511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5713965591724604509}
+  - component: {fileID: 5713965591724604508}
+  m_Layer: 0
+  m_Name: Style
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5713965591724604509
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5713965591724604511}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 37.202805, y: -99.25289, z: 32.275314}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5713965591724604508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5713965591724604511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6e9119197f5df4e9454b66100e36e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultCursor:
+    Texture: {fileID: 2800000, guid: 05383beb75aa2294b8f5255be2011e4a, type: 3}
+    Hotspot: {x: 11, y: 11}
+  OperationMenu: {fileID: 0}
+  BaseCanvasHeight: 597
+  BasePadding: 12
+  VerticalTileCount: 9
+  BaseViewSize: 128
+  Variables:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues:
+    - Energy
+    - Iron Parts
+    - Credits
+    - Health
+    - '% Complete'
+    - Tools
+    - Crystaline Silicon
+    _keys:
+    - Energy
+    - Iron Parts
+    - Credits
+    - Health
+    - '% Complete'
+    - Tools
+    - Crystaline Silicon
+    _values:
+    - Sprite: {fileID: 21300000, guid: e069d771bfa1d7544a27888e5786a5c1, type: 3}
+      Color: {r: 0, g: 1, b: 0.55907893, a: 1}
+      Units: 
+    - Sprite: {fileID: 21300000, guid: 29723fbaaa4b0294aa768f0bdefa45a3, type: 3}
+      Color: {r: 0.6981132, g: 0.6981132, b: 0.6981132, a: 1}
+      Units: 
+    - Sprite: {fileID: 21300000, guid: 2bdfcafca171f274a8eb67d256c17e58, type: 3}
+      Color: {r: 0.9150943, g: 0.8186003, b: 0, a: 1}
+      Units: 
+    - Sprite: {fileID: 21300000, guid: 9493e0e703feaf94ea6390b689b463bc, type: 3}
+      Color: {r: 1, g: 0, b: 0.14646244, a: 1}
+      Units: 
+    - Sprite: {fileID: 21300000, guid: 6fed837e727671e4d8d6503b52db2a92, type: 3}
+      Color: {r: 0.99507403, g: 1, b: 0.740566, a: 1}
+      Units: '%'
+    - Sprite: {fileID: 21300000, guid: f0902788bc9576c41a1b7c554fa8f697, type: 3}
+      Color: {r: 1, g: 0.86307764, b: 0, a: 1}
+      Units: 
+    - Sprite: {fileID: 21300000, guid: c4d0a451fd2472a46898a332d5848a78, type: 3}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      Units: 
+  EnergyUsageVariableName: Energy Usage
+  MoveTask:
+    Sprite: {fileID: 21300000, guid: bf2b79b227caa2542a842aad625f32e1, type: 3}
+    Color: {r: 0, g: 1, b: 0.03644657, a: 1}
+    Description: Move
+    Cursor:
+      Texture: {fileID: 2800000, guid: 44fa3235857c58f4890c7c82f638b162, type: 3}
+      Hotspot: {x: 32, y: 32}
+  AttackTask:
+    Sprite: {fileID: 21300000, guid: 0325465bc256c994f8441b15caeeaa5a, type: 3}
+    Color: {r: 1, g: 0, b: 0, a: 1}
+    Description: Attack
+    Cursor:
+      Texture: {fileID: 2800000, guid: 3d93ae572ab1e194f8784dfbda2738a3, type: 3}
+      Hotspot: {x: 32, y: 32}
+  BuildTask:
+    Sprite: {fileID: 21300000, guid: b191812fa1130fe4eb418dca8ded8028, type: 3}
+    Color: {r: 0.7924528, g: 0.49294555, b: 0, a: 1}
+    Description: Build
+    Cursor:
+      Texture: {fileID: 2800000, guid: 686f6a4d10b82004692c425ed78582be, type: 3}
+      Hotspot: {x: 8, y: 8}
+  ProcessTask:
+    Sprite: {fileID: 21300000, guid: e68810a98fa068846bacbd45cc9be535, type: 3}
+    Color: {r: 1, g: 0.4146728, b: 0, a: 1}
+    Description: Smelt
+    Cursor:
+      Texture: {fileID: 2800000, guid: 80cf257b0143189418d61624c24e781a, type: 3}
+      Hotspot: {x: 31, y: 63}
+  DrillTask:
+    Sprite: {fileID: 21300000, guid: 71e0e0ff13762a744880e945feab41ec, type: 3}
+    Color: {r: 0.5849056, g: 0.44882932, b: 0.35590956, a: 1}
+    Description: Drill
+    Cursor:
+      Texture: {fileID: 2800000, guid: 96fe40f23c06f3f47a0ae4d2973b7d47, type: 3}
+      Hotspot: {x: 31, y: 51}
+  LoadTask:
+    Sprite: {fileID: 21300000, guid: 8eccf273d02d6294c8ea1dfc1d39048f, type: 3}
+    Color: {r: 0.7735849, g: 0.48264438, b: 0.21529014, a: 1}
+    Description: Load
+    Cursor:
+      Texture: {fileID: 2800000, guid: 80cf257b0143189418d61624c24e781a, type: 3}
+      Hotspot: {x: 31, y: 63}
+  UnloadTask:
+    Sprite: {fileID: 21300000, guid: 1413c89d8c08011438ed108443455718, type: 3}
+    Color: {r: 0.7725491, g: 0.48235297, b: 0.21568629, a: 1}
+    Description: Unload
+    Cursor:
+      Texture: {fileID: 2800000, guid: 96fe40f23c06f3f47a0ae4d2973b7d47, type: 3}
+      Hotspot: {x: 31, y: 51}
+  RefineTask:
+    Sprite: {fileID: 21300000, guid: 546a65843743aac4b8c9333889bd8643, type: 3}
+    Color: {r: 0.6273585, g: 0.9717338, b: 1, a: 1}
+    Description: Refine
+    Cursor:
+      Texture: {fileID: 2800000, guid: 80cf257b0143189418d61624c24e781a, type: 3}
+      Hotspot: {x: 31, y: 63}
+  ConvertTask:
+    Sprite: {fileID: 21300000, guid: cc03f02ba94b35e4d96c2ffd362f61e7, type: 3}
+    Color: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
+    Description: Make
+    Cursor:
+      Texture: {fileID: 0}
+      Hotspot: {x: 0, y: 0}
+  ChooseOperation:
+    Sprite: {fileID: 21300000, guid: cba97b6026fee2344b2882883ec39a92, type: 3}
+    Color: {r: 0, g: 0.85353756, b: 1, a: 1}
+    Description: Choose
+    Cursor:
+      Texture: {fileID: 0}
+      Hotspot: {x: 0, y: 0}
+  WriteOperation:
+    Sprite: {fileID: 21300000, guid: 3fe6e0f69f96ff5499d9a6ab61caea65, type: 3}
+    Color: {r: 1, g: 0.7347467, b: 0, a: 1}
+    Description: Write
+    Cursor:
+      Texture: {fileID: 0}
+      Hotspot: {x: 0, y: 0}
+  InterruptOperation:
+    Sprite: {fileID: 21300000, guid: a6f429b9694378c4f80a96a9d70c7b71, type: 3}
+    Color: {r: 1, g: 0.14632325, b: 0, a: 1}
+    Description: Interrupt
+    Cursor:
+      Texture: {fileID: 0}
+      Hotspot: {x: 0, y: 0}
+  YieldOperation:
+    Sprite: {fileID: 21300000, guid: acc5d079dfa49754584d81cf49078321, type: 3}
+    Color: {r: 0, g: 0.32765833, b: 0.7924528, a: 1}
+    Description: Yield
+    Cursor:
+      Texture: {fileID: 0}
+      Hotspot: {x: 0, y: 0}
+  SelectWasteSiteOperation:
+    Sprite: {fileID: 21300000, guid: c991c27c07cf60844a9f93b5c9337269, type: 3}
+    Color: {r: 0.4527223, g: 1, b: 0, a: 1}
+    Description: Waste Site
+    Cursor:
+      Texture: {fileID: 2800000, guid: f2ba9cf46eadb494c9c6caa28cae1125, type: 3}
+      Hotspot: {x: 31, y: 31}
+  TurnOnOperation:
+    Sprite: {fileID: 21300000, guid: b20e8fa64aeaf184e999e9f3a88f98f0, type: 3}
+    Color: {r: 0.6698113, g: 0.58450514, b: 0.58450514, a: 1}
+    Description: On
+    Cursor:
+      Texture: {fileID: 0}
+      Hotspot: {x: 0, y: 0}
+  TurnOffOperation:
+    Sprite: {fileID: 21300000, guid: b56d7b94425219c499cd5b92b8fb80df, type: 3}
+    Color: {r: 0.3160377, g: 1, b: 0.41336253, a: 1}
+    Description: Off
+    Cursor:
+      Texture: {fileID: 0}
+      Hotspot: {x: 0, y: 0}
+  IncreasePowerOperation:
+    Sprite: {fileID: 21300000, guid: 777e6257e605cc942be2f32c65740649, type: 3}
+    Color: {r: 1, g: 0.24484563, b: 0, a: 1}
+    Description: Increase Power
+    Cursor:
+      Texture: {fileID: 0}
+      Hotspot: {x: 0, y: 0}
+  DecreasePowerOperation:
+    Sprite: {fileID: 21300000, guid: 8bc515dd95f9a2d49adb91a172dcc494, type: 3}
+    Color: {r: 0, g: 0.3807745, b: 1, a: 1}
+    Description: Decrease Power
+    Cursor:
+      Texture: {fileID: 0}
+      Hotspot: {x: 0, y: 0}
+  HighFiringAngleOperation:
+    Sprite: {fileID: 21300000, guid: 0669363be6ab8ca498b0c4c0cd60dae4, type: 3}
+    Color: {r: 1, g: 0.5235849, b: 0.5235849, a: 1}
+    Description: High
+    Cursor:
+      Texture: {fileID: 0}
+      Hotspot: {x: 0, y: 0}
+  LowFiringAngleOperation:
+    Sprite: {fileID: 21300000, guid: dfbd6d355accf084bb8f0b2f19655e9c, type: 3}
+    Color: {r: 0.5551326, g: 1, b: 0.504717, a: 1}
+    Description: Low
+    Cursor:
+      Texture: {fileID: 0}
+      Hotspot: {x: 0, y: 0}
