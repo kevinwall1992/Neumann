@@ -25,8 +25,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c61da00d6fa9e442aea6a65bb09a52a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnergyPerSecond: 20
-  VolumePerSecond: 1
+  EnergyPerSecond: 100
+  ToolsPerSecond: 2
+  VolumePerSecond: 2
   ProcessTasks:
   - OptimalDistance: 10
     HalfDistance: 15
@@ -89,10 +90,10 @@ MonoBehaviour:
         _keys:
         - Name: Crystaline Silicon
         _values:
-        - 3
-    OptimalConcentration: 0.95
-    HalfConcentration: 0.85
-    SeparationEfficiency: 0
+        - 6
+    OptimalConcentration: 1
+    HalfConcentration: 0.9
+    SeparationEfficiency: 1
 --- !u!1001 &1830965331970247789
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -180,11 +181,31 @@ PrefabInstance:
       propertyPath: DefaultMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 66c4e9c7c03485443b637029e8407384, type: 2}
+    - target: {fileID: 5082210193747183251, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+        type: 3}
+      propertyPath: BaseHeight
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 5455185099661590712, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
         type: 3}
       propertyPath: Material
       value: 
       objectReference: {fileID: 2100000, guid: 66c4e9c7c03485443b637029e8407384, type: 2}
+    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+        type: 3}
+      propertyPath: ProcessMaterials.resources._values.Array.data[1]
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+        type: 3}
+      propertyPath: StructuralMaterials.resources._values.Array.data[0]
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+        type: 3}
+      propertyPath: ProcessMaterials.resources._values.Array.data[0]
+      value: 140
+      objectReference: {fileID: 0}
     - target: {fileID: 8855189207282649161, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
         type: 3}
       propertyPath: Size

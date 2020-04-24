@@ -41,8 +41,8 @@ MonoBehaviour:
       _keys:
       - Name: Helium-3
       _values:
-      - 1
-  EnergyPerSecond: 100
+      - 0.1
+  EnergyPerSecond: 10
   Waste:
     resources:
       reorderableList:
@@ -67,12 +67,9 @@ MonoBehaviour:
         elementIcon: {fileID: 0}
       reqReferences: {fileID: 0}
       isExpanded: 1
-      _keyValues:
-      - Name: 
-      _keys:
-      - Name: 
-      _values:
-      - 0
+      _keyValues: []
+      _keys: []
+      _values: []
 --- !u!114 &3469210369444912890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,13 +96,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NanolathingLineController: {fileID: 5300826390587664586}
-  Rate: 4
+  Rate: 6
   Reach: 4
   Blueprints:
   - {fileID: 1190232214494264456, guid: bc2e7b3a017073846bea5bd8df8b895a, type: 3}
   CanBuildSelf: 0
-  FixedConstructionSite: {x: 0, y: 0, z: 0}
-  UseFixedConstructionSite: 0
+  FixedConstructionSite: {x: 1, y: 0, z: 0}
+  UseFixedConstructionSite: 1
 --- !u!114 &6680832856364045919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnergyPerSecond: 0
+  ToolsPerSecond: 0
   VolumePerSecond: 1
   ConvertTasks: []
 --- !u!114 &7253995050338775626
@@ -230,6 +228,21 @@ PrefabInstance:
       propertyPath: Material
       value: 
       objectReference: {fileID: 2100000, guid: 69c0e59834c86b44db8967832d4f3288, type: 2}
+    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+        type: 3}
+      propertyPath: StructuralMaterials.resources._values.Array.data[0]
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+        type: 3}
+      propertyPath: ProcessMaterials.resources._values.Array.data[1]
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+        type: 3}
+      propertyPath: ProcessMaterials.resources._values.Array.data[0]
+      value: 10000
+      objectReference: {fileID: 0}
     - target: {fileID: 7013136166321163157, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
         type: 3}
       propertyPath: m_LocalPosition.y

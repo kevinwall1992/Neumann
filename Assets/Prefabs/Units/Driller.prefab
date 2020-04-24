@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15474faa6bb88574c9c526dd858c45ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnergyPerSecond: 10
-  VolumePerSecond: 1
+  EnergyPerSecond: 100
+  ToolsPerSecond: 10
+  VolumePerSecond: 30
 --- !u!1001 &4325793516563646409
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -205,6 +206,21 @@ PrefabInstance:
       propertyPath: Material
       value: 
       objectReference: {fileID: 2100000, guid: db38604c46947d04d9324fd972d90643, type: 2}
+    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+        type: 3}
+      propertyPath: StructuralMaterials.resources._values.Array.data[0]
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+        type: 3}
+      propertyPath: ProcessMaterials.resources._values.Array.data[1]
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+        type: 3}
+      propertyPath: ProcessMaterials.resources._values.Array.data[0]
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 8855189207282649161, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
         type: 3}
       propertyPath: Size

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NanolathingLineController: {fileID: 7083338521526261788}
-  Rate: 2
+  Rate: 10
   Reach: 0.1
   Blueprints:
-  - {fileID: 9002213935027407072, guid: 819b38a0f101f9041abd7cc8bea357b4, type: 3}
   - {fileID: 4356657077312089204, guid: 390e5cddefb189c459a3a00edc751d17, type: 3}
+  - {fileID: 1627884479501545748, guid: d272c98a090b469438a1b08256e24306, type: 3}
   - {fileID: 6321863818232927199, guid: 5bcb51fc104513f47864ba8c79f28c9d, type: 3}
   - {fileID: 1711292086297902340, guid: a8c0d2b0469783446b910330b4160994, type: 3}
   CanBuildSelf: 0
@@ -35,7 +35,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87d1b15d3f8a57443b12e4b37aded0df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Force: 400
+  Force: 500
   Propellent:
     resources:
       reorderableList:
@@ -66,11 +66,11 @@ MonoBehaviour:
       - Name: Energy
       _values:
       - 10
-  TopSpeed: 1
+  TopSpeed: 1.5
   FrictionCoefficient_Unbraked: 0.2
   FrictionCoefficient_Braked: 1
   FrictionCoefficient_Skid: 1
-  TurningSpeed: 0.2
+  TurningSpeed: 0.3
 --- !u!1001 &2465647275579354162
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -267,11 +267,31 @@ PrefabInstance:
       propertyPath: DefaultMaterial
       value: 
       objectReference: {fileID: 2100000, guid: c20bb3ed9a84dfa43ab133675b35a95b, type: 2}
+    - target: {fileID: 5082210193747183251, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+        type: 3}
+      propertyPath: BaseHeight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5455185099661590712, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
         type: 3}
       propertyPath: Material
       value: 
       objectReference: {fileID: 2100000, guid: c20bb3ed9a84dfa43ab133675b35a95b, type: 2}
+    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+        type: 3}
+      propertyPath: StructuralMaterials.resources._values.Array.data[0]
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+        type: 3}
+      propertyPath: ProcessMaterials.resources._values.Array.data[0]
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+        type: 3}
+      propertyPath: ProcessMaterials.resources._values.Array.data[1]
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 7013136166321163157, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -286,6 +306,17 @@ PrefabInstance:
         type: 3}
       propertyPath: Mass
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 9071426788684750279, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+        type: 3}
+      propertyPath: Icon
+      value: 
+      objectReference: {fileID: 21300000, guid: b0a0aa4d117b812478f0d68f31eba6de,
+        type: 3}
+    - target: {fileID: 9071426788684750279, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+        type: 3}
+      propertyPath: Name
+      value: Gantry
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0, type: 3}

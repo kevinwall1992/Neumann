@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnergyPerSecond: 10
+  ToolsPerSecond: 0
   VolumePerSecond: 1
   RefineTasks:
   - OptimalDistance: 10

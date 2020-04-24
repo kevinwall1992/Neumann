@@ -704,15 +704,18 @@ MonoBehaviour:
       isExpanded: 1
       _keyValues:
       - Name: Energy
-      - Name: Credits
+      - Name: Helium-3
       - Name: Iron Parts
+      - Name: Tools
       _keys:
       - Name: Energy
-      - Name: Credits
+      - Name: Helium-3
       - Name: Iron Parts
+      - Name: Tools
       _values:
-      - 1000
+      - 0
       - 100
+      - 150
       - 10
 --- !u!4 &376292582
 Transform:

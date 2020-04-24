@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NanolathingLineController: {fileID: 714407747659328754}
-  Rate: 2
+  Rate: 8
   Reach: 4
-  Blueprints: []
-  CanBuildSelf: 1
+  Blueprints:
+  - {fileID: 9002213935027407072, guid: 819b38a0f101f9041abd7cc8bea357b4, type: 3}
+  - {fileID: 1807679624119920341, guid: 6ec5cc9bd2c8755429a4caa422c25460, type: 3}
+  - {fileID: 8873086530340816998, guid: 79a4ca7c0e70fe54da2d2f0cea1865d5, type: 3}
+  CanBuildSelf: 0
   FixedConstructionSite: {x: 0, y: 0, z: 0}
   UseFixedConstructionSite: 0
 --- !u!114 &8958422492338022333
@@ -236,7 +239,22 @@ PrefabInstance:
     - target: {fileID: 5082210193747183251, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
         type: 3}
       propertyPath: BaseHeight
-      value: 1
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+        type: 3}
+      propertyPath: StructuralMaterials.resources._values.Array.data[0]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+        type: 3}
+      propertyPath: ProcessMaterials.resources._values.Array.data[0]
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679919706389045170, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
+        type: 3}
+      propertyPath: ProcessMaterials.resources._values.Array.data[1]
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7013136166321163157, guid: 1b44c9ae98c2bb541a2530eef2cbe6a0,
         type: 3}
