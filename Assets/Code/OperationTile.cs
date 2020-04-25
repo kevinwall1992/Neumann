@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class OperationTile : Tile
 {
@@ -10,9 +9,12 @@ public class OperationTile : Tile
 
     [SerializeField]
     OperationTileIONode input_node = null, output_node = null;
+    public OperationTileIONode InputNode { get { return input_node; } }
+    public OperationTileIONode OutputNode { get { return output_node; } }
 
     [SerializeField]
     OperationTileGotoNode goto_node = null;
+    public OperationTileGotoNode GotoNode { get { return goto_node; } }
 
     [SerializeField]
     RectTransform goto_attach_position = null;
@@ -49,9 +51,9 @@ public class OperationTile : Tile
             underlay.color = Color.clear;
             underlay.sprite = null;
 
-            input_node.gameObject.SetActive(false);
-            output_node.gameObject.SetActive(false);
-            goto_node.gameObject.SetActive(false);
+            InputNode.gameObject.SetActive(false);
+            OutputNode.gameObject.SetActive(false);
+            GotoNode.gameObject.SetActive(false);
 
             if (Operation != null)
             {
@@ -67,11 +69,11 @@ public class OperationTile : Tile
                 }
 
                 if (Operation.TakesInput)
-                    input_node.VariableTile = VariableTile.Find(Operation.Input.PrimaryVariableName);
+                    InputNode.VariableTile = VariableTile.Find(Operation.Input.PrimaryVariableName);
                 if (Operation.HasOutput)
-                    output_node.VariableTile = VariableTile.Find(Operation.Output.PrimaryVariableName);
+                    OutputNode.VariableTile = VariableTile.Find(Operation.Output.PrimaryVariableName);
                 if (Operation.TakesGoto)
-                    goto_node.GotoOperationTile =
+                    GotoNode.GotoOperationTile =
                         Scene.Main.UnitInterface.ProgramInterface.Tiles
                         .Find(tile => (tile as OperationTile).Operation == Operation.Goto) as OperationTile;
             }
@@ -120,9 +122,9 @@ public class OperationTile : Tile
         //in the editor because of prefab rules. 
         underlay.transform.SetAsFirstSibling();
 
-        input_node.gameObject.SetActive(false);
-        output_node.gameObject.SetActive(false);
-        goto_node.gameObject.SetActive(false);
+        InputNode.gameObject.SetActive(false);
+        OutputNode.gameObject.SetActive(false);
+        GotoNode.gameObject.SetActive(false);
     }
 
     protected override void Update()
@@ -151,38 +153,38 @@ public class OperationTile : Tile
   
         SelectionOverlay.gameObject.SetActive(IsSelected);
 
-        input_node.gameObject.SetActive(Operation.TakesInput);
-        output_node.gameObject.SetActive(Operation.HasOutput);
-        goto_node.gameObject.SetActive(Operation.TakesGoto);
+        InputNode.gameObject.SetActive(Operation.TakesInput);
+        OutputNode.gameObject.SetActive(Operation.HasOutput);
+        GotoNode.gameObject.SetActive(Operation.TakesGoto);
 
 
         if (IsInProgramInterface)
         {
-            if (input_node.VariableTile != null)
-                Operation.Input.PrimaryVariableName = input_node.VariableTile.Variable.Name;
-            if (output_node.VariableTile != null)
-                Operation.Output.PrimaryVariableName = output_node.VariableTile.Variable.Name;
-            if (goto_node.GotoOperationTile != null)
-                Operation.Goto = goto_node.GotoOperationTile.Operation;
+            if (InputNode.VariableTile != null)
+                Operation.Input.PrimaryVariableName = InputNode.VariableTile.Variable.Name;
+            if (OutputNode.VariableTile != null)
+                Operation.Output.PrimaryVariableName = OutputNode.VariableTile.Variable.Name;
+            if (GotoNode.GotoOperationTile != null)
+                Operation.Goto = GotoNode.GotoOperationTile.Operation;
         }
         else if(IsInOperationMenu && IsSelected)
         {
             bool is_complete = false;
             if (operation.TakesGoto)
-                is_complete = goto_node.GotoOperationTile != null;
-            else if((!operation.TakesInput || input_node.VariableTile != null) && 
-                    (!operation.HasOutput || output_node.VariableTile != null))
+                is_complete = GotoNode.GotoOperationTile != null;
+            else if((!operation.TakesInput || InputNode.VariableTile != null) && 
+                    (!operation.HasOutput || OutputNode.VariableTile != null))
                 is_complete = true;
 
             if (is_complete)
             {
                 Operation operation = Operation.Instantiate();
-                if(operation.TakesInput && input_node.VariableTile != null)
-                    operation.Input.PrimaryVariableName = input_node.VariableTile.Variable.Name;
-                if(operation.HasOutput && output_node.VariableTile != null)
-                    operation.Output.PrimaryVariableName = output_node.VariableTile.Variable.Name;
-                if (operation.TakesGoto && goto_node.GotoOperationTile != null)
-                    operation.Goto = goto_node.GotoOperationTile.Operation;
+                if(operation.TakesInput && InputNode.VariableTile != null)
+                    operation.Input.PrimaryVariableName = InputNode.VariableTile.Variable.Name;
+                if(operation.HasOutput && OutputNode.VariableTile != null)
+                    operation.Output.PrimaryVariableName = OutputNode.VariableTile.Variable.Name;
+                if (operation.TakesGoto && GotoNode.GotoOperationTile != null)
+                    operation.Goto = GotoNode.GotoOperationTile.Operation;
 
                 Unit.Program.Add(operation);
                 if(Input.GetKey(KeyCode.LeftShift))
@@ -201,19 +203,19 @@ public class OperationTile : Tile
                     }
                 }
 
-                input_node.VariableTile = null;
-                input_node.IsSelected = false;
-                output_node.VariableTile = null;
-                output_node.IsSelected = false;
-                goto_node.GotoOperationTile = null;
-                goto_node.IsSelected = false;
+                InputNode.VariableTile = null;
+                InputNode.IsSelected = false;
+                OutputNode.VariableTile = null;
+                OutputNode.IsSelected = false;
+                GotoNode.GotoOperationTile = null;
+                GotoNode.IsSelected = false;
                 IsSelected = false;
             }
         }
 
         if (!InputUtility.DidDragOccur()  &&
             this.IsPointedAt() && 
-            !input_node.IsPointedAt() && !output_node.IsPointedAt() && !goto_node.IsPointedAt() && 
+            !InputNode.IsPointedAt() && !OutputNode.IsPointedAt() && !GotoNode.IsPointedAt() && 
             this.UseMouseLeftRelease())
         {
             if (IsInOperationMenu)
@@ -233,20 +235,20 @@ public class OperationTile : Tile
 
         if(IsSelected)
         {
-            if (Operation.TakesInput && input_node.VariableTile == null && !Operation.TakesGoto)
+            if (Operation.TakesInput && InputNode.VariableTile == null && !Operation.TakesGoto)
             {
-                if(!input_node.IsSelected)
-                    input_node.IsSelected = true;
+                if(!InputNode.IsSelected)
+                    InputNode.IsSelected = true;
             }
-            else if (Operation.HasOutput && output_node.VariableTile == null)
+            else if (Operation.HasOutput && OutputNode.VariableTile == null)
             {
-                if(!output_node.IsSelected)
-                    output_node.IsSelected = true;
+                if(!OutputNode.IsSelected)
+                    OutputNode.IsSelected = true;
             }
-            else if (Operation.TakesGoto && goto_node.GotoOperationTile == null)
+            else if (Operation.TakesGoto && GotoNode.GotoOperationTile == null)
             {
-                if (!goto_node.IsSelected)
-                    goto_node.IsSelected = true;
+                if (!GotoNode.IsSelected)
+                    GotoNode.IsSelected = true;
             }
         }
 

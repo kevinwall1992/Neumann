@@ -6,7 +6,7 @@ using System.Linq;
 
 
 [RequireComponent(typeof(Waster))]
-public class Refiner : Appliance, HasVariables
+public class Refiner : Appliance, HasVariables, HasLoadSite, HasUnloadSite
 {
     public float VolumePerSecond;
 
@@ -17,6 +17,13 @@ public class Refiner : Appliance, HasVariables
     public override IEnumerable<Operation> Abilities { get { return RefineTasks; } }
 
     public List<Variable> Variables { get { return Utility.List<Variable>(CycleCount); } }
+
+    public bool HasLoadSite { get { return Unit.Task is RefineTask; } }
+    public Vector3 LoadSite { get { return (Unit.Task as RefineTask).Target.Position; } }
+    public float LoadSiteRadius { get { return Loader.GetRange(VolumePerSecond); } }
+
+    public bool HasUnloadSite { get { return Unit.Task is RefineTask; } }
+    public Vector3 UnloadSite { get { return (Unit.Task as RefineTask).Destination.Position; } }
 
     public Waster Waster { get { return GetComponent<Waster>(); } }
 
@@ -100,7 +107,7 @@ public class RefineBehavior : ApplianceBehavior
 
 
 [System.Serializable]
-public class RefineTask : TransportEfficiencyTask
+public class RefineTask : TransportEfficiencyTask, HasLoadSite, HasUnloadSite
 {
     [System.Serializable]
     public class ResourceAffinityMap : SerializableDictionaryBase<Resource, float> { }
@@ -123,6 +130,53 @@ public class RefineTask : TransportEfficiencyTask
     public override bool IsComplete { get { return false; } }
 
     public override bool HasOutput { get { return true; } }
+
+    public bool HasLoadSite
+    {
+        get
+        {
+            if (Target != null)
+                return true;
+
+            return OperationTileNode.Selected != null &&
+                   OperationTileNode.Selected.OperationTile.Operation == this &&
+                   (OperationTileNode.Selected is OperationTileIONode) &&
+                   (OperationTileNode.Selected as OperationTileIONode).IsInputNode;
+        }
+    }
+    public Vector3 LoadSite { get { return SpeculativeTarget.Position; } }
+    public float LoadSiteRadius
+    {
+        get
+        {
+            Refiner refiner = Scene.Main.UnitInterface.Unit.GetComponent<Refiner>();
+
+            return Loader.GetRange(refiner.VolumePerSecond);
+        }
+    }
+    public bool HasUnloadSite
+    {
+        get
+        {
+            if (Unit != null && Output.IsConnected(Unit))
+                return true;
+
+            return OperationTileNode.Selected != null &&
+                   OperationTileNode.Selected.OperationTile.Operation == this &&
+                   (OperationTileNode.Selected is OperationTileIONode) &&
+                   !(OperationTileNode.Selected as OperationTileIONode).IsInputNode;
+        }
+    }
+    public Vector3 UnloadSite
+    {
+        get
+        {
+            if (Unit != null && Output.IsConnected(Unit))
+                return Destination.Position;
+
+            return Scene.Main.World.Asteroid.GetWorldPositionPointedAt();
+        }
+    }
 
     public RefineTask(SerializableDictionaryBase<Resource, float> affinities,
                       float gangue_affinity,

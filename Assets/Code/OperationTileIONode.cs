@@ -29,6 +29,8 @@ public class OperationTileIONode : OperationTileNode
         }
     }
 
+    public bool IsInputNode { get { return OperationTile.InputNode == this; } }
+
     protected override void Start()
     {
         base.Start();
