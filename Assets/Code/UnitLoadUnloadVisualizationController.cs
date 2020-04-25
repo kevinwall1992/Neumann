@@ -25,19 +25,15 @@ public class UnitLoadUnloadVisualizationController : MonoBehaviour
 
     void Start()
     {
-        Transform container = Scene.Main._3DUIElementContainer.transform;
-
-        input_line.gameObject.SetActive(true);
-        input_line.transform.SetParent(container);
-
-        input_circle.Line.gameObject.SetActive(true);
-        input_circle.Line.transform.SetParent(container);
-
-        output_line.gameObject.SetActive(true);
-        output_line.transform.SetParent(container);
-
-        output_circle.Line.gameObject.SetActive(true);
-        output_circle.Line.transform.SetParent(container);
+        foreach(GameObject game_object in Utility.List(input_line.gameObject, 
+                                                       input_circle.Line.gameObject, 
+                                                       output_line.gameObject, 
+                                                       output_circle.Line.gameObject))
+        {
+            game_object.SetActive(true);
+            game_object.transform.SetParent(Scene.Main._3DUIElementContainer.transform);
+            game_object.transform.localScale = new Vector3(1, 1, 1);
+        }
     }
 
     void Update()
