@@ -17,6 +17,11 @@ public class UnitLoadUnloadVisualizationController : MonoBehaviour
     CircleLineController output_circle = null;
 
     [SerializeField]
+    LineRenderer waste_line = null;
+    [SerializeField]
+    CircleLineController waste_circle = null;
+
+    [SerializeField]
     float Height = 0.5f;
 
     UnitInterface UnitInterface { get { return Scene.Main.UnitInterface; } }
@@ -27,7 +32,8 @@ public class UnitLoadUnloadVisualizationController : MonoBehaviour
     {
         foreach(GameObject game_object in Utility.List(
             input_line.gameObject, input_circle.Line.gameObject, 
-            output_line.gameObject, output_circle.Line.gameObject))
+            output_line.gameObject, output_circle.Line.gameObject,
+            waste_line.gameObject, waste_circle.Line.gameObject))
         {
             game_object.SetActive(true);
             game_object.transform.SetParent(Scene.Main._3DUIElementContainer.transform);
@@ -42,6 +48,9 @@ public class UnitLoadUnloadVisualizationController : MonoBehaviour
 
         output_line.enabled = false;
         output_circle.Line.enabled = false;
+
+        waste_line.enabled = false;
+        waste_circle.Line.enabled = false;
 
         if (!Unit.IsSelected)
             return;
@@ -131,6 +140,63 @@ public class UnitLoadUnloadVisualizationController : MonoBehaviour
                 output_circle.Line.enabled = true;
                 output_circle.transform.position = deposit.transform.position + normal_displacment;
                 output_circle.Radius = deposit.Extent;
+            }
+        }
+
+
+        SelectWasteSiteOperation select_waste_site_operation = null;
+        Waster waster = null;
+
+        if (OperationTileNode.Selected != null &&
+            OperationTileNode.Selected.OperationTile.Operation is SelectWasteSiteOperation)
+            select_waste_site_operation = OperationTileNode.Selected.OperationTile
+                .Operation as SelectWasteSiteOperation;
+
+        else if (operation_tile_touched != null &&
+                operation_tile_touched.Operation is SelectWasteSiteOperation && 
+                (operation_tile_touched.Operation as SelectWasteSiteOperation).Input.IsConnected(Unit))
+            select_waste_site_operation = (operation_tile_touched.Operation as SelectWasteSiteOperation);
+
+        else if (Unit.HasComponent<Waster>())
+        {
+            waster = Unit.GetComponent<Waster>();
+
+            if (waster.WasteNot)
+                waster = null;
+        }
+
+        if (waster != null || select_waste_site_operation != null)
+        {
+            Vector3 waste_site;
+            if (waster != null)
+                waste_site = waster.WasteSite;
+            else if (select_waste_site_operation.Input.IsConnected(Unit))
+                waste_site = select_waste_site_operation.Input.Read<Vector3>(Unit);
+            else
+                waste_site = Scene.Main.World.Asteroid.GetWorldPositionPointedAt();
+
+            SurfaceDeposit deposit = Scene.Main.World.Asteroid.Surface
+                .GetNearestOverlappingDeposit(waste_site) as SurfaceDeposit;
+
+            Vector3 start_position = Unit.Physical.Position + normal_displacment;
+            Vector3 end_position = waste_site + normal_displacment;
+            Vector3 displacement = end_position - start_position;
+
+            waste_line.enabled = true;
+            waste_line.SetPosition(0, start_position + displacement.normalized * Mathf.Sqrt(2) * Unit.Physical.Size);
+            waste_line.SetPosition(1, end_position);
+
+            if (deposit != null)
+            {
+                end_position = deposit.transform.position + normal_displacment;
+                waste_line.SetPosition(1, end_position - displacement.normalized * (deposit.Extent + 1));
+
+                if ((waste_line.GetPosition(1) - waste_line.GetPosition(0)).Dot(displacement.normalized) < 2)
+                    waste_line.SetPosition(0, waste_line.GetPosition(1) - displacement.normalized * 2);
+
+                waste_circle.Line.enabled = true;
+                waste_circle.transform.position = deposit.transform.position + normal_displacment;
+                waste_circle.Radius = deposit.Extent;
             }
         }
     }
