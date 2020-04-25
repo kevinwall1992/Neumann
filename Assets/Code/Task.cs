@@ -20,7 +20,9 @@ public abstract class Task : Operation
     {
         get
         {
-            if (Target != null)
+            if (Target != null && 
+                (OperationTileNode.Selected == null || 
+                 OperationTileNode.Selected.OperationTile.Operation != this))
                 return Target;
 
             return Scene.Main.World.Asteroid.GetWorldPositionPointedAt();
