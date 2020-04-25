@@ -16,6 +16,17 @@ public abstract class Task : Operation
             return Target.Convert(Input.Read(Unit));
         }
     }
+    public Target SpeculativeTarget
+    {
+        get
+        {
+            if (Target != null)
+                return Target;
+
+            return Scene.Main.World.Asteroid.GetWorldPositionPointedAt();
+        }
+    }
+
     public override bool TakesInput { get { return true; } }
 
     public abstract bool IsComplete { get; }

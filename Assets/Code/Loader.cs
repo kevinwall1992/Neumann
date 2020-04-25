@@ -84,7 +84,7 @@ public class Loader : Profession, HasLoadSite, HasUnloadSite
 }
 
 
-public class LoadTask : Task
+public class LoadTask : Task, HasLoadSite
 {
     public override bool IsComplete { get { return Loader.IsLoaded; } }
 
@@ -94,6 +94,19 @@ public class LoadTask : Task
         {
             return Unit.Physical.Position
                 .Distance(Target.Position) < Loader.DistanceTolerance;
+        }
+    }
+
+    public bool HasLoadSite { get { return true; } }
+    public Vector3 LoadSite { get { return SpeculativeTarget.Position; } }
+
+    public float LoadSiteRadius
+    {
+        get
+        {
+            Loader loader = Scene.Main.UnitInterface.Unit.GetComponent<Loader>();
+
+            return Loader.GetRange(loader.Volume);
         }
     }
 
@@ -116,7 +129,7 @@ public class LoadTask : Task
 }
 
 
-public class UnloadTask : Task
+public class UnloadTask : Task, HasUnloadSite
 {
     public override bool IsComplete { get { return Loader.IsUnloaded; } }
 
@@ -128,6 +141,9 @@ public class UnloadTask : Task
                 .Distance(Target.Position) < Loader.DistanceTolerance;
         }
     }
+
+    public bool HasUnloadSite { get { return true; } }
+    public Vector3 UnloadSite { get { return SpeculativeTarget.Position; } }
 
     public Loader Loader { get { return Unit.GetComponent<Loader>(); } }
 

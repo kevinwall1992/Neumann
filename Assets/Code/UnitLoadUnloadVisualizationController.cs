@@ -4,20 +4,20 @@ using System.Collections;
 public class UnitLoadUnloadVisualizationController : MonoBehaviour
 {
     [SerializeField]
-    Unit unit;
+    Unit unit = null;
 
     [SerializeField]
-    LineRenderer input_line;
+    LineRenderer input_line = null;
     [SerializeField]
-    CircleLineController input_circle;
+    CircleLineController input_circle = null;
 
     [SerializeField]
-    LineRenderer output_line;
+    LineRenderer output_line = null;
     [SerializeField]
-    CircleLineController output_circle;
+    CircleLineController output_circle = null;
 
     [SerializeField]
-    float Height;
+    float Height = 0.5f;
 
     UnitInterface UnitInterface { get { return Scene.Main.UnitInterface; } }
 
@@ -25,11 +25,19 @@ public class UnitLoadUnloadVisualizationController : MonoBehaviour
 
     void Start()
     {
+        Transform container = Scene.Main._3DUIElementContainer.transform;
+
         input_line.gameObject.SetActive(true);
+        input_line.transform.SetParent(container);
+
         input_circle.Line.gameObject.SetActive(true);
+        input_circle.Line.transform.SetParent(container);
 
         output_line.gameObject.SetActive(true);
+        output_line.transform.SetParent(container);
+
         output_circle.Line.gameObject.SetActive(true);
+        output_circle.Line.transform.SetParent(container);
     }
 
     void Update()
@@ -44,14 +52,24 @@ public class UnitLoadUnloadVisualizationController : MonoBehaviour
             return;
 
         Vector3 normal_displacment = new Vector3(0, Height, 0);
+        OperationTile operation_tile_touched = InputUtility.GetElementTouched<OperationTile>();
 
 
         //Load site visualization
         HasLoadSite has_load_site = null;
+
         if (OperationTileNode.Selected != null)
             has_load_site = OperationTileNode.Selected.OperationTile.Operation as HasLoadSite;
+
+        else if (operation_tile_touched != null &&
+                operation_tile_touched.Operation is HasLoadSite &&
+                operation_tile_touched.Operation is Task &&
+                (operation_tile_touched.Operation as Task).Target != null)
+            has_load_site = operation_tile_touched.Operation as HasLoadSite;
+
         else if (Unit.HasComponent<HasLoadSite>())
             has_load_site = Unit.GetComponent<HasLoadSite>();
+
         if (has_load_site != null && has_load_site.HasLoadSite)
         {
             Vector3 start_position = Unit.Physical.Position + normal_displacment;
@@ -74,10 +92,19 @@ public class UnitLoadUnloadVisualizationController : MonoBehaviour
 
         //Unload site visualization
         HasUnloadSite has_unload_site = null;
+
         if (OperationTileNode.Selected != null)
             has_unload_site = OperationTileNode.Selected.OperationTile.Operation as HasUnloadSite;
+
+        else if (operation_tile_touched != null &&
+                operation_tile_touched.Operation is HasUnloadSite &&
+                operation_tile_touched.Operation is Task &&
+                (operation_tile_touched.Operation as Task).Target != null)
+            has_unload_site = operation_tile_touched.Operation as HasUnloadSite;
+
         else if (Unit.HasComponent<HasUnloadSite>())
             has_unload_site = Unit.GetComponent<HasUnloadSite>();
+
         if (has_unload_site != null && has_unload_site.HasUnloadSite)
         {
             SurfaceDeposit deposit = Scene.Main.World.Asteroid.Surface
