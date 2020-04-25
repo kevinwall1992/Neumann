@@ -38,7 +38,7 @@ public class World : MonoBehaviour, HasVariables
 
     void Update()
     {
-        variables = Memory.Variables.Merged(PlayerTeam.Stock.Variables);
+        UpdateVariables();
     }
 
     public string MemorizePosition(Vector3 position)
@@ -50,8 +50,13 @@ public class World : MonoBehaviour, HasVariables
         name = "Position " + Memory.Count<Vector3>();
         Memory.Memorize(name, position);
 
+        UpdateVariables();
+
         return name;
     }
 
-    
+    void UpdateVariables()
+    {
+        variables = Memory.Variables.Merged(PlayerTeam.Stock.Variables);
+    }
 }
