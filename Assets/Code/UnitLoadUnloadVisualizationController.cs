@@ -58,7 +58,8 @@ public class UnitLoadUnloadVisualizationController : MonoBehaviour
         //Load site visualization
         HasLoadSite has_load_site = null;
 
-        if (OperationTileNode.Selected != null)
+        if (OperationTileNode.Selected != null && 
+            OperationTileNode.Selected.OperationTile.Operation is HasLoadSite)
             has_load_site = OperationTileNode.Selected.OperationTile.Operation as HasLoadSite;
 
         else if (operation_tile_touched != null &&
@@ -93,7 +94,8 @@ public class UnitLoadUnloadVisualizationController : MonoBehaviour
         //Unload site visualization
         HasUnloadSite has_unload_site = null;
 
-        if (OperationTileNode.Selected != null)
+        if (OperationTileNode.Selected != null && 
+            OperationTileNode.Selected.OperationTile.Operation is HasUnloadSite)
             has_unload_site = OperationTileNode.Selected.OperationTile.Operation as HasUnloadSite;
 
         else if (operation_tile_touched != null &&
