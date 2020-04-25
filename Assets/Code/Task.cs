@@ -6,7 +6,16 @@ public abstract class Task : Operation
 {
     protected Unit Unit { get; private set; }
 
-    public Target Target { get { return Target.Convert(Input.Read(Unit)); } }
+    public Target Target
+    {
+        get
+        {
+            if (Unit == null)
+                return null;
+
+            return Target.Convert(Input.Read(Unit));
+        }
+    }
     public override bool TakesInput { get { return true; } }
 
     public abstract bool IsComplete { get; }
