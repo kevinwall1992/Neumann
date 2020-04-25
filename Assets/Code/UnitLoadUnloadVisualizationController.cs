@@ -25,10 +25,9 @@ public class UnitLoadUnloadVisualizationController : MonoBehaviour
 
     void Start()
     {
-        foreach(GameObject game_object in Utility.List(input_line.gameObject, 
-                                                       input_circle.Line.gameObject, 
-                                                       output_line.gameObject, 
-                                                       output_circle.Line.gameObject))
+        foreach(GameObject game_object in Utility.List(
+            input_line.gameObject, input_circle.Line.gameObject, 
+            output_line.gameObject, output_circle.Line.gameObject))
         {
             game_object.SetActive(true);
             game_object.transform.SetParent(Scene.Main._3DUIElementContainer.transform);
@@ -69,20 +68,25 @@ public class UnitLoadUnloadVisualizationController : MonoBehaviour
 
         if (has_load_site != null && has_load_site.HasLoadSite)
         {
-            Vector3 start_position = Unit.Physical.Position + normal_displacment;
-            Vector3 end_position = has_load_site.LoadSite + normal_displacment;
+            Vector3 start_position = has_load_site.LoadSite + normal_displacment;
+            Vector3 end_position = Unit.Physical.Position + normal_displacment;
             Vector3 displacement = end_position - start_position;
-            float line_length = displacement.magnitude - has_load_site.LoadSiteRadius;
 
-            if (line_length > 0)
+            input_line.enabled = true;
+            if (displacement.magnitude > (has_load_site.LoadSiteRadius + Unit.Physical.Size * Mathf.Sqrt(2)))
             {
-                input_line.enabled = true;
-                input_line.SetPosition(0, start_position);
-                input_line.SetPosition(1, start_position + displacement.normalized * line_length);
+                input_line.SetPosition(0, start_position + displacement.normalized *
+                                                           has_load_site.LoadSiteRadius);
+                input_line.SetPosition(1, end_position - displacement.normalized * Unit.Physical.Size * Mathf.Sqrt(2));
+            }
+            else
+            {
+                input_line.SetPosition(0, start_position + displacement.normalized * has_load_site.LoadSiteRadius);
+                input_line.SetPosition(1, input_line.GetPosition(0) + displacement.normalized * 0.1f);
             }
 
             input_circle.Line.enabled = true;
-            input_circle.transform.position = end_position;
+            input_circle.transform.position = start_position;
             input_circle.Radius = has_load_site.LoadSiteRadius;
         }
 
@@ -108,12 +112,22 @@ public class UnitLoadUnloadVisualizationController : MonoBehaviour
             SurfaceDeposit deposit = Scene.Main.World.Asteroid.Surface
                 .GetNearestOverlappingDeposit(has_unload_site.UnloadSite) as SurfaceDeposit;
 
+            Vector3 start_position = Unit.Physical.Position + normal_displacment;
+            Vector3 end_position = has_unload_site.UnloadSite + normal_displacment;
+            Vector3 displacement = end_position - start_position;
+
             output_line.enabled = true;
-            output_line.SetPosition(0, Unit.Physical.Position + normal_displacment);
-            output_line.SetPosition(1, has_unload_site.UnloadSite + normal_displacment);
+            output_line.SetPosition(0, start_position + displacement.normalized * Mathf.Sqrt(2) * Unit.Physical.Size);
+            output_line.SetPosition(1, end_position);
 
             if (deposit != null)
             {
+                end_position = deposit.transform.position + normal_displacment;
+                output_line.SetPosition(1, end_position - displacement.normalized * (deposit.Extent + 1));
+
+                if ((output_line.GetPosition(1) - output_line.GetPosition(0)).Dot(displacement.normalized) < 2)
+                    output_line.SetPosition(0, output_line.GetPosition(1) - displacement.normalized * 2);
+
                 output_circle.Line.enabled = true;
                 output_circle.transform.position = deposit.transform.position + normal_displacment;
                 output_circle.Radius = deposit.Extent;
