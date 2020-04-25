@@ -5,13 +5,17 @@ using System.Linq;
 
 
 [RequireComponent(typeof(Waster))]
-public class Processor : Appliance
+public class Processor : Appliance, HasLoadSite
 {
     public float VolumePerSecond;
 
     public List<ProcessTask> ProcessTasks = new List<ProcessTask>();
 
     public override IEnumerable<Operation> Abilities { get { return ProcessTasks; } }
+
+    public bool HasLoadSite { get { return Unit.Task is ProcessTask; } }
+    public Vector3 LoadSite { get { return (Unit.Task as ProcessTask).Target.Position; } }
+    public float LoadSiteRadius { get { return Loader.GetRange(VolumePerSecond); } }
 
     public Waster Waster { get { return GetComponent<Waster>(); } }
 
@@ -140,7 +144,7 @@ public abstract class TransportEfficiencyTask : Task
 }
 
 [System.Serializable]
-public class ProcessTask : TransportEfficiencyTask
+public class ProcessTask : TransportEfficiencyTask, HasLoadSite
 {
     public Pile Feedstock;
     public Pile Product;
@@ -154,6 +158,18 @@ public class ProcessTask : TransportEfficiencyTask
     public override bool IsComplete
     {
         get { return false; }
+    }
+
+    public bool HasLoadSite { get { return true; } }
+    public Vector3 LoadSite { get { return SpeculativeTarget.Position; } }
+    public float LoadSiteRadius
+    {
+        get
+        {
+            Processor processor = Scene.Main.UnitInterface.Unit.GetComponent<Processor>();
+
+            return Loader.GetRange(processor.VolumePerSecond);
+        }
     }
 
     public ProcessTask(Pile feedstock,
