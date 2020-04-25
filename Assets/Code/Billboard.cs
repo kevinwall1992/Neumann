@@ -8,6 +8,6 @@ public class Billboard : MonoBehaviour
     {
         transform.localRotation = 
             Quaternion.LookRotation(transform.position - Scene.Main.Camera.transform.position, 
-                                    new Vector3(1, 0, 0));
+                                    Scene.Main.Camera.transform.up);
     }
 }
