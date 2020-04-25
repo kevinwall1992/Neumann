@@ -409,8 +409,11 @@ public static class InputUtility
         return transform.gameObject.IsPointedAt();
     }
 
-    public static T GetElementTouched<T>()
+    public static T GetElementTouched<T>() where T : class
     {
+        if (Scene.Main.InputModule.ElementTouched == null)
+            return null;
+
         return Scene.Main.InputModule.ElementTouched.GetComponentInParent<T>();
     }
 
