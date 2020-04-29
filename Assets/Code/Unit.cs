@@ -63,14 +63,6 @@ public class Unit : MonoBehaviour, HasVariables
 
         Memory.Memorize("Busy", () => Task != null);
 
-        Memory.Memorize("Iron Concentration", 
-            () => 100 * Scene.Main.World.Asteroid.Regolith
-                .GetConcentrationByVolume(Physical.Position, 1, new Resource("Iron")));
-
-        Memory.Memorize("Deep Iron Concentration", 
-            () => 100 * Scene.Main.World.Asteroid.Rock
-                .GetConcentrationByVolume(Physical.Position, 1, new Resource("Iron")));
-
         Scene.Main.World.Memory.Memorize(id = (Name + " Unit " + next_unit_id_number++), this);
     }
 
