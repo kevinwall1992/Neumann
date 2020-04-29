@@ -44,8 +44,6 @@ public class Refiner : Appliance, HasVariables, HasLoadSite, HasUnloadSite
 
 public class RefineBehavior : ApplianceBehavior
 {
-    float volume_per_second;
-
     public override float UsageFraction { get { return RefineTask.GetTransportEfficiency(); } }
 
     public Refiner Refiner { get { return GetComponent<Refiner>(); } }
