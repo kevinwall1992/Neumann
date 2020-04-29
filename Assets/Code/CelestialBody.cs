@@ -5,7 +5,7 @@ using System.Linq;
 
 [RequireComponent(typeof(Terrain))]
 [RequireComponent(typeof(TerrainCollider))]
-public class CelestialBody : MonoBehaviour
+public abstract class CelestialBody : MonoBehaviour, InfoBox.HasInfos
 {
     IEnumerable<SurfaceDeposit> SurfaceDeposits { get { return Surface.GetComponentsInChildren<SurfaceDeposit>(); } }
 
@@ -31,6 +31,9 @@ public class CelestialBody : MonoBehaviour
             return TerrainCollider.Raycast(Scene.Main.Camera.ScreenPointToRay(Input.mousePosition), out hit, 1000);
         }
     }
+
+    public abstract string Name { get; }
+    public abstract IEnumerable<InfoBox.Info> Infos { get; }
 
     protected virtual void Start()
     {

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 public class Asteroid : CelestialBody
 {
@@ -11,6 +13,19 @@ public class Asteroid : CelestialBody
 
     public Regolith Regolith { get { return regolith; } }
     public Stratum Rock { get { return rock; } }
+
+    public override string Name { get { return "Asteroid"; } }
+
+    public override IEnumerable<InfoBox.Info> Infos
+    {
+        get
+        {
+            return Regolith.GetSupplyWithinRange(
+                GetWorldPositionPointedAt(), 
+                Loader.GetRange(100))
+                .Infos;
+        }
+    }
 
     protected override void Start()
     {
