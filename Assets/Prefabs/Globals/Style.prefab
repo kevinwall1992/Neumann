@@ -46,7 +46,6 @@ MonoBehaviour:
   DefaultCursor:
     Texture: {fileID: 2800000, guid: 05383beb75aa2294b8f5255be2011e4a, type: 3}
     Hotspot: {x: 11, y: 11}
-  OperationMenu: {fileID: 0}
   BaseCanvasHeight: 597
   BasePadding: 12
   VerticalTileCount: 9

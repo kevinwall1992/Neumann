@@ -6,7 +6,6 @@ using RotaryHeart.Lib.SerializableDictionary;
 public class Style : MonoBehaviour
 {
     public Cursor DefaultCursor;
-    public OperationMenu OperationMenu;
     public int BaseCanvasHeight;
     public float BasePadding = 12;
     public int VerticalTileCount = 10;
@@ -71,7 +70,8 @@ public class Style : MonoBehaviour
     {
         scale = (Scene.Main.Canvas.transform as RectTransform).rect.height / BaseCanvasHeight;
 
-        float vertical_space = (OperationMenu.transform as RectTransform).rect.height - Padding;
+        OperationMenu operation_menu = Scene.Main.UnitInterface.OperationMenu;
+        float vertical_space = (operation_menu.transform as RectTransform).rect.height - Padding;
         tile_size = vertical_space / VerticalTileCount - Padding;
     }
 
