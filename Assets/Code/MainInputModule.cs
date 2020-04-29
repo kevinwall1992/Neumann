@@ -24,6 +24,8 @@ public class MainInputModule : StandaloneInputModule
     public bool IsDragOccurring { get; private set; }
     public bool DidDragOccur { get; private set; }
 
+    public bool DidMouseMove { get { return pointer_event_data.IsPointerMoving(); } }
+
     protected override void ProcessMove(PointerEventData pointerEvent)
     {
         base.ProcessMove(pointerEvent);

@@ -324,6 +324,8 @@ public static class InputUtility
     public static bool IsDragOccurring() { return Scene.Main.InputModule.IsDragOccurring; }
     public static bool DidDragOccur() { return Scene.Main.InputModule.DidDragOccur; }
 
+    public static bool DidMouseMove() { return Scene.Main.InputModule.DidMouseMove; }
+
     static MonoBehaviour mouse_left_release_claimer = null;
     static int mouse_left_release_claim_yield_frame = -1;
     static MonoBehaviour MouseLeftReleaseClaimer
