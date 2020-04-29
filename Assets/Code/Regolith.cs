@@ -6,7 +6,7 @@ public class Regolith : Stratum
     bool IsOccluded(Vector3 position, float range)
     {
         return Scene.Main.World.Asteroid.Surface
-            .GetVolumeWithinRange(position, range) > 0;
+            .GetSupplyWithinRange(position, range).Volume > 0;
     }
 
     public override Pile TakeSample(Vector3 position, float range, float volume)

@@ -33,15 +33,10 @@ public class Stratum : MonoBehaviour
             .First();
     }
 
-    public virtual float GetVolumeWithinRange(Vector3 position, float range, Resource resource = null)
+    public virtual Pile GetSupplyWithinRange(Vector3 position, float range, Resource resource = null)
     {
-        return Deposits.Sum(deposit => deposit.GetVolumeWithinRange(position, range, resource));
-    }
-
-    public virtual float GetConcentrationByVolume(Vector3 position, float range, Resource resource)
-    {
-        return GetVolumeWithinRange(position, range, resource) / 
-               GetVolumeWithinRange(position, range);
+        return Deposits.Aggregate(new Pile(), (pile, deposit) => pile
+            .PutIn(deposit.GetSupplyWithinRange(position, range, resource)));
     }
 
     public virtual Pile TakeSample(Vector3 position, float range, float volume)
@@ -49,7 +44,7 @@ public class Stratum : MonoBehaviour
         if (volume <= 0)
             return new Pile();
 
-        float volume_within_range = GetVolumeWithinRange(position, range);
+        float volume_within_range = GetSupplyWithinRange(position, range).Volume;
         if (volume_within_range == 0)
             return new Pile();
 
@@ -58,7 +53,7 @@ public class Stratum : MonoBehaviour
         Pile sample = new Pile();
         foreach (Deposit deposit in new List<Deposit>(Deposits))
         {
-            float volume_removed = deposit.GetVolumeWithinRange(position, range) * fraction;
+            float volume_removed = deposit.GetSupplyWithinRange(position, range).Volume * fraction;
 
             deposit.Volume -= volume_removed;
             if(deposit.Volume < 0.000001f)

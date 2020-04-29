@@ -32,6 +32,8 @@ public class Deposit : MonoBehaviour
         }
     }
 
+    public Pile Supply { get { return Composition.Normalized() * Volume; } }
+
     protected virtual void Start()
     {
         
@@ -56,17 +58,24 @@ public class Deposit : MonoBehaviour
 
     }
 
-    public float GetVolumeWithinRange(Vector3 position, float range, Resource resource = null)
+    //This is an approximation.
+    //Its fairly accurate only when range area << deposit area
+    public Pile GetSupplyWithinRange(Vector3 position, float range, Resource resource = null)
     {
         float distance = position.YChangedTo(0).Distance(transform.position.YChangedTo(0));
         if (distance > Extent)
-            return 0;
+            return new Pile();
+
+        Pile supply_within_range = new Pile().PutIn(Composition);
 
         float gaussian_weight = Mathf.Exp(-0.5f * Mathf.Pow(distance / Extent * 3, 2)) / Mathf.Sqrt(2 * Mathf.PI);
-        float relative_area = (range * range) / (Extent * Extent);
+        float relative_area = Mathf.Min(1, (range * range) / (Extent * Extent));
         float volume = Volume;
         if (resource != null)
-            volume = Composition.Normalized().GetVolumeOf(resource) * Volume;
+        {
+            volume = Supply.GetVolumeOf(resource);
+            supply_within_range = new Pile().PutIn(resource, 1);
+        }
 
         float volume_within_range = relative_area * volume;
 
@@ -77,7 +86,7 @@ public class Deposit : MonoBehaviour
                 break;
         }
 
-        return Mathf.Min(Volume, volume_within_range);
+        return supply_within_range.Normalized() * Mathf.Min(volume, volume_within_range);
     }
 
 
