@@ -6,7 +6,7 @@ using RotaryHeart.Lib.SerializableDictionary;
 
 
 [System.Serializable]
-public class Pile
+public class Pile : InfoBox.HasInfos
 {
     [System.Serializable]
     class ResourceQuantityMap : SerializableDictionaryBase<Resource, float> { }
@@ -31,6 +31,22 @@ public class Pile
                 TakeSlice(1 - value / Volume);
             else
                 PutIn(Normalized() * (value - Volume));
+        }
+    }
+
+    string InfoBox.HasInfos.Name { get { return "Pile"; } }
+
+    public IEnumerable<InfoBox.Info> Infos
+    {
+        get
+        {
+            return Resources
+                .Sorted(resource => GetVolumeOf(resource))
+                .Reversed().GetRange_NoExcuses(0, 3)
+                .Select(resource => new InfoBox.Info(
+                    resource.Name,
+                    GetVolumeOf(resource).ToString("F0") +
+                        " (" + (Normalized().GetVolumeOf(resource) * 100).ToString("F0") + "%)"));
         }
     }
 

@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 [ExecuteAlways]
-public class SurfaceDeposit : Deposit
+public class SurfaceDeposit : Deposit, InfoBox.HasInfos
 {
     public float MaxVolume = 0;
 
@@ -16,6 +18,10 @@ public class SurfaceDeposit : Deposit
             return Mathf.Max(0, Volume / MaxVolume);
         }
     }
+
+    string InfoBox.HasInfos.Name { get { return "Pile"; } }
+
+    public IEnumerable<InfoBox.Info> Infos { get { return Supply.Infos; } }
 
     protected override void Start()
     {

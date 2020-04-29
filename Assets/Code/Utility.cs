@@ -65,6 +65,14 @@ public static class Utility
         return element;
     }
 
+    public static List<T> GetRange_NoExcuses<T>(this List<T> list, int index, int count)
+    {
+        if (index < 0 || index >= list.Count)
+            return new List<T>();
+
+        return list.GetRange(index, Mathf.Min(count, list.Count - index));
+    }
+
     public static List<T> Reversed<T>(this List<T> list)
     {
         List<T> reversed = new List<T>(list);
