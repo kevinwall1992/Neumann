@@ -34,7 +34,6 @@ public class VariableTile : Tile
         string value_string = value.ToString();
         if (value is float)
             value_string = ((float)value).ToString("F1");
-        ValueText.text = value_string + Variable.Units;
 
         Image.sprite = Variable.Sprite;
         Image.color = Variable.Color;

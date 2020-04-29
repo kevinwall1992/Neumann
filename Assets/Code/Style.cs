@@ -112,7 +112,6 @@ public class Style : MonoBehaviour
     {
         public Sprite Sprite;
         public Color Color;
-        public string Units;
     }
     [System.Serializable]
     public class VariableStyleMap : SerializableDictionaryBase<string, Variable>

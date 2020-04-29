@@ -38,7 +38,6 @@ public abstract class Variable
     //Visualization
     public Sprite Sprite { get; set; }
     public Color Color { get; set; }
-    public string Units { get; set; }
 
 
     public static Variable Find(Unit unit, string name)
@@ -132,11 +131,10 @@ public class FunctionVariable : Variable
 
 public static class VariableExtensions
 {
-    public static Variable Stylize(this Variable variable, Sprite sprite, Color color, string units)
+    public static Variable Stylize(this Variable variable, Sprite sprite, Color color)
     {
         variable.Sprite = sprite;
         variable.Color = color;
-        variable.Units = units;
 
         return variable;
     }
@@ -144,8 +142,7 @@ public static class VariableExtensions
     public static Variable Stylize(this Variable variable, Style.Variable variable_style)
     {
         return variable.Stylize(variable_style.Sprite, 
-                                variable_style.Color, 
-                                variable_style.Units);
+                                variable_style.Color);
     }
 }
 
