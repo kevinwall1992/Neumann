@@ -44,11 +44,11 @@ public class Stock : MonoBehaviour, HasVariables
 
     private void Update()
     {
-        EnergyProduction = EnergyVolume - last_energy_volume;
+        EnergyProduction = (EnergyVolume - last_energy_volume) / Time.deltaTime;
         EnergyRatio = EnergyProduction / 
                       requests.Sum(request => request.UsagePerSecond.GetVolumeOf(Resource.Energy));
 
-        ToolProduction = ToolVolume - last_tool_volume;
+        ToolProduction = (ToolVolume - last_tool_volume) / Time.deltaTime;
         ToolRatio = ToolProduction /
                     requests.Sum(request => request.UsagePerSecond.GetVolumeOf(Resource.Tools));
 
