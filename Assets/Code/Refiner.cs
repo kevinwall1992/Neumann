@@ -44,10 +44,28 @@ public class Refiner : Appliance, HasVariables, HasLoadSite, HasUnloadSite
 
 public class RefineBehavior : ApplianceBehavior
 {
-    public override float UsageFraction { get { return RefineTask.GetTransportEfficiency(); } }
+    float input_concentration, output_concentration, waste_fraction;
+
+    public override float UsageFraction
+    { get { return RefineTask != null ? RefineTask.GetTransportEfficiency() : 0; } }
 
     public Refiner Refiner { get { return GetComponent<Refiner>(); } }
-    public RefineTask RefineTask { get { return Unit.Task as RefineTask; } }
+    public RefineTask RefineTask
+    { get { return Unit != null ? Unit.Task as RefineTask : null; } }
+
+    public override List<Variable> Variables
+    {
+        get
+        {
+            return base.Variables.Merged(Utility.List(
+                new FunctionVariable(Scene.Main.Style.VariableNames.InputConcentration,
+                                     () => input_concentration),
+                new FunctionVariable(Scene.Main.Style.VariableNames.OutputConcentration,
+                                     () => output_concentration),
+                new FunctionVariable(Scene.Main.Style.VariableNames.WasteFraction,
+                                     () => waste_fraction)));
+        }
+    }
 
     protected override void Update()
     {
@@ -62,6 +80,8 @@ public class RefineBehavior : ApplianceBehavior
             .TakeSample(RefineTask.Source.Position,
                         Loader.GetRange(Refiner.VolumePerSecond),
                         sample_volume);
+        input_concentration = sample.GetVolumeOf(RefineTask.PrincipleResource) / 
+                              sample.Volume;
 
         Pile ore = new Pile();
         Pile gangue = new Pile().PutIn(sample);
@@ -91,10 +111,15 @@ public class RefineBehavior : ApplianceBehavior
         //separation of refined sample
         Pile refined_sample = new Pile().PutIn(gangue * Mathf.Pow(RefineTask.GangueAffinity, cycle_count));
         foreach (Resource resource in ore.Resources)
-            refined_sample.PutIn(resource, ore.GetVolumeOf(resource) * Mathf.Pow(RefineTask.Affinities[resource], cycle_count));
+            refined_sample.PutIn(resource, ore.GetVolumeOf(resource) * 
+                                           Mathf.Pow(RefineTask.Affinities[resource], cycle_count));
+        output_concentration = refined_sample.GetVolumeOf(RefineTask.PrincipleResource) / 
+                               refined_sample.Volume;
 
         Pile waste_sample = new Pile().PutIn(sample);
         waste_sample.TakeOut(refined_sample);
+        waste_fraction = waste_sample.GetVolumeOf(RefineTask.PrincipleResource) / 
+                         ore.GetVolumeOf(RefineTask.PrincipleResource);
 
         Scene.Main.World.Asteroid.Litter(RefineTask.Destination.Position, refined_sample);
         Scene.Main.World.Asteroid.Litter(Refiner.Waster.WasteSite, waste_sample);

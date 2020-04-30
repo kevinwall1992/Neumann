@@ -23,6 +23,9 @@ public class Style : MonoBehaviour
         public string Completion;
         public string EnergyUsage;
         public string Productivity;
+        public string InputConcentration;
+        public string OutputConcentration;
+        public string WasteFraction;
     }
     public VariableNames_ VariableNames;
 
