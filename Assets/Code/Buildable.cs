@@ -7,7 +7,6 @@ public class Buildable : MonoBehaviour, HasVariables
 {
     public Pile StructuralMaterials = new Pile();
     public Pile ProcessMaterials = new Pile();
-    public string CompletionVariableName = "% Complete";
 
     public Pile RequiredMaterials
     {
@@ -41,7 +40,7 @@ public class Buildable : MonoBehaviour, HasVariables
                 return new List<Variable>();
 
             return Utility.List<Variable>(
-                new FunctionVariable(CompletionVariableName, 
+                new FunctionVariable(Scene.Main.Style.VariableNames.Completion, 
                                      () => Completion));
         }
     }

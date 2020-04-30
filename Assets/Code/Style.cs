@@ -16,6 +16,7 @@ public class Style : MonoBehaviour
     [System.Serializable]
     public struct VariableNames_
     {
+        public string Completion;
         public string EnergyUsage;
     }
     public VariableNames_ VariableNames;

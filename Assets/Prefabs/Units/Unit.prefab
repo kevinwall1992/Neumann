@@ -437,7 +437,6 @@ MonoBehaviour:
       _values:
       - 70
       - 30
-  CompletionVariableName: '% Complete'
   Foundation:
     resources:
       reorderableList:

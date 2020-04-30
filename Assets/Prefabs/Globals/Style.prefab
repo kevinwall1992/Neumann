@@ -78,7 +78,7 @@ MonoBehaviour:
     - Iron Parts
     - Credits
     - Health
-    - '% Complete'
+    - Completion
     - Tools
     - Crystaline Silicon
     _keys:
@@ -86,7 +86,7 @@ MonoBehaviour:
     - Iron Parts
     - Credits
     - Health
-    - '% Complete'
+    - Completion
     - Tools
     - Crystaline Silicon
     _values:
@@ -114,7 +114,11 @@ MonoBehaviour:
     - Sprite: {fileID: 0}
       Color: {r: 1, g: 1, b: 1, a: 1}
       Format: P0
+    - Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      Format: 
   VariableNames:
+    Completion: Completion
     EnergyUsage: Energy Usage
   MoveTask:
     Sprite: {fileID: 21300000, guid: bf2b79b227caa2542a842aad625f32e1, type: 3}
