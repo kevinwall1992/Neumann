@@ -43,6 +43,8 @@ public class Converter : Appliance
 
 public class ConvertBehavior : ApplianceBehavior
 {
+    float waste_fraction;
+
     public ConvertTask ConvertTask { get; set; }
 
     public override float UsageFraction
@@ -71,6 +73,16 @@ public class ConvertBehavior : ApplianceBehavior
     public override bool IsProducingTools
     { get { return ConvertTask.Product.Resources.Contains(Resource.Tools); } }
 
+    public override List<Variable> Variables
+    {
+        get
+        {
+            return base.Variables.Merged(Utility.List(
+                new FunctionVariable(Scene.Main.Style.VariableNames.WasteFraction, 
+                                     () => waste_fraction)));
+        }
+    }
+
     Converter Converter { get { return GetComponent<Converter>(); } }
 
     protected override void Update()
@@ -84,12 +96,12 @@ public class ConvertBehavior : ApplianceBehavior
                        (ConvertTask.Product.Volume + ConvertTask.Waste.Volume) /
                        ConvertTask.Feedstock.Volume;
 
-        float waste_ratio = ConvertTask.Waste.Volume /
-                            (ConvertTask.Product.Volume + ConvertTask.Waste.Volume);
+        waste_fraction = ConvertTask.Waste.Volume /
+                         (ConvertTask.Product.Volume + ConvertTask.Waste.Volume);
 
         Pile product = ConvertTask.Product.Normalized() *
                        volume *
-                       (1 - waste_ratio);
+                       (1 - waste_fraction);
 
         if (IsProducingTools)
         {
@@ -111,7 +123,7 @@ public class ConvertBehavior : ApplianceBehavior
         Scene.Main.World.Asteroid
             .Litter(Converter.Waster.WasteSite, ConvertTask.Waste.Normalized() *
                                                 volume *
-                                                waste_ratio);
+                                                waste_fraction);
 
         base.Update();
     }
