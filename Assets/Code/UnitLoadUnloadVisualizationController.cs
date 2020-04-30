@@ -81,17 +81,21 @@ public class UnitLoadUnloadVisualizationController : MonoBehaviour
             Vector3 end_position = Unit.Physical.Position + normal_displacment;
             Vector3 displacement = end_position - start_position;
 
-            input_line.enabled = true;
-            if (displacement.magnitude > (has_load_site.LoadSiteRadius + Unit.Physical.Size * Mathf.Sqrt(2)))
+            if (has_load_site.LoadSite.Distance(Unit.Physical.Position) >= has_load_site.LoadSiteRadius)
             {
-                input_line.SetPosition(0, start_position + displacement.normalized *
-                                                           has_load_site.LoadSiteRadius);
-                input_line.SetPosition(1, end_position - displacement.normalized * Unit.Physical.Size * Mathf.Sqrt(2));
-            }
-            else
-            {
-                input_line.SetPosition(0, start_position + displacement.normalized * has_load_site.LoadSiteRadius);
-                input_line.SetPosition(1, input_line.GetPosition(0) + displacement.normalized * 0.1f);
+                input_line.enabled = true;
+
+                if (displacement.magnitude > (has_load_site.LoadSiteRadius + Unit.Physical.Size * Mathf.Sqrt(2)))
+                {
+                    input_line.SetPosition(0, start_position + displacement.normalized *
+                                                               has_load_site.LoadSiteRadius);
+                    input_line.SetPosition(1, end_position - displacement.normalized * Unit.Physical.Size * Mathf.Sqrt(2));
+                }
+                else
+                {
+                    input_line.SetPosition(0, start_position + displacement.normalized * has_load_site.LoadSiteRadius);
+                    input_line.SetPosition(1, input_line.GetPosition(0) + displacement.normalized * 0.1f);
+                }
             }
 
             input_circle.Line.enabled = true;
@@ -131,11 +135,16 @@ public class UnitLoadUnloadVisualizationController : MonoBehaviour
 
             if (deposit != null)
             {
-                end_position = deposit.transform.position + normal_displacment;
-                output_line.SetPosition(1, end_position - displacement.normalized * (deposit.Extent + 1));
+                if (deposit.transform.position.Distance(Unit.Physical.Position) >= deposit.Extent)
+                {
+                    end_position = deposit.transform.position + normal_displacment;
+                    output_line.SetPosition(1, end_position - displacement.normalized * (deposit.Extent + 1));
 
-                if ((output_line.GetPosition(1) - output_line.GetPosition(0)).Dot(displacement.normalized) < 2)
-                    output_line.SetPosition(0, output_line.GetPosition(1) - displacement.normalized * 2);
+                    if ((output_line.GetPosition(1) - output_line.GetPosition(0)).Dot(displacement.normalized) < 2)
+                        output_line.SetPosition(0, output_line.GetPosition(1) - displacement.normalized * 2);
+                }
+                else
+                    output_line.enabled = false;
 
                 output_circle.Line.enabled = true;
                 output_circle.transform.position = deposit.transform.position + normal_displacment;
@@ -188,11 +197,16 @@ public class UnitLoadUnloadVisualizationController : MonoBehaviour
 
             if (deposit != null)
             {
-                end_position = deposit.transform.position + normal_displacment;
-                waste_line.SetPosition(1, end_position - displacement.normalized * (deposit.Extent + 1));
+                if (deposit.transform.position.Distance(Unit.Physical.Position) >= deposit.Extent)
+                {
+                    end_position = deposit.transform.position + normal_displacment;
+                    waste_line.SetPosition(1, end_position - displacement.normalized * (deposit.Extent + 1));
 
-                if ((waste_line.GetPosition(1) - waste_line.GetPosition(0)).Dot(displacement.normalized) < 2)
-                    waste_line.SetPosition(0, waste_line.GetPosition(1) - displacement.normalized * 2);
+                    if ((waste_line.GetPosition(1) - waste_line.GetPosition(0)).Dot(displacement.normalized) < 2)
+                        waste_line.SetPosition(0, waste_line.GetPosition(1) - displacement.normalized * 2);
+                }
+                else
+                    waste_line.enabled = false;
 
                 waste_circle.Line.enabled = true;
                 waste_circle.transform.position = deposit.transform.position + normal_displacment;
