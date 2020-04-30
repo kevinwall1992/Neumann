@@ -13,7 +13,12 @@ public class Style : MonoBehaviour
 
     public VariableStyleMap Variables;
 
-    public string EnergyUsageVariableName;
+    [System.Serializable]
+    public struct VariableNames_
+    {
+        public string EnergyUsage;
+    }
+    public VariableNames_ VariableNames;
 
     public Operation MoveTask;
     public Operation AttackTask;

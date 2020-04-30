@@ -50,12 +50,12 @@ public abstract class EnergyRequestBehavior : RequestBehavior
     {
         base.Start();
 
-        Unit.Memory.Memorize(Scene.Main.Style.EnergyUsageVariableName, () => EnergyPerSecond);
+        Unit.Memory.Memorize(Scene.Main.Style.VariableNames.EnergyUsage, () => EnergyPerSecond);
     }
 
     protected override void OnDestroy()
     {
-        Unit.Memory.Forget(Scene.Main.Style.EnergyUsageVariableName);
+        Unit.Memory.Forget(Scene.Main.Style.VariableNames.EnergyUsage);
 
         base.OnDestroy();
     }
