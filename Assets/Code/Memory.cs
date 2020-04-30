@@ -5,39 +5,11 @@ using System.Linq;
 
 public class Memory : HasVariables
 {
-    Dictionary<string, object> memories = new Dictionary<string, object>();
-    HashSet<string> writable_memories = new HashSet<string>();
+    Dictionary<string, Variable> memories = new Dictionary<string, Variable>();
+    Dictionary<Variable, string> memory_names = new Dictionary<Variable, string>();
 
-    Dictionary<object, string> memory_names = new Dictionary<object, string>();
+    public List<Variable> Variables { get { return memories.Values.ToList(); } }
 
-    Dictionary<string, Variable> variables = new Dictionary<string, Variable>();
-
-    public List<Variable> Variables
-    {
-        get
-        {
-            List<Variable> new_variables = new List<Variable>();
-
-            new_variables.AddRange(memories.Keys
-                .Where(name => writable_memories.Contains(name) && !variables.ContainsKey(name))
-                .Select(name => new WritableVariable(name, memories[name])));
-
-            new_variables.AddRange(memories.Keys
-                .Where(name => !writable_memories.Contains(name) && !variables.ContainsKey(name))
-                .Select(name => memories[name] is System.Func<object> ? 
-                                (Variable)(new FunctionVariable(name, memories[name] as System.Func<object>)) : 
-                                (Variable)(new ReadOnlyVariable(name, memories[name]))));
-
-            foreach (Variable variable in new_variables)
-                variables[variable.Name] = variable;
-
-            foreach (string name in variables.Keys.ToList())
-                if (!memories.ContainsKey(name))
-                    variables.Remove(name);
-
-            return variables.Values.ToList();
-        }
-    }
 
     public void Memorize(string name, object memory, bool is_writable = false)
     {
@@ -48,13 +20,14 @@ public class Memory : HasVariables
                 memory = (System.Func<object>)(() => delegate_.DynamicInvoke());
         }
 
-        memories[name] = memory;
-        memory_names[memory] = name;
-
         if (is_writable)
-            writable_memories.Add(name);
-        else if (writable_memories.Contains(name))
-            writable_memories.Remove(name);
+            memories[name] = new WritableVariable(name, memory);
+        else if (memory is System.Func<object>)
+            memories[name] = new FunctionVariable(name, memory as System.Func<object>);
+        else
+            memories[name] = new ReadOnlyVariable(name, memory);
+
+        memory_names[memories[name]] = name;
     }
 
     public void Memorize(string name, System.Func<object> memory)
@@ -73,21 +46,5 @@ public class Memory : HasVariables
     public void Forget(string name)
     {
         memories.Remove(name);
-    }
-
-    //Remembers the last Memorize()d name for memory
-    //e.g. Storing the number "7" twice means the second
-    //name you gave it will be returned here.
-    public string RememberName(object memory)
-    {
-        if (!memory_names.ContainsKey(memory))
-            return null;
-
-        return memory_names[memory];
-    }
-
-    public int Count<T>()
-    {
-        return memories.Values.Where(value => value is T).Count();
     }
 }

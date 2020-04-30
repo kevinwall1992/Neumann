@@ -25,10 +25,7 @@ public class World : MonoBehaviour, HasVariables
     List<Variable> variables = new List<Variable>();
     public List<Variable> Variables
     {
-        get
-        {
-            return variables;
-        }
+        get { return variables; }
     }
 
     void Start()
@@ -41,15 +38,11 @@ public class World : MonoBehaviour, HasVariables
         variables = Memory.Variables.Merged(PlayerTeam.Stock.Variables);
     }
 
+    int position_count = 0;
     public string MemorizePosition(Vector3 position)
     {
-        string name = Memory.RememberName(position);
-        if (name != null)
-            return name;
-
-        name = "Position " + Memory.Count<Vector3>();
+        name = "Position " + position_count++;
         Memory.Memorize(name, position);
-
 
         return name;
     }
