@@ -22,6 +22,7 @@ public class Style : MonoBehaviour
         public string ToolRatio;
         public string Completion;
         public string EnergyUsage;
+        public string Productivity;
     }
     public VariableNames_ VariableNames;
 

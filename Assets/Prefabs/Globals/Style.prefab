@@ -81,6 +81,7 @@ MonoBehaviour:
     - Completion
     - Tools
     - Crystaline Silicon
+    - Productivity
     - Energy In/Out
     - Tools In/Out
     _keys:
@@ -91,6 +92,7 @@ MonoBehaviour:
     - Completion
     - Tools
     - Crystaline Silicon
+    - Productivity
     - Energy In/Out
     - Tools In/Out
     _values:
@@ -121,6 +123,9 @@ MonoBehaviour:
     - Sprite: {fileID: 0}
       Color: {r: 1, g: 1, b: 1, a: 1}
       Format: P0
+    - Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      Format: P0
   VariableNames:
     EnergyProduction: Energy Output
     EnergyRatio: Energy In/Out
@@ -128,6 +133,7 @@ MonoBehaviour:
     ToolRatio: Tools In/Out
     Completion: Completion
     EnergyUsage: Energy Usage
+    Productivity: Productivity
   MoveTask:
     Sprite: {fileID: 21300000, guid: bf2b79b227caa2542a842aad625f32e1, type: 3}
     Color: {r: 0, g: 1, b: 0.03644657, a: 1}

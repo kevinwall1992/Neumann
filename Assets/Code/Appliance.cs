@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public abstract class Appliance : Profession
 {
@@ -20,6 +21,16 @@ public abstract class ApplianceBehavior : EnergyRequestBehavior
             return base.BaseUsagePerSecond.PutIn(
                 Resource.Tools,
                 Mathf.Max(0, IsProducingTools ? 0 : Appliance.ToolsPerSecond));
+        }
+    }
+
+    public override List<Variable> Variables
+    {
+        get
+        {
+            return base.Variables.Merged(Utility.List(
+                new FunctionVariable(Scene.Main.Style.VariableNames.Productivity, 
+                                     () => UsageFraction)));
         }
     }
 
