@@ -27,7 +27,6 @@ public class OperationTileNode : MonoBehaviour
     public bool IsSelected
     {
         get { return Selected == this; }
-
         set
         {
             if (value)
@@ -35,8 +34,13 @@ public class OperationTileNode : MonoBehaviour
                 Selected = this;
                 this.ClaimMouseLeftRelease();
             }
-            else if (IsSelected)
-                Selected = null;
+            else
+            {
+                if (Selected == this)
+                    Selected = null;
+
+                this.YieldMouseLeftReleaseClaim();
+            }
         }
     }
 
@@ -86,5 +90,10 @@ public class OperationTileNode : MonoBehaviour
     }
 
 
-    public static OperationTileNode Selected { get; set; }
+    static OperationTileNode selected = null;
+    public static OperationTileNode Selected
+    {
+        get { return selected; }
+        internal set { selected = value; }
+    }
 }
