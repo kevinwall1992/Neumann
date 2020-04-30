@@ -4,30 +4,9 @@ using UnityEngine.UI;
 
 public class OperationTileIONode : OperationTileNode
 {
-    string variable_name;
+    public string VariableName { get; set; } = null;
 
-    VariableTile variable_tile = null;
-    public VariableTile VariableTile
-    {
-        get
-        {
-            if ((variable_tile == null && variable_name != null) || 
-                (variable_tile != null && variable_tile.Variable.Name != variable_name))
-                VariableTile = VariableTile.Find(variable_name);
-
-            return variable_tile;
-        }
-
-        set
-        {
-            variable_tile = value;
-
-            if (variable_tile != null)
-                variable_name = variable_tile.Variable.Name;
-            else
-                variable_name = null;
-        }
-    }
+    public VariableTile VariableTile { get { return VariableTile.Find(VariableName); } }
 
     public bool IsInputNode { get { return OperationTile.InputNode == this; } }
 
@@ -86,18 +65,14 @@ public class OperationTileIONode : OperationTileNode
                 Unit unit = InputUtility.GetElementTouched<Unit>();
 
                 if (variable_tile != null)
-                    VariableTile = variable_tile;
+                    VariableName = variable_tile.name;
                 else if (unit != null)
-                    variable_name = unit.Id;
+                    VariableName = unit.Id;
                 else if (Scene.Main.World.IsPointedAt())
-                    variable_name = Scene.Main.World.MemorizePosition(
+                    VariableName = Scene.Main.World.MemorizePosition(
                         Scene.Main.World.Asteroid.GetWorldPositionPointedAt());
-                else
-                    VariableTile = null;
 
             }
-            else
-                VariableTile = null;
 
             IsSelected = false;
         }

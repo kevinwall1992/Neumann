@@ -69,9 +69,9 @@ public class OperationTile : Tile
                 }
 
                 if (Operation.TakesInput)
-                    InputNode.VariableTile = VariableTile.Find(Operation.Input.PrimaryVariableName);
+                    InputNode.VariableName = Operation.Input.PrimaryVariableName;
                 if (Operation.HasOutput)
-                    OutputNode.VariableTile = VariableTile.Find(Operation.Output.PrimaryVariableName);
+                    OutputNode.VariableName = Operation.Output.PrimaryVariableName;
                 if (Operation.TakesGoto)
                     GotoNode.GotoOperationTile =
                         Scene.Main.UnitInterface.ProgramInterface.Tiles
@@ -203,9 +203,9 @@ public class OperationTile : Tile
                     }
                 }
 
-                InputNode.VariableTile = null;
+                InputNode.VariableName = null;
                 InputNode.IsSelected = false;
-                OutputNode.VariableTile = null;
+                OutputNode.VariableName = null;
                 OutputNode.IsSelected = false;
                 GotoNode.GotoOperationTile = null;
                 GotoNode.IsSelected = false;
