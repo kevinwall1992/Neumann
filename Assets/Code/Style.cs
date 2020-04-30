@@ -26,6 +26,7 @@ public class Style : MonoBehaviour
         public string InputConcentration;
         public string OutputConcentration;
         public string WasteFraction;
+        public string OptimalConcentration;
     }
     public VariableNames_ VariableNames;
 

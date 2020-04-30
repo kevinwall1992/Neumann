@@ -87,6 +87,7 @@ MonoBehaviour:
     - Ore Grade In
     - Ore Grade Out
     - Waste
+    - Optimal Ore Grade
     _keys:
     - Energy
     - Iron Parts
@@ -101,6 +102,7 @@ MonoBehaviour:
     - Ore Grade In
     - Ore Grade Out
     - Waste
+    - Optimal Ore Grade
     _values:
     - Sprite: {fileID: 21300000, guid: e069d771bfa1d7544a27888e5786a5c1, type: 3}
       Color: {r: 0, g: 1, b: 0.55907893, a: 1}
@@ -141,6 +143,9 @@ MonoBehaviour:
     - Sprite: {fileID: 0}
       Color: {r: 1, g: 1, b: 1, a: 1}
       Format: P0
+    - Sprite: {fileID: 0}
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      Format: P0
   VariableNames:
     EnergyProduction: Energy Output
     EnergyRatio: Energy In/Out
@@ -152,6 +157,7 @@ MonoBehaviour:
     InputConcentration: Ore Grade In
     OutputConcentration: Ore Grade Out
     WasteFraction: Waste
+    OptimalConcentration: Optimal Ore Grade
   MoveTask:
     Sprite: {fileID: 21300000, guid: bf2b79b227caa2542a842aad625f32e1, type: 3}
     Color: {r: 0, g: 1, b: 0.03644657, a: 1}

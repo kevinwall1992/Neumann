@@ -35,6 +35,9 @@ public class Processor : Appliance, HasLoadSite
 
 public class ProcessBehavior : ApplianceBehavior
 {
+    float input_concentration;
+    float effective_separation_efficiency;
+
     public override float UsageFraction
     { get { return ProcessTask.GetTransportEfficiency(); } }
 
@@ -44,9 +47,18 @@ public class ProcessBehavior : ApplianceBehavior
     public Processor Processor { get { return GetComponent<Processor>(); } }
     public ProcessTask ProcessTask { get { return Unit.Task as ProcessTask; } }
 
-    protected override void Start()
+    public override List<Variable> Variables
     {
-        base.Start();
+        get
+        {
+            return base.Variables.Merged(Utility.List(
+                new FunctionVariable(Scene.Main.Style.VariableNames.OptimalConcentration,
+                                     () => ProcessTask.OptimalConcentration),
+                new FunctionVariable(Scene.Main.Style.VariableNames.InputConcentration,
+                                     () => input_concentration),
+                new FunctionVariable(Scene.Main.Style.VariableNames.WasteFraction,
+                                     () => 1 - effective_separation_efficiency)));
+        }
     }
 
     protected override void Update()
@@ -62,6 +74,8 @@ public class ProcessBehavior : ApplianceBehavior
                              YieldAdjustedUsageFraction;
         Pile sample = Scene.Main.World.Asteroid.Regolith
             .TakeSample(ProcessTask.Target.Position, range, sample_volume);
+        input_concentration = sample.GetVolumeOf(ProcessTask.Feedstock.GetPrincipleComponent()) / 
+                              sample.Volume;
 
 
         //Separation
@@ -77,7 +91,8 @@ public class ProcessBehavior : ApplianceBehavior
                                                                    maximum_concentration);
         }
 
-        float removed_volume = ProcessTask.GetEffectiveSeparationEfficiency(sample_concentration) *
+        effective_separation_efficiency = ProcessTask.GetEffectiveSeparationEfficiency(sample_concentration);
+        float removed_volume =  effective_separation_efficiency *
                                 sample_concentration *
                                 sample_volume;
 
