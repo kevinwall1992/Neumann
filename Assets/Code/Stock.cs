@@ -31,11 +31,15 @@ public class Stock : MonoBehaviour, HasVariables
 
     private void Start()
     {
-        Scene.Main.World.Memory.Memorize("Energy Production", () => EnergyProduction);
-        Scene.Main.World.Memory.Memorize("Energy Ratio", () => EnergyRatio);
+        Scene.Main.World.Memory.Memorize(Scene.Main.Style.VariableNames
+            .EnergyProduction, () => EnergyProduction);
+        Scene.Main.World.Memory.Memorize(Scene.Main.Style.VariableNames
+            .EnergyRatio, () => EnergyRatio);
 
-        Scene.Main.World.Memory.Memorize("Tool Production", () => ToolProduction);
-        Scene.Main.World.Memory.Memorize("Tool Ratio", () => ToolRatio);
+        Scene.Main.World.Memory.Memorize(Scene.Main.Style.VariableNames
+            .ToolProduction, () => ToolProduction);
+        Scene.Main.World.Memory.Memorize(Scene.Main.Style.VariableNames
+            .ToolRatio, () => ToolRatio);
     }
 
     private void Update()

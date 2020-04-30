@@ -81,6 +81,8 @@ MonoBehaviour:
     - Completion
     - Tools
     - Crystaline Silicon
+    - Energy In/Out
+    - Tools In/Out
     _keys:
     - Energy
     - Iron Parts
@@ -89,6 +91,8 @@ MonoBehaviour:
     - Completion
     - Tools
     - Crystaline Silicon
+    - Energy In/Out
+    - Tools In/Out
     _values:
     - Sprite: {fileID: 21300000, guid: e069d771bfa1d7544a27888e5786a5c1, type: 3}
       Color: {r: 0, g: 1, b: 0.55907893, a: 1}
@@ -116,8 +120,12 @@ MonoBehaviour:
       Format: P0
     - Sprite: {fileID: 0}
       Color: {r: 1, g: 1, b: 1, a: 1}
-      Format: 
+      Format: P0
   VariableNames:
+    EnergyProduction: Energy Output
+    EnergyRatio: Energy In/Out
+    ToolProduction: Tools Output
+    ToolRatio: Tools In/Out
     Completion: Completion
     EnergyUsage: Energy Usage
   MoveTask:

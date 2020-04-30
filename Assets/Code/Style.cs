@@ -16,6 +16,10 @@ public class Style : MonoBehaviour
     [System.Serializable]
     public struct VariableNames_
     {
+        public string EnergyProduction;
+        public string EnergyRatio;
+        public string ToolProduction;
+        public string ToolRatio;
         public string Completion;
         public string EnergyUsage;
     }
