@@ -42,7 +42,8 @@ public class Stock : MonoBehaviour, HasVariables
             .ToolRatio, () => ToolRatio);
     }
 
-    private void Update()
+    //LateUpdate improves stability of statistical values 
+    private void LateUpdate()
     {
         EnergyProduction = (EnergyVolume - last_energy_volume) / Time.deltaTime;
         EnergyRatio = EnergyProduction / 
