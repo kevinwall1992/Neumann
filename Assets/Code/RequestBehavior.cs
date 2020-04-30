@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public abstract class RequestBehavior: Behavior
+public abstract class RequestBehavior : Behavior
 {
     Stock.Request request;
 
@@ -37,26 +38,22 @@ public abstract class RequestBehavior: Behavior
     }
 }
 
-public abstract class EnergyRequestBehavior : RequestBehavior
+public abstract class EnergyRequestBehavior : RequestBehavior, HasVariables
 {
     public abstract float EnergyPerSecond { get; }
+
+    public virtual List<Variable> Variables
+    {
+        get
+        {
+            return Utility.List<Variable>(
+                new FunctionVariable(Scene.Main.Style.VariableNames.EnergyUsage,
+                                     () => EnergyPerSecond));
+        }
+    }
 
     public override Pile BaseUsagePerSecond
     {
         get { return new Pile().PutIn(Resource.Energy, EnergyPerSecond); }
-    }
-
-    protected override void Start()
-    {
-        base.Start();
-
-        Unit.Memory.Memorize(Scene.Main.Style.VariableNames.EnergyUsage, () => EnergyPerSecond);
-    }
-
-    protected override void OnDestroy()
-    {
-        Unit.Memory.Forget(Scene.Main.Style.VariableNames.EnergyUsage);
-
-        base.OnDestroy();
     }
 }
