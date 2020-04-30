@@ -5,10 +5,13 @@ using System.Collections;
 public class LineArrowController : MonoBehaviour
 {
     [SerializeField]
-    LineRenderer line;
+    LineRenderer line = null;
 
+    //This hides obsolete field Component.renderer.
+    //I Ddon't think this can cause a problem, 
+    //but I'm leaving this note just in case.
     [SerializeField]
-    Renderer renderer;
+    new Renderer renderer = null;
 
     Vector3 LineFinalPosition
     { get { return line.GetPosition(line.positionCount - 1); } }

@@ -20,10 +20,10 @@ public class InfoBox : MonoBehaviour
         base_height = 0;
 
     [SerializeField]
-    float delay;
+    float delay = 0;
 
     [SerializeField]
-    CanvasGroup canvas_group;
+    CanvasGroup canvas_group = null;
 
     void Start()
     {
