@@ -5,6 +5,17 @@ using System;
 
 public abstract class Variable
 {
+    public Style.Variable Style
+    {
+        get
+        {
+            if (!Scene.Main.Style.Variables.ContainsKey(Name))
+                return new Style.Variable(null, Color.white, "F1");
+
+            return Scene.Main.Style.Variables[Name];
+        }
+    }
+
     public abstract string Name { get; set; }
     public virtual bool IsReadOnly { get { return true; } }
 
@@ -33,11 +44,6 @@ public abstract class Variable
     {
         return 1;
     }
-
-
-    //Visualization
-    public Sprite Sprite { get; set; }
-    public Color Color { get; set; }
 
 
     public static Variable Find(Unit unit, string name)
@@ -126,23 +132,5 @@ public class FunctionVariable : Variable
     }
 
     public override object Read() { return function(); }
-}
-
-
-public static class VariableExtensions
-{
-    public static Variable Stylize(this Variable variable, Sprite sprite, Color color)
-    {
-        variable.Sprite = sprite;
-        variable.Color = color;
-
-        return variable;
-    }
-
-    public static Variable Stylize(this Variable variable, Style.Variable variable_style)
-    {
-        return variable.Stylize(variable_style.Sprite, 
-                                variable_style.Color);
-    }
 }
 

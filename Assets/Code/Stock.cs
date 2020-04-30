@@ -17,8 +17,7 @@ public class Stock : MonoBehaviour, HasVariables
         get
         {
             return new List<Variable>(Pile.Resources.Select(resource =>
-                new FunctionVariable(resource.Name, () => Pile.GetVolumeOf(resource))
-                    .Stylize(Scene.Main.Style.Variables[resource.Name])));
+                new FunctionVariable(resource.Name, () => Pile.GetVolumeOf(resource))));
         }
     }
 

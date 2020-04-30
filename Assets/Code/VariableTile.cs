@@ -33,10 +33,13 @@ public class VariableTile : Tile
         object value = Variable.Read();
         string value_string = value.ToString();
         if (value is float)
-            value_string = ((float)value).ToString("F1");
+            value_string = ((float)value).ToString(Variable.Style.Format);
+        ValueText.text = value_string;
 
-        Image.sprite = Variable.Sprite;
-        Image.color = Variable.Color;
+        Image.sprite = Variable.Style.Sprite;
+        Image.color = Variable.Style.Color;
+        if (Image.sprite == null)
+            Image.color = Image.color.AlphaChangedTo(0);
     }
 
     void SetVariable(Variable variable)

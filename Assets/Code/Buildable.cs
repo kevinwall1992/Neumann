@@ -41,8 +41,8 @@ public class Buildable : MonoBehaviour, HasVariables
                 return new List<Variable>();
 
             return Utility.List<Variable>(
-                new FunctionVariable(CompletionVariableName, () => Completion * 100)
-                .Stylize(Scene.Main.Style.Variables[CompletionVariableName]));
+                new FunctionVariable(CompletionVariableName, 
+                                     () => Completion));
         }
     }
 

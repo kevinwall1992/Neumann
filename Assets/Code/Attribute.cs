@@ -19,9 +19,7 @@ public class Attribute : HasVariables
     {
         get
         {
-            return Utility.List<Variable>(
-                new FunctionVariable(Name, () => Value)
-                .Stylize(Scene.Main.Style.Variables[Name]));
+            return Utility.List<Variable>(new FunctionVariable(Name, () => Value));
         }
     }
 
@@ -75,8 +73,7 @@ public class FillableAttribute : Attribute
             variable_style_max.Color = Color.Lerp(variable_style_max.Color, Color.white, 0.5f);
 
             return base.Variables.Merged(Utility.List<Variable>(
-                new FunctionVariable("Max " + Name, () => MaxValue)
-                    .Stylize(variable_style_max)));
+                new FunctionVariable("Max " + Name, () => MaxValue)));
         }
     }
 
