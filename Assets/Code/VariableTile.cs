@@ -1,9 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Text.RegularExpressions;
 
 public class VariableTile : Tile
 {
+    System.DateTime last_backspace_time;
+    float backspace_delay = 0.25f;
+
+    [SerializeField]
+    Text input_text = null;
+
+    [SerializeField]
+    Image input_highlight = null;
+
+    [SerializeField]
+    Image edit_icon = null;
+
     [SerializeField]
     Text name_text = null;
     public Text NameText { get { return name_text; } }
@@ -16,9 +29,13 @@ public class VariableTile : Tile
 
     public bool IsWritable { get { return Variable is WritableVariable; } }
 
+    public bool IsInInputMode { get; set; }
+
     protected override void Start()
     {
         base.Start();
+
+        edit_icon.gameObject.SetActive(IsWritable);
     }
 
     protected override void Update()
@@ -40,6 +57,77 @@ public class VariableTile : Tile
         Image.color = Variable.Style.Color;
         if (Image.sprite == null)
             Image.color = Image.color.AlphaChangedTo(0);
+
+
+        if (IsWritable &&
+            this.IsTouched() &&
+            !InputUtility.DidDragOccur() &&
+            this.UseMouseLeftRelease())
+        {
+            IsInInputMode = true;
+
+            last_backspace_time = new System.DateTime(0);
+        }
+
+
+        //Text input
+        if (IsInInputMode && !this.ClaimKeyboardInput())
+            IsInInputMode = false;
+
+        if (IsInInputMode)
+        {
+            ValueText.gameObject.SetActive(false);
+
+            float target_alpha = 0.25f + Utility.GetLoopedCycleMoment(1.5f) * 0.25f;
+            input_highlight.color = input_highlight.color
+                .Lerped(input_highlight.color.AlphaChangedTo(target_alpha), 
+                        Time.deltaTime * 20);
+
+            input_text.text += new Regex("[^a-zA-Z0-1]").Replace(Input.inputString, "");
+
+            if (Input.GetKey(KeyCode.Backspace))
+            {
+                if ((System.DateTime.Now - last_backspace_time).TotalSeconds > backspace_delay)
+                {
+                    input_text.text = input_text.text.Trim(1);
+                    last_backspace_time = System.DateTime.Now;
+                }
+            }
+
+            if (Input.GetKeyUp(KeyCode.Backspace))
+                last_backspace_time = new System.DateTime(0);
+
+            if(Input.GetKeyUp(KeyCode.Escape))
+            {
+                IsInInputMode = false;
+
+                input_text.text = "";
+            }
+
+            if (Input.GetKeyUp(KeyCode.Return))
+            {
+                IsInInputMode = false;
+
+                object write_value = input_text.text;
+
+                float float_value;
+                if (float.TryParse(input_text.text, out float_value))
+                    write_value = float_value;
+                else if (input_text.text.ToLower().Equals("true"))
+                    write_value = true;
+                else if (input_text.text.ToLower().Equals("false"))
+                    write_value = false;
+
+                Variable.Write(write_value);
+                input_text.text = "";
+            }
+        }
+        else
+        {
+            this.YieldKeyboardInputClaim();
+            input_highlight.color = input_highlight.color.AlphaChangedTo(0.0f);
+            ValueText.gameObject.SetActive(true);
+        }
     }
 
     void SetVariable(Variable variable)
