@@ -193,19 +193,19 @@ public static class Utility
         return (T[])System.Enum.GetValues(typeof(T));
     }
 
-    public static bool IsInPast(this System.DateTime time)
+    public static bool IsInPast(this DateTime time)
     {
-        return System.DateTime.Now > time;
+        return DateTime.Now > time;
     }
 
-    public static bool IsInFuture(this System.DateTime time)
+    public static bool IsInFuture(this DateTime time)
     {
-        return System.DateTime.Now < time;
+        return DateTime.Now < time;
     }
 
-    public static float GetCycleMoment(float cycle_length, System.DateTime start)
+    public static float GetCycleMoment(float cycle_length, DateTime start)
     {
-        float cycles = (float)(System.DateTime.Now - start).TotalSeconds / cycle_length;
+        float cycles = (float)(DateTime.Now - start).TotalSeconds / cycle_length;
 
         return cycles - (int)cycles;
     }
@@ -215,7 +215,7 @@ public static class Utility
         return GetCycleMoment(cycle_length, LevelLoadDateTime);
     }
 
-    public static float GetLoopedCycleMoment(float cycle_length, System.DateTime start)
+    public static float GetLoopedCycleMoment(float cycle_length, DateTime start)
     {
         float moment = GetCycleMoment(cycle_length, start);
         if (moment > 0.5f)
