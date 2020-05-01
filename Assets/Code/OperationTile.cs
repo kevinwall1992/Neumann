@@ -213,7 +213,7 @@ public class OperationTile : Tile
             }
         }
 
-        if (!InputUtility.DidDragOccur()  &&
+        if (!InputUtility.DidDragOccur  &&
             this.IsPointedAt() && 
             !InputNode.IsPointedAt() && !OutputNode.IsPointedAt() && !GotoNode.IsPointedAt() && 
             this.UseMouseLeftRelease())
@@ -227,7 +227,7 @@ public class OperationTile : Tile
             }
         }
 
-        if (InputUtility.WasMouseRightReleased())
+        if (InputUtility.WasMouseRightReleased)
         {
             if (IsSelected)
                 IsSelected = false;

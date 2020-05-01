@@ -96,7 +96,7 @@ public class UnitInterface : UIElement
 
         if (OperationTile.Selected == null && 
             OperationTileIONode.Selected == null && 
-            InputUtility.WasMouseLeftPressed() && 
+            InputUtility.WasMouseLeftPressed && 
             Scene.Main.World.IsPointedAt())
         {
             foreach (OperationTile operation_tile in operation_menu.OperationTiles)
@@ -107,7 +107,7 @@ public class UnitInterface : UIElement
                 }
         }
 
-        if (InputUtility.WasMouseRightReleased())
+        if (InputUtility.WasMouseRightReleased)
             Unit = null;
     }
 

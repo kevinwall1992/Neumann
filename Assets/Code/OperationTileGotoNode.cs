@@ -67,7 +67,7 @@ public class OperationTileGotoNode : OperationTileNode
         else
             Hide = true;
 
-        if (!InputUtility.DidDragOccur() && IsSelected && !OperationTile.IsPointedAt() && this.UseMouseLeftRelease())
+        if (!InputUtility.DidDragOccur && IsSelected && !OperationTile.IsPointedAt() && this.UseMouseLeftRelease())
         {
             if (Scene.Main.InputModule.ElementTouched != null)
             {

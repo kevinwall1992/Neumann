@@ -61,7 +61,7 @@ public class VariableTile : Tile
 
         if (IsWritable &&
             this.IsTouched() &&
-            !InputUtility.DidDragOccur() &&
+            !InputUtility.DidDragOccur &&
             this.UseMouseLeftRelease())
         {
             IsInInputMode = true;

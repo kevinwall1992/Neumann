@@ -72,7 +72,7 @@ public class OperationTileNode : MonoBehaviour
             line.gameObject.SetActive(false);
         }
 
-        if (!InputUtility.DidDragOccur() &&
+        if (!InputUtility.DidDragOccur &&
             !IsSelected &&
             this.IsPointedAt() &&
             (OperationTile.IsInOperationMenu || OperationTile.IsInProgramInterface) &&

@@ -41,7 +41,7 @@ public class InfoBox : MonoBehaviour
         }
 
 
-        if (InputUtility.DidMouseMove())
+        if (InputUtility.DidMouseMove)
             delay_start_time = System.DateTime.Now;
 
         float target_alpha = 0;

@@ -54,7 +54,7 @@ public class OperationTileIONode : OperationTileNode
         else
             Hide = true;
 
-        if (!InputUtility.DidDragOccur() && 
+        if (!InputUtility.DidDragOccur && 
             IsSelected && 
             !OperationTile.IsPointedAt() && 
             this.UseMouseLeftRelease())

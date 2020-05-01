@@ -374,18 +374,18 @@ public static class InputUtility
 {
     public enum MouseButton { Left, Right, Middle }
 
-    public static bool WasMouseLeftPressed() { return Input.GetMouseButtonDown((int)MouseButton.Left); }
-    public static bool IsMouseLeftPressed() { return Input.GetMouseButton((int)MouseButton.Left); }
-    public static bool WasMouseLeftReleased() { return Input.GetMouseButtonUp((int)MouseButton.Left); }
+    public static bool WasMouseLeftPressed { get { return Input.GetMouseButtonDown((int)MouseButton.Left); } }
+    public static bool IsMouseLeftPressed { get { return Input.GetMouseButton((int)MouseButton.Left); } }
+    public static bool WasMouseLeftReleased { get { return Input.GetMouseButtonUp((int)MouseButton.Left); } }
 
-    public static bool WasMouseRightPressed() { return Input.GetMouseButtonDown((int)MouseButton.Right); }
-    public static bool IsMouseRightPressed() { return Input.GetMouseButton((int)MouseButton.Right); }
-    public static bool WasMouseRightReleased() { return Input.GetMouseButtonUp((int)MouseButton.Right); }
+    public static bool WasMouseRightPressed { get { return Input.GetMouseButtonDown((int)MouseButton.Right); } }
+    public static bool IsMouseRightPressed { get { return Input.GetMouseButton((int)MouseButton.Right); } }
+    public static bool WasMouseRightReleased { get { return Input.GetMouseButtonUp((int)MouseButton.Right); } }
 
-    public static bool IsDragOccurring() { return Scene.Main.InputModule.IsDragOccurring; }
-    public static bool DidDragOccur() { return Scene.Main.InputModule.DidDragOccur; }
+    public static bool IsDragOccurring { get { return Scene.Main.InputModule.IsDragOccurring; } }
+    public static bool DidDragOccur { get { return Scene.Main.InputModule.DidDragOccur; } }
 
-    public static bool DidMouseMove() { return Scene.Main.InputModule.DidMouseMove; }
+    public static bool DidMouseMove { get { return Scene.Main.InputModule.DidMouseMove; } }
 
 
     static MonoBehaviour keyboard_input_claimant = null;
@@ -448,7 +448,7 @@ public static class InputUtility
 
     public static bool UseMouseLeftRelease(this MonoBehaviour enquirer)
     {
-        if (!WasMouseLeftReleased())
+        if (!WasMouseLeftReleased)
             return false;
 
         if (MouseLeftReleaseClaimant != null)

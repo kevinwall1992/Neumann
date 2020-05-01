@@ -35,7 +35,7 @@ public class MainInputModule : StandaloneInputModule
 
     private void Update()
     {
-        if (InputUtility.WasMouseLeftPressed())
+        if (InputUtility.WasMouseLeftPressed)
         {
             mouse_down_position = input.mousePosition;
             is_below_threshold_drag_occurring = true;
@@ -50,7 +50,7 @@ public class MainInputModule : StandaloneInputModule
             is_below_threshold_drag_occurring = false;
         }
 
-        if (InputUtility.WasMouseLeftReleased() || InputUtility.WasMouseRightReleased())
+        if (InputUtility.WasMouseLeftReleased || InputUtility.WasMouseRightReleased)
         {
             DidDragOccur = IsDragOccurring;
             IsDragOccurring = false;
