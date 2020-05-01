@@ -5,13 +5,13 @@ using UnityEngine.UI;
 public class ProductivityBox : MonoBehaviour
 {
     [SerializeField]
-    Text productivity_text;
+    Text productivity_text = null;
 
     [SerializeField]
-    Image image, divider;
+    Image image = null, divider = null;
 
     [SerializeField]
-    CanvasGroup canvas_group;
+    CanvasGroup canvas_group = null;
 
     void Start()
     {
