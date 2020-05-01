@@ -202,6 +202,35 @@ public static class Utility
     {
         return System.DateTime.Now < time;
     }
+
+    public static float GetCycleMoment(float cycle_length, System.DateTime start)
+    {
+        float cycles = (float)(System.DateTime.Now - start).TotalSeconds / cycle_length;
+
+        return cycles - (int)cycles;
+    }
+
+    public static float GetCycleMoment(float cycle_length)
+    {
+        return GetCycleMoment(cycle_length, LevelLoadDateTime);
+    }
+
+    public static float GetLoopedCycleMoment(float cycle_length, System.DateTime start)
+    {
+        float moment = GetCycleMoment(cycle_length, start);
+        if (moment > 0.5f)
+            moment = 0.5f - (moment - 0.5f);
+
+        return moment * 2;
+    }
+
+    public static float GetLoopedCycleMoment(float cycle_length)
+    {
+        return GetLoopedCycleMoment(cycle_length, LevelLoadDateTime);
+    }
+
+    public static DateTime LevelLoadDateTime
+    { get { return DateTime.Now.AddSeconds(-Time.timeSinceLevelLoad); } }
 }
 
 public static class UIUtility
