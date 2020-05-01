@@ -11,7 +11,8 @@ public class TileSizer : MonoBehaviour
 
     void Update()
     {
-        (transform as RectTransform).sizeDelta = new Vector2(Scene.Main.Style.TileSize, 
-                                                             Scene.Main.Style.TileSize);
+        if(transform.root == Scene.Main.Canvas.transform)
+            (transform as RectTransform).sizeDelta = new Vector2(Scene.Main.Style.TileSize, 
+                                                                 Scene.Main.Style.TileSize);
     }
 }
