@@ -22,14 +22,17 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.W))
-            transform.position += new Vector3(-1, 0, 0) * PanSpeed * Time.deltaTime;
-        if (Input.GetKey(KeyCode.S))
-            transform.position += new Vector3(1, 0, 0) * PanSpeed * Time.deltaTime;
-        if (Input.GetKey(KeyCode.D))
-            transform.position += new Vector3(0, 0, 1) * PanSpeed * Time.deltaTime;
-        if (Input.GetKey(KeyCode.A))
-            transform.position += new Vector3(0, 0, -1) * PanSpeed * Time.deltaTime;
+        if (this.CanUseKeyboardInput())
+        {
+            if (Input.GetKey(KeyCode.W))
+                transform.position += new Vector3(-1, 0, 0) * PanSpeed * Time.deltaTime;
+            if (Input.GetKey(KeyCode.S))
+                transform.position += new Vector3(1, 0, 0) * PanSpeed * Time.deltaTime;
+            if (Input.GetKey(KeyCode.D))
+                transform.position += new Vector3(0, 0, 1) * PanSpeed * Time.deltaTime;
+            if (Input.GetKey(KeyCode.A))
+                transform.position += new Vector3(0, 0, -1) * PanSpeed * Time.deltaTime;
+        }
 
         transform.position += Forward * Input.mouseScrollDelta.y * ZoomSpeed * Time.deltaTime;
     }
