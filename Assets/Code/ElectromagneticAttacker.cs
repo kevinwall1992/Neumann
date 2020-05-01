@@ -25,7 +25,7 @@ public class ElectromagneticAttacker : RangedAttacker
     {
         base.Update();
 
-        if (!IsAttacking || (System.DateTime.Now - LastFiring).Seconds > FiringDuration)
+        if (!IsAttacking || (System.DateTime.Now - LastFiring).TotalSeconds > FiringDuration)
             IsFiring = false;
 
         if (!IsFiring)

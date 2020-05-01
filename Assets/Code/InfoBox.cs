@@ -45,7 +45,7 @@ public class InfoBox : MonoBehaviour
             delay_start_time = System.DateTime.Now;
 
         float target_alpha = 0;
-        if ((System.DateTime.Now - delay_start_time).Seconds >= delay)
+        if ((System.DateTime.Now - delay_start_time).TotalSeconds >= delay)
             target_alpha = 1;
 
         canvas_group.alpha = Mathf.Lerp(canvas_group.alpha, target_alpha, Time.deltaTime * 10);

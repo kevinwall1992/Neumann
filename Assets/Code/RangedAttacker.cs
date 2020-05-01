@@ -77,7 +77,7 @@ public abstract class RangedAttacker : Attacker
             animator.SetFloat("moment", (firing_angle - ShallowestFiringAngle) / 
                                         (SteepestFiringAngle - ShallowestFiringAngle));
 
-        if (IsAttacking && (System.DateTime.Now - LastFiring).Seconds >= Cooldown)
+        if (IsAttacking && (System.DateTime.Now - LastFiring).TotalSeconds >= Cooldown)
         {
             if (UseCartridge())
             {
