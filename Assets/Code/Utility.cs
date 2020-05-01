@@ -510,7 +510,10 @@ public static class InputUtility
 
     public static bool IsTouched(this GameObject game_object)
     {
-        return Scene.Main.InputModule.IsTouched(game_object);
+        if (Scene.Main.InputModule.ElementTouched == null)
+            return false;
+
+        return Scene.Main.InputModule.ElementTouched.DescendsFrom(game_object);
     }
 
     public static bool IsTouched(this MonoBehaviour mono_behaviour)

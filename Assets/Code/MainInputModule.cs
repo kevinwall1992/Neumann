@@ -73,9 +73,4 @@ public class MainInputModule : StandaloneInputModule
 
         return false;
     }
-
-    public bool IsTouched(GameObject game_object)
-    {
-        return ElementTouched == game_object;
-    }
 }
