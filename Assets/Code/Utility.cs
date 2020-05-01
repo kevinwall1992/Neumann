@@ -387,6 +387,30 @@ public static class InputUtility
 
     public static bool DidMouseMove() { return Scene.Main.InputModule.DidMouseMove; }
 
+
+    static MonoBehaviour keyboard_input_claimant = null;
+    public static bool ClaimKeyboardInput(this MonoBehaviour claimant)
+    {
+        if (!claimant.CanUseKeyboardInput())
+            return false;
+
+        keyboard_input_claimant = claimant;
+        return true;
+    }
+
+    public static void YieldKeyboardInputClaim(this MonoBehaviour claimant)
+    {
+        if (keyboard_input_claimant == claimant)
+            keyboard_input_claimant = null;
+    }
+
+    public static bool CanUseKeyboardInput(this MonoBehaviour enquirer)
+    {
+        return keyboard_input_claimant == null || 
+               keyboard_input_claimant == enquirer;
+    }
+
+
     static MonoBehaviour mouse_left_release_claimant = null;
     static int mouse_left_release_claim_yield_frame = -1;
     static MonoBehaviour MouseLeftReleaseClaimant
