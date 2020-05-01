@@ -387,34 +387,38 @@ public static class InputUtility
 
     public static bool DidMouseMove() { return Scene.Main.InputModule.DidMouseMove; }
 
-    static MonoBehaviour mouse_left_release_claimer = null;
+    static MonoBehaviour mouse_left_release_claimant = null;
     static int mouse_left_release_claim_yield_frame = -1;
-    static MonoBehaviour MouseLeftReleaseClaimer
+    static MonoBehaviour MouseLeftReleaseClaimant
     {
         get
         {
             if (mouse_left_release_claim_yield_frame >= 0 &&
                mouse_left_release_claim_yield_frame < Time.frameCount)
-                mouse_left_release_claimer = null;
+                mouse_left_release_claimant = null;
 
-            return mouse_left_release_claimer;
+            return mouse_left_release_claimant;
         }
 
         set
         {
-            mouse_left_release_claimer = value;
-            mouse_left_release_claim_yield_frame = -1;
+            if (mouse_left_release_claimant != null ||
+                mouse_left_release_claimant == value)
+            {
+                mouse_left_release_claimant = value;
+                mouse_left_release_claim_yield_frame = -1;
+            }
         }
     }
 
     public static void ClaimMouseLeftRelease(this MonoBehaviour claimant)
     {
-        MouseLeftReleaseClaimer = claimant;
+        MouseLeftReleaseClaimant = claimant;
     }
 
     public static void YieldMouseLeftReleaseClaim(this MonoBehaviour claimant)
     {
-        if (MouseLeftReleaseClaimer = claimant)
+        if (MouseLeftReleaseClaimant = claimant)
             mouse_left_release_claim_yield_frame = Time.frameCount;
     }
 
@@ -423,9 +427,9 @@ public static class InputUtility
         if (!WasMouseLeftReleased())
             return false;
 
-        if (MouseLeftReleaseClaimer != null)
+        if (MouseLeftReleaseClaimant != null)
         {
-            if (MouseLeftReleaseClaimer == enquirer)
+            if (MouseLeftReleaseClaimant == enquirer)
             {
                 YieldMouseLeftReleaseClaim(enquirer);
                 return true;
