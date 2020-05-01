@@ -78,7 +78,7 @@ public class VariableTile : Tile
         {
             ValueText.gameObject.SetActive(false);
 
-            float target_alpha = 0.25f + Utility.GetLoopedCycleMoment(1.5f) * 0.25f;
+            float target_alpha = 0.25f + TimeUtility.GetLoopedCycleMoment(1.5f) * 0.25f;
             input_highlight.color = input_highlight.color
                 .Lerped(input_highlight.color.AlphaChangedTo(target_alpha), 
                         Time.deltaTime * 20);
