@@ -64,7 +64,7 @@ public class Drawer : UIElement
 
         foreach (Tile tile in tiles)
         {
-            if (tile.IsPositioned)
+            if (tile.IsPositioned || tile.IsBeingDragged)
                 continue;
 
             int index = tiles.IndexOf(tile);
