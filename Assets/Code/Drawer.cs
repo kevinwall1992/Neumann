@@ -26,6 +26,7 @@ public class Drawer : UIElement
     public bool IsVertical;
     public int ElementsPerRow = 6;
     public int RowsVisible = 1;
+    public int MaximumRowsVisible = 4;
     public DrawerHandle Handle;
     public Transform SpawnPosition;
 
@@ -51,6 +52,9 @@ public class Drawer : UIElement
     protected override void Update()
     {
         base.Update();
+
+        RowsVisible = Mathf.Min(MaximumRowsVisible, RowsVisible);
+
 
         List<Tile> tiles = new List<Tile>(Tiles);
 

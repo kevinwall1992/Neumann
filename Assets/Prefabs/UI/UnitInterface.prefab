@@ -625,8 +625,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsVertical: 1
   ElementsPerRow: 1
-  RowsVisible: 20
-  Handle: {fileID: 0}
+  RowsVisible: 0
+  MaximumRowsVisible: 1000000
   SpawnPosition: {fileID: 5222651118198299127}
   arrow: {fileID: 5222651117222504340}
 --- !u!114 &5222651117862724568
@@ -735,6 +735,7 @@ MonoBehaviour:
   IsVertical: 1
   ElementsPerRow: 1
   RowsVisible: 20
+  MaximumRowsVisible: 10
   Handle: {fileID: 0}
   SpawnPosition: {fileID: 5222651118134093525}
 --- !u!114 &5222651118027044665
@@ -1055,6 +1056,7 @@ MonoBehaviour:
   IsVertical: 1
   ElementsPerRow: 10
   RowsVisible: 1
+  MaximumRowsVisible: 6
   Handle: {fileID: 760774233171894744}
   SpawnPosition: {fileID: 5222651118455146758}
 --- !u!114 &5222651118407411445
