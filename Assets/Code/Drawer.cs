@@ -38,6 +38,17 @@ public class Drawer : UIElement
         get { return GetComponentsInChildren<Tile>().ToList(); }
     }
 
+    public int RowCount
+    {
+        get
+        {
+            int element_count = Tiles.Count();
+
+            return element_count / ElementsPerRow + 
+                   ((element_count % ElementsPerRow) > 0 ? 1 : 0);
+        }
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -143,6 +154,14 @@ public class Drawer : UIElement
                 RowsVisible = Mathf.Max(0, (int)((IsVertical ? visible_row_units.y : visible_row_units.x) + 0.5f));
             }
         }
+
+
+        if (IsVertical)
+            RectTransform.sizeDelta = new Vector2(RectTransform.sizeDelta.x, 
+                                                  Mathf.Abs(tile_offset_unit) * Mathf.Max(1, RowCount));
+        else
+            RectTransform.sizeDelta = new Vector2(Mathf.Abs(tile_offset_unit) * Mathf.Max(1, RowCount),
+                                                  RectTransform.sizeDelta.y);
     }
 
     protected Vector2 GetStartingPosition()
