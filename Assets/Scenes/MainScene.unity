@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 733006007}
   - component: {fileID: 733006006}
   m_Layer: 0
-  m_Name: 3DUIElementContainer
+  m_Name: 3DUIElements
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -882,7 +882,7 @@ MonoBehaviour:
   InputModule: {fileID: 254189247}
   World: {fileID: 307915037}
   Style: {fileID: 1476563450}
-  _3DUIElementContainer: {fileID: 733006006}
+  _3DUIElements: {fileID: 733006006}
   Prefabs: {fileID: 1779771583}
   UnitInterface: {fileID: 678129766}
   WorldInterface: {fileID: 2099920077}

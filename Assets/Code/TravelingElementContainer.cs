@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class _3DUIElementContainer : MonoBehaviour
+public class TravelingElementContainer : MonoBehaviour
 {
-    public List<_3DUIElement> _3DUIElements { get { return GetComponentsInChildren<_3DUIElement>().ToList(); } }
+    public List<TravelingElement> TravelingElements
+    { get { return GetComponentsInChildren<TravelingElement>().ToList(); } }
 
     void Start()
     {
@@ -14,7 +15,7 @@ public class _3DUIElementContainer : MonoBehaviour
 
     void Update()
     {
-        foreach (_3DUIElement element in _3DUIElements)
+        foreach (TravelingElement element in TravelingElements)
         {
             if (element.OriginalParent == null)
                 GameObject.Destroy(element.gameObject);

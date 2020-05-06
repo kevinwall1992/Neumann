@@ -36,7 +36,7 @@ public class UnitLoadUnloadVisualizationController : MonoBehaviour
             waste_line.gameObject, waste_circle.Line.gameObject))
         {
             game_object.SetActive(true);
-            game_object.transform.SetParent(Scene.Main._3DUIElementContainer.transform);
+            game_object.transform.SetParent(Scene.Main._3DUIElements.transform);
             game_object.transform.localScale = new Vector3(1, 1, 1);
         }
     }
