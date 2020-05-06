@@ -7,6 +7,16 @@ using System.Collections.Generic;
 public class UnitInterface : UIElement
 {
     [SerializeField]
+    RectTransform unit_info = null;
+
+    [SerializeField]
+    RectTransform program_interface_container = null;
+
+    [SerializeField]
+    RectTransform next_operation_tile_mirror_axis = null;
+
+
+    [SerializeField]
     Text name_text = null;
     Text NameText { get { return name_text; } }
 
@@ -17,6 +27,10 @@ public class UnitInterface : UIElement
     [SerializeField]
     OperationTile current_task_tile = null;
     OperationTile CurrentTaskTile { get { return current_task_tile; } }
+
+    [SerializeField]
+    OperationTile next_operation_tile = null;
+    OperationTile NextOperationTile { get { return next_operation_tile; } }
 
     [SerializeField]
     CanvasGroup canvas_group = null;
@@ -93,6 +107,35 @@ public class UnitInterface : UIElement
             else
                 CurrentTaskTile.Operation = null;
         }
+
+
+        float space = unit_info.rect.height * 0.25f + Scene.Main.Style.Padding;
+        bool show_next_operation_tile = !ProgramInterface.IsOpen && 
+                                        Unit.Program.Next != null && 
+                                        !ProgramInterface.Handle.IsBeingDragged;
+
+        Vector3 target_position = 
+            new Vector3(next_operation_tile_mirror_axis.position.x, 
+                        next_operation_tile_mirror_axis.position.y + 
+                            (show_next_operation_tile ? -1 : 1) * space / 2);
+        NextOperationTile.transform.position = NextOperationTile.transform.position
+            .Lerped(target_position, Time.deltaTime * 4);
+
+        if (show_next_operation_tile)
+        {
+            NextOperationTile.Operation = Unit.Program.Next;
+
+            program_interface_container.sizeDelta = 
+                Vector2.Lerp(program_interface_container.sizeDelta,
+                             new Vector2(program_interface_container.sizeDelta.x, -space), 
+                             Time.deltaTime * 4);
+        }
+        else
+        {
+            program_interface_container.sizeDelta =
+                new Vector2(program_interface_container.sizeDelta.x, 0);
+        }
+
 
         if (OperationTile.Selected == null && 
             OperationTileIONode.Selected == null && 

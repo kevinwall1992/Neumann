@@ -9,8 +9,6 @@ public class ProgramInterface : Drawer
     [SerializeField]
     Image arrow = null;
 
-    public bool IsClosed { get; set; }
-
     Program program;
     public Program Program
     {
@@ -28,6 +26,8 @@ public class ProgramInterface : Drawer
     {
         get { return GetComponentsInChildren<OperationTile>().ToList(); }
     }
+
+    public bool IsOpen { get { return RowsVisible > 0; } }
 
     public Unit Unit { get { return GetComponentInParent<UnitInterface>().Unit; } }
 
