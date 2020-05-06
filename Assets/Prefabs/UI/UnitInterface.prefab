@@ -2007,6 +2007,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5222651118407411448}
     m_Modifications:
+    - target: {fileID: 4824557685756903395, guid: d6e01acc3b1c08a4094b657a47db9c42,
+        type: 3}
+      propertyPath: Drawer
+      value: 
+      objectReference: {fileID: 5222651118407411451}
     - target: {fileID: 6555998614911325774, guid: d6e01acc3b1c08a4094b657a47db9c42,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2265,6 +2270,10 @@ PrefabInstance:
       value: 0.19999695
       objectReference: {fileID: 0}
     - target: {fileID: 1409741543610663226, guid: 5da2f7217b5c8054898d440e5de46f5d,
+      propertyPath: Drawer
+      value: 
+      objectReference: {fileID: 5222651117862724571}
+    - target: {fileID: 6555998614911325774, guid: d6e01acc3b1c08a4094b657a47db9c42,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

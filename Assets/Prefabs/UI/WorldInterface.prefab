@@ -351,6 +351,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 671624930947600631}
     m_Modifications:
+    - target: {fileID: 4824557685756903395, guid: d6e01acc3b1c08a4094b657a47db9c42,
+        type: 3}
+      propertyPath: Drawer
+      value: 
+      objectReference: {fileID: 671624930947600632}
     - target: {fileID: 6555998614911325774, guid: d6e01acc3b1c08a4094b657a47db9c42,
         type: 3}
       propertyPath: m_LocalPosition.x

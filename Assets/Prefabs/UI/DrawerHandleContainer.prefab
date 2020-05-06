@@ -90,6 +90,7 @@ MonoBehaviour:
   DefaultSprite: {fileID: 21300000, guid: b40f2fef7a980c34d8aba25302d9638f, type: 3}
   DraggingSprite: {fileID: 21300000, guid: 1df4e8f7b78903b45897d668563c3dc4, type: 3}
   Container: {fileID: 6555998614911325774}
+  Drawer: {fileID: 0}
   ColorLerpSpeed: 4
 --- !u!1 &7233592599203075335
 GameObject:
