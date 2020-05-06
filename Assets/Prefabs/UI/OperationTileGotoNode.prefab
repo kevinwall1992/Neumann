@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 653165509800205385}
   - component: {fileID: 6493348430821373206}
   m_Layer: 5
-  m_Name: OpertationTileGotoNode
+  m_Name: OperationTileGotoNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
