@@ -57,8 +57,8 @@ public static class InputUtility
 
         set
         {
-            if (mouse_left_release_claimant != null ||
-                mouse_left_release_claimant == value)
+            if (MouseLeftReleaseClaimant == null ||
+                MouseLeftReleaseClaimant == value)
             {
                 mouse_left_release_claimant = value;
                 mouse_left_release_claim_yield_frame = -1;
@@ -66,14 +66,19 @@ public static class InputUtility
         }
     }
 
-    public static void ClaimMouseLeftRelease(this MonoBehaviour claimant)
+    public static bool ClaimMouseLeftRelease(this MonoBehaviour claimant)
     {
+        if (MouseLeftReleaseClaimant != null)
+            return false;
+
         MouseLeftReleaseClaimant = claimant;
+
+        return true;
     }
 
     public static void YieldMouseLeftReleaseClaim(this MonoBehaviour claimant)
     {
-        if (MouseLeftReleaseClaimant = claimant)
+        if (MouseLeftReleaseClaimant == claimant)
             mouse_left_release_claim_yield_frame = Time.frameCount;
     }
 
