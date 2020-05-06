@@ -18,6 +18,8 @@ public class Drawer : UIElement
     //     X | X
     // edge -^ ^- on-screen "row"
 
+    Vector3 handle_container_displacement;
+
     int insertion_preview_index = -1;
 
     bool IsFrontOnLeft { get; set; }
@@ -58,6 +60,9 @@ public class Drawer : UIElement
 
         IsFrontOnLeft = Mathf.Abs(RectTransform.rect.min.x) < Mathf.Abs(RectTransform.rect.max.x);
         IsFrontAtBottom = Mathf.Abs(RectTransform.rect.min.y) < Mathf.Abs(RectTransform.rect.max.y);
+
+        if (HasHandle)
+            handle_container_displacement = Handle.Container.position - transform.position;
     }
 
     protected override void Update()
@@ -137,9 +142,16 @@ public class Drawer : UIElement
 
         if (HasHandle && UnityEditor.EditorApplication.isPlaying)
         {
+            float handle_margin = 20;
+            Rect canvas_rect = (Scene.Main.Canvas.transform as RectTransform).rect;
+            Vector2 minimum_bounds = new Vector2(handle_margin, handle_margin);
+            Vector2 maximum_bounds = new Vector2(canvas_rect.width, canvas_rect.height) - minimum_bounds;
+
             if (Handle.IsBeingDragged)
             {
-                Vector3 displacement = Input.mousePosition - Handle.transform.position;
+                
+
+                Vector3 displacement = InputUtility.GetMouseMotion() * 22;
 
                 Vector2 drag_mask;
                 if (IsVertical)
@@ -147,11 +159,42 @@ public class Drawer : UIElement
                 else
                     drag_mask = new Vector3(1, 0);
 
+
+                //Slide Drawer in/out
                 transform.position += Vector3.Scale(displacement, drag_mask);
 
 
+                //Update RowsVisible
                 Vector2 visible_row_units = ((Vector2)transform.position - edge_position) / tile_offset_unit;
                 RowsVisible = Mathf.Max(0, (int)((IsVertical ? visible_row_units.y : visible_row_units.x) + 0.5f));
+            }
+
+            //Move handle back onto screen if necessary
+            Handle.Container.position = transform.position + handle_container_displacement;
+            Vector3 handle_position = Handle.transform.position;
+            Vector3 first_tile_position = tiles.Count > 0 ? tiles.First().transform.position : Vector3.zero;
+
+            if (IsVertical)
+            {
+                if (handle_position.y < minimum_bounds.y)
+                    Handle.Container.position += new Vector3(0, minimum_bounds.y - handle_position.y);
+                else if (handle_position.y > maximum_bounds.y)
+                    Handle.Container.position += new Vector3(0, maximum_bounds.y - handle_position.y);
+
+                //When hovering the handle, the cursor is hidden. Without this check,
+                //Handle.IsPointedAt() appears to fail sporadically, resulting in flickering.
+                if(tiles.Count > 0 && Handle.transform.position.x != first_tile_position.x)
+                    Handle.transform.position = Handle.transform.position.XChangedTo(first_tile_position.x);
+            }
+            else
+            {
+                if (handle_position.x < minimum_bounds.x)
+                    Handle.Container.position += new Vector3(0, minimum_bounds.x - handle_position.x);
+                else if (handle_position.x > maximum_bounds.x)
+                    Handle.Container.position += new Vector3(0, maximum_bounds.x - handle_position.x);
+
+                if (tiles.Count > 0 && Handle.transform.position.y != first_tile_position.y)
+                    Handle.transform.position = Handle.transform.position.YChangedTo(first_tile_position.y);
             }
         }
 
