@@ -86,12 +86,13 @@ public class OperationTile : Tile
         }
     }
 
+    public bool IsSelectable = true;
     public bool IsSelected
     {
         get { return Selected == this; }
         set
         {
-            if (value)
+            if (value && IsSelectable)
                 Selected = this;
             else if (IsSelected)
                 Selected = null;
