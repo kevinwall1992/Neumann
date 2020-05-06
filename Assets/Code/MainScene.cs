@@ -18,6 +18,7 @@ public class MainScene : Scene
     public Prefabs Prefabs;
     public UnitInterface UnitInterface;
     public WorldInterface WorldInterface;
+    public TravelingElementContainer UnmaskedUIElements;
 
     private void Awake()
     {

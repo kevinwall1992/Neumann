@@ -18,6 +18,10 @@ public class TravelingElement : MonoBehaviour
                 transform.SetParent(Scene.Main._3DUIElements.transform);
                 break;
 
+            case Destination.UnmaskedElementsContainer:
+                transform.SetParent(Scene.Main.UnmaskedUIElements.transform);
+                break;
+
             default:
                 Debug.Assert(false, "TravelingElement did not have destination.");
                 break;
@@ -29,5 +33,5 @@ public class TravelingElement : MonoBehaviour
         
     }
 
-    public enum Destination { None, _3DUIElementsContainer }
+    public enum Destination { None, _3DUIElementsContainer, UnmaskedElementsContainer }
 }
