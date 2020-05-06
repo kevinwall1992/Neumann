@@ -124,7 +124,7 @@ public class Drawer : UIElement
             transform.position = Vector3.Lerp(transform.position, target_position, 4 * Time.deltaTime);
 
 
-        if (HasHandle)
+        if (HasHandle && UnityEditor.EditorApplication.isPlaying)
         {
             if (Handle.IsBeingDragged)
             {
