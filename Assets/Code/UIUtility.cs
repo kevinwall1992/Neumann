@@ -126,4 +126,9 @@ public static class UIUtility
         return update_counts[mono_behaviour]++ % divisor == 0;
     }
     static Dictionary<MonoBehaviour, int> update_counts = new Dictionary<MonoBehaviour, int>();
+
+    public static bool Contains(this RectTransform rect_transform, Vector2 position)
+    {
+        return RectTransformUtility.RectangleContainsScreenPoint(rect_transform, position);
+    }
 }

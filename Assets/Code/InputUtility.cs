@@ -162,11 +162,6 @@ public static class InputUtility
         return transform.gameObject.IsTouched();
     }
 
-    public static bool Contains(this RectTransform rect_transform, Vector2 position)
-    {
-        return RectTransformUtility.RectangleContainsScreenPoint(rect_transform, position);
-    }
-
     public static bool ContainsMouse(this RectTransform rect_transform)
     {
         return rect_transform.Contains(Input.mousePosition);
