@@ -7,6 +7,7 @@ public class Prefabs : MonoBehaviour
 {
     public VariableTile VariableTile;
     public OperationTile OperationTile;
+    public PipeFunctionTile PipeFunctionTile;
 
     public Deposit Deposit;
     public SurfaceDeposit SurfaceDeposit;
