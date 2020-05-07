@@ -7,7 +7,7 @@ public class VariablePipe
     public string PrimaryVariableName { get; set; } = null;
     string SecondaryVariableName { get; set; } = null;
 
-    public PipeFunction Function { get; set; } = Identity;
+    public PipeFunction Function { get; set; } = null;
 
     public VariablePipe()
     {
@@ -36,7 +36,12 @@ public class VariablePipe
         if(SecondaryVariableName != null)
             secondary_variable = Variable.Find(unit, SecondaryVariableName);
 
-        return Function(primary_variable.Read(), secondary_variable != null ? secondary_variable.Read() : null);
+        if (Function != null)
+            return Function(primary_variable.Read(), secondary_variable != null ? 
+                                                     secondary_variable.Read() : 
+                                                     null);
+        else
+            return primary_variable.Read();
     }
 
     public T Read<T>(Unit unit)
@@ -55,12 +60,16 @@ public class VariablePipe
         if (SecondaryVariableName != null)
             secondary_variable = Variable.Find(unit, SecondaryVariableName);
 
-        primary_variable.Write(Function(value, secondary_variable != null ? secondary_variable.Read() : null));
+        if (Function != null)
+            primary_variable.Write(Function(value, secondary_variable != null ? 
+                                                   secondary_variable.Read() : 
+                                                   null));
+        else
+            primary_variable.Write(value);
     }
 
 
     public delegate object PipeFunction(object a, object b);
-    public static PipeFunction Identity = (a, b) => a;
 
     public static Dictionary<string, PipeFunction> Functions = new Dictionary<string, PipeFunction>();
     
