@@ -84,14 +84,14 @@ public class VariablePipe
         Functions["Equals"] = (a, b) => a.Equals(b);
     }
 
-    static PipeFunction Convert(System.Func<int, int, int> function)
+    static PipeFunction Convert(System.Func<float, float, float> function)
     {
-        return (a, b) => function((int)a, (int)b);
+        return (a, b) => function((float)a, (float)b);
     }
 
-    static PipeFunction Convert(System.Func<int, int, bool> function)
+    static PipeFunction Convert(System.Func<float, float, bool> function)
     {
-        return (a, b) => (a is int && b is int ? function((int)a, (int)b) : false);
+        return (a, b) => (a is float && b is float ? function((float)a, (float)b) : false);
     }
 
     static PipeFunction Convert(System.Func<bool, bool, bool> function)
