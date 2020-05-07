@@ -289,6 +289,16 @@ public static class MathUtility
 
         return Mathf.LerpAngle(a, b, speed * speedup_factor);
     }
+
+    public static float Distance(this Vector3 point, Line line)
+    {
+        Vector3 displacement = line.Point - point;
+        Vector3 perpendicular_direction = displacement.Crossed(line.Direction)
+                                                      .Crossed(line.Direction)
+                                                      .normalized;
+
+        return Mathf.Abs(perpendicular_direction.Dot(displacement));
+    }
 }
 
 public abstract class GenericFunction<T>
@@ -496,5 +506,17 @@ public class ChoiceFunction : ProbabilityDistribution
             return 1 - probability;
         else
             return probability;
+    }
+}
+
+public struct Line
+{
+    public Vector3 Point;
+    public Vector3 Direction;
+
+    public Line(Vector3 point, Vector3 direction)
+    {
+        Point = point;
+        Direction = direction;
     }
 }
