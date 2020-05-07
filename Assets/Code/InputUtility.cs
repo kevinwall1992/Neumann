@@ -149,7 +149,7 @@ public static class InputUtility
         if (Scene.Main.InputModule.ElementTouched == null)
             return false;
 
-        return Scene.Main.InputModule.ElementTouched.DescendsFrom(game_object);
+        return Scene.Main.InputModule.ElementTouched.IsChildOf(game_object);
     }
 
     public static bool IsTouched(this MonoBehaviour mono_behaviour)

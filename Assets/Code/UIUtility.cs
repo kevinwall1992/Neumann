@@ -93,30 +93,14 @@ public static class UIUtility
         return transform.gameObject.HasComponent<T>();
     }
 
-    //A transform is considered to descend from itself
-    public static bool DescendsFrom(this Transform descendent, Transform ancestor)
-    {
-        Transform transform = descendent;
-
-        while (transform != null)
-        {
-            if (transform == ancestor)
-                return true;
-
-            transform = transform.parent;
-        }
-
-        return false;
-    }
-
-    public static bool DescendsFrom(this MonoBehaviour descendent, Transform ancestor)
-    { return DescendsFrom(descendent.transform, ancestor); }
-    public static bool DescendsFrom(this MonoBehaviour descendent, MonoBehaviour ancestor)
-    { return DescendsFrom(descendent.transform, ancestor.transform); }
-    public static bool DescendsFrom(this GameObject descendent, Transform ancestor)
-    { return DescendsFrom(descendent.transform, ancestor); }
-    public static bool DescendsFrom(this GameObject descendent, GameObject ancestor)
-    { return DescendsFrom(descendent.transform, ancestor.transform); }
+    public static bool IsChildOf(this MonoBehaviour child, Transform parent)
+    { return child.transform.IsChildOf(parent); }
+    public static bool IsChildOf(this MonoBehaviour child, MonoBehaviour parent)
+    { return child.transform.IsChildOf(parent.transform); }
+    public static bool IsChildOf(this GameObject child, Transform parent)
+    { return child.transform.IsChildOf(parent); }
+    public static bool IsChildOf(this GameObject child, GameObject parent)
+    { return child.transform.IsChildOf(parent.transform); }
 
     public static bool IsModulusUpdate(this MonoBehaviour mono_behaviour, int divisor)
     {
