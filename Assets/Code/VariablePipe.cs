@@ -67,21 +67,29 @@ public class VariablePipe
     static VariablePipe()
     {
         //Unary
-        Functions["Identity"] = Identity;
-        Functions["Double"] = Convert((a, b) => a * 2);
+        Functions["2x"] = Convert((a, b) => a * 2);
+        Functions["10x"] = Convert((a, b) => a * 10);
+        Functions["Sqrt"] = Convert((a, b) => Mathf.Sqrt(a));
+        Functions["^2"] = Convert((a, b) => Mathf.Pow(a, 2));
+        Functions["^y"] = Convert((a, b) => Mathf.Pow(a, b));
+        Functions["log"] = (a, b) => b != null ? 
+                              Mathf.Log((float)a, (float)b) : 
+                              Mathf.Log((float)a);
+        Functions["log10"] = Convert((a, b) => Mathf.Log(a));
         Functions["Not"] = Convert((a, b) => !a);
-        Functions["IsNull"] = (a, b) => a == null;
 
         //Binary
-        Functions["Add"] = Convert((a, b) => a + b);
-        Functions["Subtract"] = Convert((a, b) => a - b);
-        Functions["Multiply"] = Convert((a, b) => a * b);
-        Functions["Divide"] = Convert((a, b) => a / b);
-        Functions["Greater"] = Convert((a, b) => a > b);
-        Functions["Less"] = Convert((a, b) => a < b);
+        Functions["+"] = Convert((a, b) => a + b);
+        Functions["-"] = Convert((a, b) => a - b);
+        Functions["x"] = Convert((a, b) => a * b);
+        Functions["/"] = Convert((a, b) => a / b);
+        Functions[">"] = Convert((a, b) => a > b);
+        Functions["<"] = Convert((a, b) => a < b);
         Functions["And"] = Convert((a, b) => a && b);
         Functions["Or"] = Convert((a, b) => a || b);
-        Functions["Equals"] = (a, b) => a.Equals(b);
+        Functions["="] = (a, b) => a.Equals(b);
+        Functions["Not ="] = (a, b) => a.Equals(b);
+        Functions["Mod"] = (a, b) => (int)a % (int)b;
     }
 
     static PipeFunction Convert(System.Func<float, float, float> function)
