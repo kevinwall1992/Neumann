@@ -86,7 +86,7 @@ public class VariablePipe
 
     static PipeFunction Convert(System.Func<float, float, float> function)
     {
-        return (a, b) => function((float)a, (float)b);
+        return (a, b) => function((float)a, b == null ? 0 : (float)b);
     }
 
     static PipeFunction Convert(System.Func<float, float, bool> function)
