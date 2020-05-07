@@ -67,6 +67,10 @@ public static class VectorUtility
     public static Vector3 ZZY(this Vector3 vector) { return new Vector3(vector.z, vector.z, vector.y); }
     public static Vector3 ZZZ(this Vector3 vector) { return new Vector3(vector.z, vector.z, vector.z); }
 
+    public static Vector3 XY0(this Vector3 vector) { return new Vector3(vector.x, vector.y, 0); }
+    public static Vector3 X0Z(this Vector3 vector) { return new Vector3(vector.x, 0, vector.z); }
+    public static Vector3 _0YZ(this Vector3 vector) { return new Vector3(0, vector.y, vector.z); }
+
     public static Vector2 XX(this Vector3 vector) { return new Vector2(vector.x, vector.x); }
     public static Vector2 XY(this Vector3 vector) { return new Vector2(vector.x, vector.y); }
     public static Vector2 XZ(this Vector3 vector) { return new Vector2(vector.x, vector.z); }
