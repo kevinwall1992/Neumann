@@ -9,6 +9,10 @@ public class ProgramInterface : Drawer
     [SerializeField]
     Image arrow = null;
 
+    [SerializeField]
+    RectTransform mask = null;
+    public RectTransform Mask { get { return mask; } }
+
     Program program;
     public Program Program
     {
@@ -59,7 +63,11 @@ public class ProgramInterface : Drawer
                 GameObject.Destroy(operation_tile.gameObject);
             }
 
+
         operation_tiles = OperationTiles;
+        if (operation_tiles.Count == 0)
+            return;
+
         foreach (Operation operation in Program)
             operation_tiles.Find(operation_tile => operation_tile.Operation == operation)
                 .transform.SetAsFirstSibling();
@@ -85,6 +93,16 @@ public class ProgramInterface : Drawer
         }
         else
             arrow.gameObject.SetActive(false);
+
+
+        OperationTile nearest_to_mouse = operation_tiles
+            .MinElement(operation_tile => operation_tile.MouseDistance);
+        bool highlight_nearest = nearest_to_mouse.MouseDistance < Screen.height / 20;
+
+        foreach (OperationTile operation_tile in operation_tiles)
+            operation_tile.IsHighlighted = IsOpen && 
+                                           highlight_nearest && 
+                                           operation_tile == nearest_to_mouse;
     }
 
     public override Tile Add(Tile tile)

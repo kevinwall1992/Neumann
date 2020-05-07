@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f015dc8ccd843d4d8011649ddee2b26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  background: {fileID: 3162986638643752673}
   image: {fileID: 3162986637988843118}
   selection_overlay: {fileID: 3162986638585960626}
   input_text: {fileID: 8449607444709597567}

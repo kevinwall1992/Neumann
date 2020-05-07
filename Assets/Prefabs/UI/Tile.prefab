@@ -265,6 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2890af9faab47884c92e026b7af6680c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  background: {fileID: 8645788925736385849}
   image: {fileID: 8645788924814220726}
   selection_overlay: {fileID: 8645788925410282346}
 --- !u!114 &-8327926149586060681

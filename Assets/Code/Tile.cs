@@ -6,6 +6,10 @@ using UnityEngine.EventSystems;
 public class Tile : DraggableUIElement
 {
     [SerializeField]
+    Image background = null;
+    public Image Background { get { return background; } }
+
+    [SerializeField]
     Image image = null;
     public Image Image { get { return image; } }
 

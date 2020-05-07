@@ -4,11 +4,25 @@ using UnityEngine.UI;
 
 public class OperationTileIONode : OperationTileNode
 {
+    protected override bool IsLineValid
+    { get { return IsSelected || VariableTile != null; } }
+
+    [SerializeField]
+    PipeFunctionSlot pipe_function_slot = null;
+    public PipeFunctionSlot PipeFunctionSlot { get { return pipe_function_slot; } }
+
     public string VariableName { get; set; } = null;
 
     public VariableTile VariableTile { get { return VariableTile.Find(VariableName); } }
 
     public bool IsInputNode { get { return OperationTile.InputNode == this; } }
+
+    public VariablePipe VariablePipe { get { return IsInputNode ? 
+                                                    OperationTile.Operation.Input : 
+                                                    OperationTile.Operation.Output; } }
+
+    public override bool IsOpen
+    { get { return IsSelected || base.IsOpen || OperationTile.IsPointedAt(); } }
 
     protected override void Start()
     {
@@ -21,11 +35,8 @@ public class OperationTileIONode : OperationTileNode
     {
         base.Update();
 
-        if (IsSelected || OperationTile.IsPointedAt())
+        if (IsOpen)
         {
-            Hide = false;
-            ShowLine();
-
             if (IsSelected)
             {
                 if (Scene.Main.World.IsPointedAt())
@@ -48,11 +59,17 @@ public class OperationTileIONode : OperationTileNode
                     BezierLineController.EndPosition = Scene.Main.Camera.ScreenToWorldPoint(
                         VariableTile.transform.position.ZChangedTo(UIDepth));
             }
-            else
-                HideLine();
+
+            PipeFunctionSlot.transform.position =
+                Scene.Main.Camera.WorldToScreenPoint(BezierLineController.StartPosition).Lerped(
+                    Scene.Main.Camera.WorldToScreenPoint(BezierLineController.EndPosition), 
+                    0.5f);
         }
-        else
-            Hide = true;
+
+        //****use corner control point to bend line
+
+        PipeFunctionSlot.gameObject.SetActive(IsOpen && IsLineValid);
+
 
         if (!InputUtility.DidDragOccur && 
             IsSelected && 
@@ -65,7 +82,7 @@ public class OperationTileIONode : OperationTileNode
                 Unit unit = InputUtility.GetElementTouched<Unit>();
 
                 if (variable_tile != null)
-                    VariableName = variable_tile.name;
+                    VariableName = variable_tile.Variable.Name;
                 else if (unit != null)
                     VariableName = unit.Id;
                 else if (Scene.Main.World.IsPointedAt())

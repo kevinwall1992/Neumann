@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Linq;
 
 public class OperationTile : Tile
 {
@@ -113,6 +115,38 @@ public class OperationTile : Tile
             return unit_interface.Unit;
         }
     }
+
+    public bool IsOpen
+    {
+        get
+        {
+            if (!IsInProgramInterface)
+                return false;
+
+            ProgramInterface program_interface = Scene.Main.UnitInterface.ProgramInterface;
+            if (!program_interface.IsOpen)
+                return false;
+
+            return program_interface.Mask.Contains(transform.position);
+        }
+    }
+
+    public float MouseDistance
+    {
+        get
+        {
+            List<float> distances = Utility.List(transform.position.Distance(Input.mousePosition));
+
+            if (Operation.TakesInput)
+                distances.Add(InputNode.MouseDistance);
+            if (Operation.HasOutput)
+                distances.Add(OutputNode.MouseDistance);
+
+            return distances.Min();
+        }
+    }
+
+    public bool IsHighlighted { get; set; }
 
     protected override void Start()
     {

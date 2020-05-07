@@ -91,6 +91,9 @@ MonoBehaviour:
   ui_depth: 5
   image: {fileID: 5046147411630548240}
   line: {fileID: 6871897791174634578}
+  line_color:
+    renderer: {fileID: 6871897791174634578}
+    name: _Color
   bezier_line_controller: {fileID: 6493348430821373206}
   arrow: {fileID: 4314777035883780621}
 --- !u!114 &6493348430821373206
@@ -256,7 +259,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7f033840775b1e04891b2fa49990fcef, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

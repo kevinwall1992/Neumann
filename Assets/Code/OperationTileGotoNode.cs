@@ -9,7 +9,26 @@ public class OperationTileGotoNode : OperationTileNode
     [SerializeField]
     GameObject arrow = null;
 
+    [SerializeField]
+    ColorMaterialProperty arrow_color = new ColorMaterialProperty();
+
+    protected override bool IsLineValid
+    { get { return IsSelected || GotoOperationTile != null; } }
+
     public OperationTile GotoOperationTile { get; set; }
+
+    public override bool IsOpen
+    {
+        get
+        {
+            return GotoOperationTile != null || 
+                   IsSelected || 
+                   base.IsOpen || 
+                   OperationTile.IsPointedAt();
+        }
+    }
+
+    public override float LineAlpha { get { return 1; } }
 
     protected override void Start()
     {
@@ -30,31 +49,15 @@ public class OperationTileGotoNode : OperationTileNode
             Quaternion.LookRotation(arrow.transform.position - Scene.Main.Camera.transform.position, 
                                     Scene.Main.Camera.transform.up);
 
-        if (GotoOperationTile != null || IsSelected || OperationTile.IsPointedAt())
+        if (IsOpen)
         {
-            Hide = false;
-            arrow.SetActive(true);
-
             Vector3 screen_space_end_position = Vector3.zero;
 
             if (IsSelected)
-            {
-                ShowLine();
-
                 screen_space_end_position = Input.mousePosition.ZChangedTo(UIDepth);
-            }
             else if (GotoOperationTile != null)
-            {
-                ShowLine();
-
                 screen_space_end_position = 
                     GotoOperationTile.GotoAttachPosition.transform.position.ZChangedTo(UIDepth);
-            }
-            else
-            {
-                HideLine();
-                arrow.SetActive(false);
-            }
 
             BezierLineController.EndPosition = Scene.Main.Camera.ScreenToWorldPoint(screen_space_end_position);
             arrow.transform.position = BezierLineController.EndPosition;
@@ -64,8 +67,9 @@ public class OperationTileGotoNode : OperationTileNode
                             screen_space_end_position.y,
                             UIDepth));
         }
-        else
-            Hide = true;
+
+        arrow.gameObject.SetActive(IsOpen && IsLineValid);
+
 
         if (!InputUtility.DidDragOccur && IsSelected && !OperationTile.IsPointedAt() && this.UseMouseLeftRelease())
         {

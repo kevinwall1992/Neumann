@@ -271,6 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8827dd9da5dd504ca8a461b5ef33d24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  background: {fileID: 1409741543610663227}
   image: {fileID: 1409741542721937844}
   selection_overlay: {fileID: 1409741543200634728}
   null_task_sprite: {fileID: 21300000, guid: a3582a1801899184889c0afe55c9ddb9, type: 3}
