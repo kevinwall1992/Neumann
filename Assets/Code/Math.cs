@@ -290,6 +290,12 @@ public static class MathUtility
         return Mathf.LerpAngle(a, b, speed * speedup_factor);
     }
 
+    public static IEnumerable<float> GetFloatRange(int sample_count, float scale = 1, float bias = 0)
+    {
+        return Enumerable.Range(0, sample_count)
+            .Select(value => (value / (sample_count - 1.0f) * scale + bias));
+    }
+
     public static float Distance(this Vector3 point, Line line)
     {
         Vector3 displacement = line.Point - point;
