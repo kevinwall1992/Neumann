@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TravelingElement : MonoBehaviour
 {
-    public Transform OriginalParent { get; private set; }
+    public Transform OriginalParent;
 
     [SerializeField]
     Destination destination = Destination.None;
