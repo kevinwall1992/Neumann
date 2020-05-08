@@ -20,7 +20,7 @@ public class TravelingElementContainer : MonoBehaviour
             if (element.OriginalParent == null)
                 GameObject.Destroy(element.gameObject);
             else
-                element.gameObject.SetActive(element.OriginalParent.gameObject.activeSelf);
+                element.gameObject.SetActive(element.OriginalParent.gameObject.activeInHierarchy);
         }
     }
 }
