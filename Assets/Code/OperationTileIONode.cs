@@ -11,6 +11,9 @@ public class OperationTileIONode : OperationTileNode
     PipeFunctionSlot pipe_function_slot = null;
     public PipeFunctionSlot PipeFunctionSlot { get { return pipe_function_slot; } }
 
+    [SerializeField]
+    OperationTileIONode primary_input_node = null;
+
     public string VariableName { get; set; } = null;
 
     public VariableTile VariableTile { get { return VariableTile.Find(VariableName); } }
@@ -21,8 +24,39 @@ public class OperationTileIONode : OperationTileNode
                                                     OperationTile.Operation.Input : 
                                                     OperationTile.Operation.Output; } }
 
+    public override OperationTile OperationTile
+    {
+        get
+        {
+            return IsSecondaryInputNode ? 
+                   primary_input_node.OperationTile : 
+                   base.OperationTile;
+        }
+    }
+
     public override bool IsOpen
-    { get { return IsSelected || base.IsOpen || OperationTile.IsPointedAt(); } }
+    {
+        get
+        {
+            if (IsSecondaryInputNode)
+                return primary_input_node.IsOpen;
+
+            return IsSelected || base.IsOpen || OperationTile.IsPointedAt();
+        }
+    }
+
+    public override float LineAlpha
+    {
+        get
+        {
+            return IsSecondaryInputNode ? 
+                   primary_input_node.LineAlpha : 
+                   base.LineAlpha;
+        }
+    }
+
+    public bool IsSecondaryInputNode
+    { get { return primary_input_node != null || PipeFunctionSlot == null; } }
 
     protected override void Start()
     {
@@ -33,6 +67,9 @@ public class OperationTileIONode : OperationTileNode
 
     protected override void Update()
     {
+        if (IsSecondaryInputNode && primary_input_node == null)
+            return;
+
         base.Update();
 
         if (IsOpen)
@@ -60,15 +97,14 @@ public class OperationTileIONode : OperationTileNode
                         VariableTile.transform.position.ZChangedTo(UIDepth));
             }
 
-            PipeFunctionSlot.transform.position =
-                Scene.Main.Camera.WorldToScreenPoint(BezierLineController.StartPosition).Lerped(
-                    Scene.Main.Camera.WorldToScreenPoint(BezierLineController.EndPosition), 
-                    0.5f);
+            if(PipeFunctionSlot != null)
+                PipeFunctionSlot.transform.position =
+                    Scene.Main.Camera.WorldToScreenPoint(BezierLineController.StartPosition).Lerped(
+                        Scene.Main.Camera.WorldToScreenPoint(BezierLineController.EndPosition), 
+                        0.5f);
         }
 
         //****use corner control point to bend line
-
-        PipeFunctionSlot.gameObject.SetActive(IsOpen && IsLineValid);
 
 
         if (!InputUtility.DidDragOccur && 

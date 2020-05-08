@@ -444,6 +444,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GotoNode
       objectReference: {fileID: 0}
+    - target: {fileID: 653165509800205385, guid: 35e27ff46f8706341962118afd900f85,
+        type: 3}
+      propertyPath: operation_tile
+      value: 
+      objectReference: {fileID: 7908139509503451012}
     - target: {fileID: 4082403279372898664, guid: 35e27ff46f8706341962118afd900f85,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -566,11 +571,21 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3225542268458613860, guid: f094d73e5d48ad54aabeab540e902027,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5686942306912611671, guid: f094d73e5d48ad54aabeab540e902027,
         type: 3}
       propertyPath: m_Name
       value: InputNode
       objectReference: {fileID: 0}
+    - target: {fileID: 7836768333810292492, guid: f094d73e5d48ad54aabeab540e902027,
+        type: 3}
+      propertyPath: operation_tile
+      value: 
+      objectReference: {fileID: 7908139509503451012}
     - target: {fileID: 8499832354938524029, guid: f094d73e5d48ad54aabeab540e902027,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -913,11 +928,21 @@ PrefabInstance:
       propertyPath: m_Parameters.colorGradient.key1.b
       value: 0.20212728
       objectReference: {fileID: 0}
+    - target: {fileID: 3225542268458613860, guid: f094d73e5d48ad54aabeab540e902027,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5686942306912611671, guid: f094d73e5d48ad54aabeab540e902027,
         type: 3}
       propertyPath: m_Name
       value: OutputNode
       objectReference: {fileID: 0}
+    - target: {fileID: 7836768333810292492, guid: f094d73e5d48ad54aabeab540e902027,
+        type: 3}
+      propertyPath: operation_tile
+      value: 
+      objectReference: {fileID: 7908139509503451012}
     - target: {fileID: 8499832354938524029, guid: f094d73e5d48ad54aabeab540e902027,
         type: 3}
       propertyPath: m_LocalPosition.x

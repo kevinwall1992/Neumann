@@ -26,7 +26,9 @@ public class OperationTileNode : MonoBehaviour
 
     protected virtual bool IsLineValid { get { return true; } }
 
-    public OperationTile OperationTile { get { return GetComponentInParent<OperationTile>(); } }
+    [SerializeField]
+    OperationTile operation_tile = null;
+    public virtual OperationTile OperationTile { get { return operation_tile; } }
 
     public bool IsSelected
     {
@@ -65,8 +67,7 @@ public class OperationTileNode : MonoBehaviour
         BezierLineController.StartPosition = Scene.Main.Camera.ScreenToWorldPoint(
             transform.position.ZChangedTo(ui_depth));
 
-        if (this.IsPointedAt() &&
-            (OperationTile.IsInOperationMenu || OperationTile.IsInProgramInterface))
+        if (this.IsPointedAt() && OperationTile.IsInProgramInterface)
         {
             image.color = color.Lerped(Color.yellow, 0.5f);
             image.transform.localScale = new Vector2(1, 1) * 1.25f;
@@ -83,6 +84,8 @@ public class OperationTileNode : MonoBehaviour
 
             if(IsLineValid)
                 line.gameObject.SetActive(true);
+            else
+                line.gameObject.SetActive(false);
         }
         else
         {
@@ -99,13 +102,18 @@ public class OperationTileNode : MonoBehaviour
         line_color.Value = line.startColor.AlphaChangedTo(LineAlpha);
 
 
-        if (OperationTile.IsSelectable && 
+        if (OperationTile.IsSelectable &&
             !InputUtility.DidDragOccur &&
             !IsSelected &&
             this.IsPointedAt() &&
             (OperationTile.IsInOperationMenu || OperationTile.IsInProgramInterface) &&
             this.UseMouseLeftRelease())
-            IsSelected = true;
+        {
+            if (OperationTile.IsInOperationMenu)
+                OperationTile.IsSelected = true;
+            else
+                IsSelected = true;
+        }
     }
 
 

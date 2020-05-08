@@ -138,9 +138,19 @@ public class OperationTile : Tile
             List<float> distances = Utility.List(transform.position.Distance(Input.mousePosition));
 
             if (Operation.TakesInput)
+            {
                 distances.Add(InputNode.MouseDistance);
+
+                if(InputNode.PipeFunctionSlot.PipeFunctionTile != null)
+                    distances.Add(InputNode.PipeFunctionSlot.SecondaryInputNode.MouseDistance);
+            }
             if (Operation.HasOutput)
+            {
                 distances.Add(OutputNode.MouseDistance);
+
+                if (OutputNode.PipeFunctionSlot.PipeFunctionTile != null)
+                    distances.Add(OutputNode.PipeFunctionSlot.SecondaryInputNode.MouseDistance);
+            }
 
             return distances.Min();
         }

@@ -7,13 +7,23 @@ public class PipeFunctionSlot : MonoBehaviour
     PipeFunctionTile pipe_function_tile;
 
     [SerializeField]
-    OperationTileIONode io_node = null;
-
-    [SerializeField]
     Image image = null;
 
     [SerializeField]
     Image selection_overlay = null;
+
+    [SerializeField]
+    CanvasGroup canvas_group = null;
+
+    [SerializeField]
+    OperationTileIONode primary_input_node = null;
+    public OperationTileIONode PrimaryInputNode
+    { get { return primary_input_node; } }
+
+    [SerializeField]
+    OperationTileIONode secondary_input_node = null;
+    public OperationTileIONode SecondaryInputNode
+    { get { return secondary_input_node; } }
 
     public PipeFunctionTile PipeFunctionTile
     {
@@ -29,39 +39,43 @@ public class PipeFunctionSlot : MonoBehaviour
             if (PipeFunctionTile != null)
             {
                 PipeFunctionTile.transform.SetParent(transform);
-                io_node.VariablePipe.Function = PipeFunctionTile.Function;
+                primary_input_node.VariablePipe.Function = PipeFunctionTile.Function;
             }
             else
-                io_node.VariablePipe.Function = null;
+                primary_input_node.VariablePipe.Function = null;
         }
     }
 
     private void Update()
     {
-        bool pipe_function_tile_is_being_dragged = 
+        bool pipe_function_tile_is_being_dragged =
             DraggableUIElement.DraggedElement != null &&
             DraggableUIElement.DraggedElement.HasComponent<PipeFunctionTile>();
 
-        float selection_overlay_alpha = 0;
-        if (pipe_function_tile_is_being_dragged && (transform as RectTransform).ContainsMouse())
-            selection_overlay_alpha = io_node.LineAlpha * 0.75f;
-        selection_overlay.color = selection_overlay.color.AlphaChangedTo(selection_overlay_alpha);
+        selection_overlay.gameObject.SetActive(pipe_function_tile_is_being_dragged && 
+                                               (transform as RectTransform).ContainsMouse());
 
+        image.color = image.color
+            .AlphaChangedTo(PipeFunctionTile == null ? 1 : 0);
 
-        image.color = image.color.AlphaChangedTo(0);
-        
-        if (PipeFunctionTile != null)
+        if (PipeFunctionTile != null && !PipeFunctionTile.IsBeingDragged)
+            PipeFunctionTile.transform.position = PipeFunctionTile.transform.position
+                .Lerped(transform.position, Time.deltaTime * 10);
+
+        if (primary_input_node != null && primary_input_node.IsOpen)
         {
-            if(!PipeFunctionTile.IsBeingDragged)
-                PipeFunctionTile.transform.position =
-                    PipeFunctionTile.transform.position.Lerped(transform.position,
-                                                               Time.deltaTime * 10);
+            if (pipe_function_tile_is_being_dragged || PipeFunctionTile != null)
+                canvas_group.alpha = primary_input_node.LineAlpha;
+            else
+                canvas_group.alpha = 0;
 
-            PipeFunctionTile.Background.color = 
-                PipeFunctionTile.Background.color.AlphaChangedTo(io_node.LineAlpha);
+            Rect io_node_rect = (primary_input_node.transform as RectTransform).rect;
+            (secondary_input_node.transform as RectTransform).sizeDelta =
+                new Vector2(io_node_rect.width, io_node_rect.height);
+
+            if (SecondaryInputNode != null)
+                primary_input_node.VariablePipe.SecondaryVariableName = 
+                    SecondaryInputNode.VariableName;
         }
-        else if(pipe_function_tile_is_being_dragged)
-            image.color = image.color.AlphaChangedTo(io_node.LineAlpha);
-
     }
 }

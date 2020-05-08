@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class VariablePipe
 {
     public string PrimaryVariableName { get; set; } = null;
-    string SecondaryVariableName { get; set; } = null;
+    public string SecondaryVariableName { get; set; } = null;
 
     public PipeFunction Function { get; set; } = null;
 
