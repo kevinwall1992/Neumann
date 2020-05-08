@@ -571,6 +571,11 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1679813693793137923, guid: f094d73e5d48ad54aabeab540e902027,
+        type: 3}
+      propertyPath: PathType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3225542268458613860, guid: f094d73e5d48ad54aabeab540e902027,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -927,6 +932,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Parameters.colorGradient.key1.b
       value: 0.20212728
+      objectReference: {fileID: 0}
+    - target: {fileID: 1679813693793137923, guid: f094d73e5d48ad54aabeab540e902027,
+        type: 3}
+      propertyPath: PathType
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3225542268458613860, guid: f094d73e5d48ad54aabeab540e902027,
         type: 3}

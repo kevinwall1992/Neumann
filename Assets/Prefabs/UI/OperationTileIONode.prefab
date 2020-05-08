@@ -130,6 +130,7 @@ MonoBehaviour:
   ControlPosition0: {x: 0, y: 0, z: 0}
   ControlPosition1: {x: 0, y: 0, z: 0}
   EndPosition: {x: 0, y: 0, z: 0}
+  PathType: 2
   SampleCount: 30
 --- !u!1 &1716307866749195300
 GameObject:
@@ -606,6 +607,7 @@ MonoBehaviour:
   ControlPosition0: {x: 0, y: 0, z: 0}
   ControlPosition1: {x: 0, y: 0, z: 0}
   EndPosition: {x: 0, y: 0, z: 0}
+  PathType: 2
   SampleCount: 30
 --- !u!1 &6852056004864323524
 GameObject:

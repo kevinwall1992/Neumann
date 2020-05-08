@@ -58,13 +58,6 @@ public class OperationTileIONode : OperationTileNode
     public bool IsSecondaryInputNode
     { get { return primary_input_node != null || PipeFunctionSlot == null; } }
 
-    protected override void Start()
-    {
-        base.Start();
-
-        BezierLineController.DrawStraightLine = true;
-    }
-
     protected override void Update()
     {
         if (IsSecondaryInputNode && primary_input_node == null)

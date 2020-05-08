@@ -13,9 +13,8 @@ public class BezierLineController : MonoBehaviour
     public Vector3 ControlPosition1;
     public Vector3 EndPosition;
 
+    public PathType Path = PathType.Cubic; 
     public int SampleCount = 10;
-
-    public bool DrawStraightLine { get; set; } = false;
 
     void Start()
     {
@@ -24,7 +23,7 @@ public class BezierLineController : MonoBehaviour
 
     void Update()
     {
-        if(DrawStraightLine)
+        if(Path == PathType.Linear)
         {
             line_renderer.positionCount = 2;
             line_renderer.SetPosition(0, StartPosition);
@@ -44,13 +43,24 @@ public class BezierLineController : MonoBehaviour
 
     public Vector3 GetPositionAlongPath(float t)
     {
-        if (DrawStraightLine)
-            return StartPosition.Lerped(EndPosition, t);
+        switch(Path)
+        {
+            case PathType.Linear:
+                return StartPosition.Lerped(EndPosition, t);
 
-        return Mathf.Pow(1 - t, 3) * StartPosition +
-               3 * Mathf.Pow(1 - t, 2) * t * ControlPosition0 +
-               3 * (1 - t) * t * t * ControlPosition1 +
-               t * t * t * EndPosition;
+            case PathType.Quadratic:
+                return Mathf.Pow(1 - t, 2) * StartPosition +
+                       2 * Mathf.Pow(1 - t, 2) * t * ControlPosition0 +
+                       t * t * EndPosition;
+
+            case PathType.Cubic:
+                return Mathf.Pow(1 - t, 3) * StartPosition +
+                       3 * Mathf.Pow(1 - t, 2) * t * ControlPosition0 +
+                       3 * (1 - t) * t * t * ControlPosition1 +
+                       t * t * t * EndPosition;
+
+            default: return Vector3.zero;
+        }
     }
 
     int TToIndex(float t)
@@ -81,7 +91,7 @@ public class BezierLineController : MonoBehaviour
 
     public float GetDistance(Vector3 position)
     {
-        if (DrawStraightLine)
+        if (Path == PathType.Linear)
             return position.Distance(new Line(StartPosition, EndPosition - StartPosition));
 
         return Enumerable.Range(0, line_renderer.positionCount - 1)
@@ -94,7 +104,7 @@ public class BezierLineController : MonoBehaviour
     {
         Camera camera = Scene.Main.Camera;
 
-        if (DrawStraightLine)
+        if (Path == PathType.Linear)
             return position.Distance(new Line(camera.WorldToScreenPoint(StartPosition), 
                                               camera.WorldToScreenPoint(EndPosition) - 
                                               camera.WorldToScreenPoint(StartPosition)));
@@ -105,4 +115,7 @@ public class BezierLineController : MonoBehaviour
                          GetTangentInScreenSpace(index))))
             .Min();
     }
+
+
+    public enum PathType { Linear, Quadratic, Cubic }
 }
