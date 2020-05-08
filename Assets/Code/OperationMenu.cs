@@ -24,7 +24,7 @@ public class OperationMenu : Drawer
             Reset();
 
             foreach (Operation operation in abilities)
-                Add(OperationTile.Create(operation)).transform.position = SpawnPosition.position;
+                Add(OperationTile.Create(operation));
         }
     }
 

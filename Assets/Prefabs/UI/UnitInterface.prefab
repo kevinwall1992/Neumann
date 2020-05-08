@@ -826,7 +826,7 @@ MonoBehaviour:
   RowsVisible: 0
   MaximumRowsVisible: 1000000
   Handle: {fileID: 2889077420903530651}
-  SpawnPosition: {fileID: 5222651118198299127}
+  spawn_position: {fileID: 5222651118198299127}
   arrow: {fileID: 5222651117222504340}
   mask: {fileID: 7808881993137747843}
 --- !u!114 &5222651117862724569
@@ -920,7 +920,7 @@ MonoBehaviour:
   RowsVisible: 10
   MaximumRowsVisible: 10
   Handle: {fileID: 0}
-  SpawnPosition: {fileID: 5222651118134093525}
+  spawn_position: {fileID: 5222651118134093525}
 --- !u!114 &5222651118027044665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1243,7 +1243,7 @@ MonoBehaviour:
   RowsVisible: 1
   MaximumRowsVisible: 6
   Handle: {fileID: 760774233171894744}
-  SpawnPosition: {fileID: 5222651118455146758}
+  spawn_position: {fileID: 5222651118455146758}
 --- !u!114 &5222651118407411445
 MonoBehaviour:
   m_ObjectHideFlags: 0

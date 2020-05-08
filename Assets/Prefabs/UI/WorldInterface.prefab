@@ -309,7 +309,7 @@ MonoBehaviour:
   RowsVisible: 1
   MaximumRowsVisible: 6
   Handle: {fileID: 5451135622477731485}
-  SpawnPosition: {fileID: 671624929459396862}
+  spawn_position: {fileID: 671624929459396862}
 --- !u!114 &671624930947600634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,7 +473,7 @@ MonoBehaviour:
   RowsVisible: 0
   MaximumRowsVisible: 10
   Handle: {fileID: 4642826555563436240}
-  SpawnPosition: {fileID: 6254060326727735965}
+  spawn_position: {fileID: 6254060326727735965}
 --- !u!1001 &187716871966971699
 PrefabInstance:
   m_ObjectHideFlags: 0

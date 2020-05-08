@@ -9,7 +9,6 @@ public class PipeFunctionDrawer : Drawer
 
         if(UnityEditor.EditorApplication.isPlaying)
             foreach (string name in VariablePipe.Functions.Keys)
-                Add(PipeFunctionTile.Create(name, VariablePipe.Functions[name]))
-                    .transform.position = SpawnPosition.position;
+                Add(PipeFunctionTile.Create(name, VariablePipe.Functions[name]));
     }
 }

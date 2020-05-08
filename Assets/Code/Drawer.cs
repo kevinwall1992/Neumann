@@ -30,7 +30,10 @@ public class Drawer : UIElement
     public int RowsVisible = 1;
     public int MaximumRowsVisible = 4;
     public DrawerHandle Handle;
-    public Transform SpawnPosition;
+
+    [SerializeField]
+    Transform spawn_position = null;
+    public Vector3 SpawnPosition { get { return spawn_position.position; } }
 
     public bool HasHandle { get { return Handle != null; } }
     public RectTransform RectTransform { get { return transform as RectTransform; } }
@@ -231,9 +234,11 @@ public class Drawer : UIElement
                                    (int)indices.y * (IsVertical ? ElementsPerRow : 1), Tiles.Count), 0);
     }
 
-    public virtual Tile Add(Tile tile)
+    public virtual Tile Add(Tile tile, bool is_spawn = true)
     {
         tile.transform.SetParent(this.transform);
+        if (is_spawn)
+            tile.transform.position = SpawnPosition;
 
         StopPreviewing();
 

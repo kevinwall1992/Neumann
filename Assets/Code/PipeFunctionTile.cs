@@ -39,7 +39,6 @@ public class PipeFunctionTile : Tile
                 if (Drawer != null)
                 {
                     PipeFunctionTile copy = Create(Name, Function);
-                    copy.transform.position = Drawer.SpawnPosition.position;
 
                     Drawer.Add(copy);
                     copy.transform.SetSiblingIndex(transform.GetSiblingIndex());

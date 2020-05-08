@@ -54,7 +54,7 @@ public class ProgramInterface : Drawer
 
         foreach(Operation operation in Program)
             if (!operations.Contains(operation))
-                base.Add(OperationTile.Create(operation)).transform.position = SpawnPosition.position;
+                base.Add(OperationTile.Create(operation));
 
         foreach(OperationTile operation_tile in operation_tiles)
             if(!Program.Contains(operation_tile.Operation))
@@ -105,9 +105,9 @@ public class ProgramInterface : Drawer
                                            operation_tile == nearest_to_mouse;
     }
 
-    public override Tile Add(Tile tile)
+    public override Tile Add(Tile tile, bool is_spawn = true)
     {
-        base.Add(tile);
+        base.Add(tile, is_spawn);
 
         Operation operation = (tile as OperationTile).Operation;
 
