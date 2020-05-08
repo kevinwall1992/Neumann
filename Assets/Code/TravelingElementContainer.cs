@@ -6,7 +6,7 @@ using System.Linq;
 public class TravelingElementContainer : MonoBehaviour
 {
     public List<TravelingElement> TravelingElements
-    { get { return GetComponentsInChildren<TravelingElement>().ToList(); } }
+    { get { return GetComponentsInChildren<TravelingElement>(true).ToList(); } }
 
     void Start()
     {
