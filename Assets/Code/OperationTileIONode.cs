@@ -74,6 +74,7 @@ public class OperationTileIONode : OperationTileNode
         if (!InputUtility.DidDragOccur && 
             IsSelected && 
             !OperationTile.IsPointedAt() && 
+            !this.IsPointedAt() &&
             this.UseMouseLeftRelease())
         {
             if (Scene.Main.InputModule.ElementTouched != null)
