@@ -50,7 +50,7 @@ public class BezierLineController : MonoBehaviour
 
             case PathType.Quadratic:
                 return Mathf.Pow(1 - t, 2) * StartPosition +
-                       2 * Mathf.Pow(1 - t, 2) * t * ControlPosition0 +
+                       2 * (1 - t) * t * ControlPosition0 +
                        t * t * EndPosition;
 
             case PathType.Cubic:
@@ -92,11 +92,11 @@ public class BezierLineController : MonoBehaviour
     public float GetDistance(Vector3 position)
     {
         if (Path == PathType.Linear)
-            return position.Distance(new Line(StartPosition, EndPosition - StartPosition));
+            return position.Distance(new LineSegment(StartPosition, EndPosition));
 
         return Enumerable.Range(0, line_renderer.positionCount - 1)
-            .Select(index => position.Distance(new Line(line_renderer.GetPosition(index), 
-                                                        GetTangent(index))))
+            .Select(index => position.Distance(new LineSegment(line_renderer.GetPosition(index), 
+                                                               line_renderer.GetPosition(index + 1))))
             .Min();
     }
 
@@ -105,14 +105,13 @@ public class BezierLineController : MonoBehaviour
         Camera camera = Scene.Main.Camera;
 
         if (Path == PathType.Linear)
-            return position.Distance(new Line(camera.WorldToScreenPoint(StartPosition), 
-                                              camera.WorldToScreenPoint(EndPosition) - 
-                                              camera.WorldToScreenPoint(StartPosition)));
+            return position.Distance(new LineSegment(camera.WorldToScreenPoint(StartPosition), 
+                                                     camera.WorldToScreenPoint(EndPosition)));
 
         return Enumerable.Range(0, line_renderer.positionCount - 1)
             .Select(index => position.Distance(
-                new Line(camera.WorldToScreenPoint(line_renderer.GetPosition(index)),
-                         GetTangentInScreenSpace(index))))
+                new LineSegment(camera.WorldToScreenPoint(line_renderer.GetPosition(index)),
+                                camera.WorldToScreenPoint(line_renderer.GetPosition(index + 1)))))
             .Min();
     }
 

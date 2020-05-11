@@ -65,6 +65,9 @@ public class OperationTileIONode : OperationTileNode
 
         base.Update();
 
+
+        bool curved = false;
+
         if (IsOpen)
         {
             if (IsSelected)
@@ -86,18 +89,38 @@ public class OperationTileIONode : OperationTileNode
                 if (is_on_screen)
                     BezierLineController.EndPosition = (Vector3)value;
                 else
+                {
                     BezierLineController.EndPosition = Scene.Main.Camera.ScreenToWorldPoint(
                         VariableTile.transform.position.ZChangedTo(UIDepth));
+
+                    curved = true;
+                }
             }
 
-            if(PipeFunctionSlot != null)
-                PipeFunctionSlot.transform.position =
+            if (PipeFunctionSlot != null)
+            {
+                if(curved)
+                    PipeFunctionSlot.transform.position = Scene.Main.Camera.WorldToScreenPoint(
+                        BezierLineController.GetPositionAlongPath(0.5f));
+                else
                     Scene.Main.Camera.WorldToScreenPoint(BezierLineController.StartPosition).Lerped(
-                        Scene.Main.Camera.WorldToScreenPoint(BezierLineController.EndPosition), 
+                        Scene.Main.Camera.WorldToScreenPoint(BezierLineController.EndPosition),
                         0.5f);
+            }
         }
 
-        //****use corner control point to bend line
+        Vector3 start_position_in_screen_space = 
+            Scene.Main.Camera.WorldToScreenPoint(BezierLineController.StartPosition);
+        Vector3 end_position_in_screen_space = 
+            Scene.Main.Camera.WorldToScreenPoint(BezierLineController.EndPosition);
+        if (curved)
+            BezierLineController.ControlPosition0 = Scene.Main.Camera.ScreenToWorldPoint(
+                new Vector3(end_position_in_screen_space.x,
+                            start_position_in_screen_space.y,
+                            (start_position_in_screen_space.z + end_position_in_screen_space.z) / 2));
+        else
+            BezierLineController.ControlPosition0 = 
+                BezierLineController.StartPosition.Lerped(BezierLineController.EndPosition, 0.5f);
 
 
         if (!InputUtility.DidDragOccur && 
