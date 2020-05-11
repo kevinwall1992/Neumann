@@ -305,6 +305,17 @@ public static class MathUtility
 
         return Mathf.Abs(perpendicular_direction.Dot(displacement));
     }
+
+    public static float Distance(this Vector3 point, LineSegment line_segment)
+    {
+        Vector3 direction = line_segment.P1 - line_segment.P0;
+        float t = (point - line_segment.P0).Dot(direction.normalized);
+
+        if (t <= 0 || t >= direction.magnitude)
+            return Mathf.Min(point.Distance(line_segment.P0), point.Distance(line_segment.P1));
+        else
+            return Distance(point, new Line(line_segment.P0, direction));
+    }
 }
 
 public abstract class GenericFunction<T>
@@ -524,5 +535,17 @@ public struct Line
     {
         Point = point;
         Direction = direction;
+    }
+}
+
+public struct LineSegment
+{
+    public Vector3 P0;
+    public Vector3 P1;
+
+    public LineSegment(Vector3 p0, Vector3 p1)
+    {
+        P0 = p0;
+        P1 = p1;
     }
 }
