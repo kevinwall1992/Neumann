@@ -16,6 +16,8 @@ public class Asteroid : CelestialBody
 
     public override string Name { get { return "Asteroid"; } }
 
+    public HighwaySystem HighwaySystem { get; private set; }
+
     public override IEnumerable<InfoBox.Info> Infos
     {
         get
@@ -30,6 +32,14 @@ public class Asteroid : CelestialBody
     protected override void Start()
     {
         base.Start();
+
+        IEnumerable<Vector3> deposit_positions = Regolith.Deposits.Merged(Rock.Deposits)
+            .Where(deposit => deposit.Distribution != Deposit.DistributionType.Uniform)
+            .Select(deposit => deposit.transform.position);
+        deposit_positions = deposit_positions
+            .Select(position => position.YChangedTo(GetSurfaceHeight(position)));
+
+        HighwaySystem = new HighwaySystem(Terrain, deposit_positions);
     }
 
     protected override void Update()

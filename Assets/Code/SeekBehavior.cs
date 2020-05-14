@@ -3,6 +3,9 @@ using System.Collections;
 
 public class SeekBehavior : Behavior
 {
+    Graph.Path path;
+    int progress;
+
     public Target Target { get; set; }
 
     public Physical Physical { get { return GetComponent<Physical>(); } }
@@ -11,6 +14,9 @@ public class SeekBehavior : Behavior
     protected override void Start()
     {
         base.Start();
+
+        path = Scene.Main.World.Asteroid.HighwaySystem.PlanRoadtrip(transform.position, Target.Position);
+        progress = 0;
     }
 
     protected override void Update()
@@ -20,9 +26,14 @@ public class SeekBehavior : Behavior
         if (Motile == null || !Motile.IsFunctioning)
             return;
 
+        int progress_estimate = path.IndexOf(path.GetNearestNode(transform.position));
+        progress = Mathf.Max(progress_estimate, progress);
+        int next_stop_index = Mathf.Min(path.Count - 1, progress + 4);
+        Vector3 next_stop = (path[next_stop_index].Data as Graph.PositionData).Position;
+
         Vector3 normal = Scene.Main.World.Asteroid.GetSurfaceNormal(Physical.Position);
 
-        Vector3 displacement = Target.Position - Physical.Position;
+        Vector3 displacement = next_stop - Physical.Position;
         Vector3 surface_direction = displacement.InPlane(Vector3.up).InPlane(normal).normalized;
         float parallel_velocity = Physical.Velocity.Dot(Physical.Direction);
 
@@ -30,7 +41,8 @@ public class SeekBehavior : Behavior
 
         if (Physical.Direction.Dot(surface_direction) > 0.9f)
         {
-            if ((displacement.magnitude < 10 && parallel_velocity > 6) || (displacement.magnitude < 3 && parallel_velocity > 2))
+            if ((displacement.magnitude < 10 && parallel_velocity > 6) || 
+                (displacement.magnitude < 3 && parallel_velocity > 2))
                 Motile.Brake(0.8f);
             else
             {

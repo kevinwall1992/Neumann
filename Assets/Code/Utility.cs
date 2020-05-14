@@ -14,6 +14,21 @@ public static class Utility
         return new List<T>(elements);
     }
 
+    public static List<T> List<T>(T first, Func<T, T> next_function)
+    {
+        List<T> list = new List<T>();
+
+        T next = first;
+        while(next != null)
+        {
+            list.Add(next);
+
+            next = next_function(next);
+        }
+
+        return list;
+    }
+
     public static Dictionary<T, U> Dictionary<T, U>(params object[] keys_and_values)
     {
         Dictionary<T, U> dictionary = new Dictionary<T, U>();
@@ -108,6 +123,24 @@ public static class Utility
             merged[key] = b[key];
 
         return merged;
+    }
+
+    public static IEnumerable<T> DuplicatesRemoved<T>(this IEnumerable<T> enumerable)
+    {
+        List<T> duplicates_removed = new List<T>(enumerable);
+        duplicates_removed.RemoveDuplicates();
+
+        return duplicates_removed;
+    }
+
+    public static Dictionary<T, U> Inverted<T, U>(this Dictionary<U, T> dictionary)
+    {
+        Dictionary<T, U> inverted = new Dictionary<T, U>();
+
+        foreach (U key in dictionary.Keys)
+            inverted[dictionary[key]] = key;
+
+        return inverted;
     }
 
     public static string Trim(this string string_, int trim_count)
