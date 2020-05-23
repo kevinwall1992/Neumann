@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
+using System.Linq;
+using static Graph;
 
 [RequireComponent(typeof(Builder))]
 public class BuildBehavior : Behavior
@@ -9,14 +11,14 @@ public class BuildBehavior : Behavior
 
     public Builder Builder { get { return GetComponent<Builder>(); } }
 
-    protected override void Start()
-    {
-        base.Start();
-    }
-
     protected override void Update()
     {
         base.Update();
+
+        BuildTask.ValidateConstructionSite(Builder);
+
+        if (BuildTask.Target == null)
+            return;
 
         if (!Builder.IsWithinReach(BuildTask.ConstructionSite, BuildTask.ConstructionSiteSize))
         {
@@ -32,11 +34,23 @@ public class BuildBehavior : Behavior
         {
             this.Stop<SeekBehavior>();
 
-            if (BuildTask.Project == null && BuildTask.IsConstructionSiteClear)
-                BuildTask.PlaceBlueprint();
+            if (BuildTask.Project == null)
+            {
+                if (BuildTask.IsConstructionSiteClear)
+                    BuildTask.PlaceBlueprint();
+                else
+                    return;
+            }
 
             Builder.Build(BuildTask.Project);
         }
+    }
+
+    protected override void OnDestroy()
+    {
+        Builder.StopBuilding();
+
+        base.OnDestroy();
     }
 
     internal override void CleanUp()

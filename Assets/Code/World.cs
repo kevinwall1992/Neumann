@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using System.Linq;
 
 [RequireComponent(typeof(Physics))]
 public class World : MonoBehaviour, HasVariables
@@ -26,6 +27,17 @@ public class World : MonoBehaviour, HasVariables
     public List<Variable> Variables
     {
         get { return variables; }
+    }
+
+    public IEnumerable<Unit> Units { get { return GetComponentsInChildren<Unit>(); } }
+    public IEnumerable<Motile> Motiles { get { return GetComponentsInChildren<Motile>(); } }
+    public IEnumerable<Unit> Buildings
+    {
+        get
+        {
+            return GetComponentsInChildren<Unit>()
+                .Where(unit => !(unit.HasComponent<Motile>()));
+        }
     }
 
     void Start()

@@ -52,6 +52,9 @@ public class Builder : Profession
         else
             this.Stop<BuildBehavior>();
 
+        if (Project != null && !Project.IsProject)
+            StopBuilding();
+
         NanolathingLineController.Line.gameObject.SetActive(IsProjectWithinReach);
 
         if (IsProjectWithinReach)
@@ -117,15 +120,19 @@ public class BuildTask : Task
     {
         get
         {
-            IEnumerable<Physical> obstructors = 
+            IEnumerable<Physical> obstructors =
                 Scene.Main.World.GetComponentsInChildren<Physical>()
-                    .Where(physical => physical.Position.Distance(ConstructionSite) < 
+                    .Where(physical => physical.Position.Distance(ConstructionSite) <
                                        (ConstructionSiteSize + physical.Size));
 
             foreach (Physical physical in obstructors)
-                if ((Project != null && physical.gameObject != Project.gameObject) || 
-                    Blueprint.HasComponent<Motile>() == physical.HasComponent<Motile>())
+            {
+                if (Project != null && physical.gameObject == Project.gameObject)
+                    continue;
+
+                if(Blueprint.HasComponent<Motile>() == physical.HasComponent<Motile>())
                     return false;
+            }
 
             return true;
         }
@@ -154,6 +161,15 @@ public class BuildTask : Task
 
         fixed_construction_site = construction_site;
         has_fixed_construction_site = true;
+    }
+
+    public override void Execute(Unit unit)
+    {
+        base.Execute(unit);
+
+        if (unit.Task == this && IsComplete)
+            Project = null;
+
     }
 
     public Buildable PlaceBlueprint()
