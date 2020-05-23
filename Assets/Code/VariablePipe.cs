@@ -25,14 +25,31 @@ public class VariablePipe
         return true;
     }
 
+    public Variable GetPrimaryVariable(Unit unit)
+    {
+        Variable primary_variable = Variable.Find(unit, PrimaryVariableName);
+        if (primary_variable == null)
+            return null;
+
+        return primary_variable;
+    }
+
+    public Variable GetSecondaryVariable(Unit unit)
+    {
+        Variable secondary_variable = Variable.Find(unit, SecondaryVariableName);
+        if (secondary_variable == null)
+            return null;
+
+        return secondary_variable;
+    }
+
     public object Read(Unit unit)
     {
-        if (!IsConnected(unit))
+        Variable primary_variable = GetPrimaryVariable(unit);
+        if (primary_variable == null)
             return null;
-        
-        Variable primary_variable = Variable.Find(unit, PrimaryVariableName);
 
-        Variable secondary_variable = null;
+        Variable secondary_variable = GetSecondaryVariable(unit);
         if(SecondaryVariableName != null)
             secondary_variable = Variable.Find(unit, SecondaryVariableName);
 

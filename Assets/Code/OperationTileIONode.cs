@@ -14,7 +14,24 @@ public class OperationTileIONode : OperationTileNode
     [SerializeField]
     OperationTileIONode primary_input_node = null;
 
-    public string VariableName { get; set; } = null;
+    public string VariableName
+    {
+        get
+        {
+            if (IsSecondaryInputNode)
+                return VariablePipe.SecondaryVariableName;
+            else
+                return VariablePipe.PrimaryVariableName;
+        }
+
+        set
+        {
+            if (IsSecondaryInputNode)
+                VariablePipe.SecondaryVariableName = value;
+            else
+                VariablePipe.PrimaryVariableName = value;
+        }
+    }
 
     public VariableTile VariableTile { get { return VariableTile.Find(VariableName); } }
 
