@@ -13,6 +13,28 @@ public abstract class MaterialProperty<T>
     protected Material Material { get { return renderer.material; } }
 
     public abstract T Value { get; set; }
+
+    public T GetValueOfOther(Renderer other_renderer)
+    {
+        Renderer this_renderer = this.renderer;
+        this.renderer = other_renderer;
+
+        T value = Value;
+
+        this.renderer = this_renderer;
+
+        return value;
+    }
+
+    public void SetValueOfOther(Renderer other_renderer, T value)
+    {
+        Renderer this_renderer = this.renderer;
+        this.renderer = other_renderer;
+
+        Value = value;
+
+        this.renderer = this_renderer;
+    }
 }
 
 [System.Serializable]
