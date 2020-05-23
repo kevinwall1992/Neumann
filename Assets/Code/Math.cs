@@ -316,6 +316,37 @@ public static class MathUtility
         else
             return Distance(point, new Line(line_segment.P0, direction));
     }
+
+    public static Sphere GetBoundingSphere(IEnumerable<Vector3> points)
+    {
+        return GetBoundingSphere(points.Select(point => new Sphere(point, 0)));
+    }
+
+    public static Sphere GetBoundingSphere(IEnumerable<Sphere> spheres)
+    {
+        Sphere bounding_sphere = new Sphere();
+
+        foreach (Sphere sphere in spheres)
+        {
+            Dictionary<Sphere, float> radii = spheres.ToDictionary(
+                other_sphere => other_sphere, 
+                other_sphere => ((sphere.Point - other_sphere.Point).magnitude +
+                                (sphere.Radius + other_sphere.Radius)) / 2);
+
+            Sphere farthest_sphere = radii.Keys.MaxElement(other_sphere => radii[other_sphere]);
+            float radius = radii[farthest_sphere];
+
+            if (radius> bounding_sphere.Radius)
+            {
+                bounding_sphere.Radius = radius;
+
+                Vector3 direction = (farthest_sphere.Point - sphere.Point).normalized;
+                bounding_sphere.Point = sphere.Point + direction * (radius - sphere.Radius);
+            }
+        }
+
+        return bounding_sphere;
+    }
 }
 
 public abstract class GenericFunction<T>
@@ -547,5 +578,17 @@ public struct LineSegment
     {
         P0 = p0;
         P1 = p1;
+    }
+}
+
+public struct Sphere
+{
+    public Vector3 Point;
+    public float Radius;
+
+    public Sphere(Vector3 point, float radius)
+    {
+        Point = point;
+        Radius = radius;
     }
 }
