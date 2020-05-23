@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Program : List<Operation>
 {
@@ -28,5 +29,21 @@ public class Program : List<Operation>
 
             next_index = IndexOf(value);
         }
+    }
+
+    public IEnumerable<Operation> GetSegment(Operation local_operation)
+    {
+        Debug.Assert(Contains(local_operation), "Program doesn't contain local_operation");
+
+        int segment_start, segment_end;
+        segment_start = segment_end = IndexOf(local_operation);
+
+        while (segment_start > 0 && !(this[segment_start] is ChooseOperation))
+            segment_start--;
+
+        while (segment_end < (Count - 1) && !(this[segment_end] is ChooseOperation))
+            segment_end++;
+
+        return GetRange(segment_start, segment_end - segment_start + 1);
     }
 }
