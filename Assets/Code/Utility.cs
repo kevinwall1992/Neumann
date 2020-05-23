@@ -217,6 +217,13 @@ public static class Utility
         return (new List<T>(enumerable)).ConvertAll(t => (U)t);
     }
 
+    public static void Swap<T>(ref T a, ref T b)
+    {
+        T t = a;
+        a = b;
+        b = t;
+    }
+
 
     public static IEnumerable<T> GetEnumValues<T>()
     {
