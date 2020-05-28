@@ -259,6 +259,8 @@ public static class NodeExtensions
     //Assumes admissible, consistant heuristic
     public static Path GetPathTo(this Node source, Node destination)
     {
+        bool destination_is_guest = !source.IsConnectedTo(destination);
+
         Dictionary<Node, Node> previous_node = new Dictionary<Node, Node>();
         Dictionary<Node, float> cost_to_source = new Dictionary<Node, float>();
         Dictionary<Node, float> cost_to_destination_estimate = new Dictionary<Node, float>();
@@ -284,7 +286,11 @@ public static class NodeExtensions
             if (node == destination)
                 break;
 
-            foreach (Node neighbor in node.Neighbors)
+            IEnumerable<Node> neighbors = node.Neighbors;
+            if (destination_is_guest)
+                neighbors = neighbors.Union(Utility.List(destination));
+
+            foreach (Node neighbor in neighbors)
             {
                 if (closed_set.Contains(neighbor))
                     continue;
