@@ -29,7 +29,8 @@ public class SeekBehavior : Behavior
         Vector3 next_stop;
         if (path != null)
         {
-            int progress_estimate = path.IndexOf(path.GetNearestNode(Physical.Position));
+            int progress_estimate = path.IndexOf(
+                path.GetNearestNode(Physical.Position, GraphUtility.ObstacleMetric));
             progress = Mathf.Max(progress_estimate, progress);
             int next_stop_index = Mathf.Min(path.Count - 1, progress + 1 + path_smoothing);
 
