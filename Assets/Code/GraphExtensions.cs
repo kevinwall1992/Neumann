@@ -292,6 +292,8 @@ public static class NodeExtensions
                                  Node destination,
                                  GraphUtility.Metric metric)
     {
+        //"Guest" destinations aren't actually in the graph, but we can 
+        //still path to them by pretending they are everyone's neighbor
         bool destination_is_guest = !source.IsConnectedTo(destination);
 
         Dictionary<Node, Node> previous_node = new Dictionary<Node, Node>();
@@ -380,6 +382,24 @@ public static class NodeExtensions
         }
 
         return nodes;
+    }
+
+    //"Guests" aren't actually in the graph, but we pretend like they
+    //are by making every node their neighbors. This allows using 
+    //them as pathfinding starting points without modifying the graph.
+    public static Node AsGuestTo(this Node node, IEnumerable<Node> nodes)
+    {
+        Node guest = node.Copy();
+
+        foreach (Node other_node in nodes)
+            guest.AddNeighbor(other_node);
+
+        return guest;
+    }
+
+    public static Node AsGuestTo(this Node node, Graph graph)
+    {
+        return node.AsGuestTo(graph.Nodes);
     }
 
     public static bool IsConnectedTo(this Node node, Node other)

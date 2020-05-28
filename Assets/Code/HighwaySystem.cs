@@ -151,8 +151,8 @@ public class HighwaySystem
 
     public Path PlanRoadtrip(Vector3 source, Vector3 destination)
     {
-        Node source_node = new Node(new PositionData(source));
-        Node destination_node = new Node(new PositionData(destination));
+        Node source_node = GraphUtility.CreatePositionNode(source).AsGuestTo(Highways);
+        Node destination_node = GraphUtility.CreatePositionNode(destination);
         Path roadtrip = source_node.GetPathTo_Obstacle(destination_node);
 
         if (roadtrip == null)
