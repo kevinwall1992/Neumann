@@ -107,6 +107,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   line: {fileID: 4144844714866926879}
   renderer: {fileID: 4653629735244361221}
+  color_material_property:
+    renderer: {fileID: 4653629735244361221}
+    name: _Color
+  Color: {r: 0.16470589, g: 1, b: 0.20784315, a: 1}
+  ArrowSize: 1
 --- !u!1 &1300688169970041989
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,6 +219,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   line: {fileID: 651406857086632571}
   renderer: {fileID: 6334316591004924397}
+  color_material_property:
+    renderer: {fileID: 6334316591004924397}
+    name: _Color
+  Color: {r: 1, g: 0.18431373, b: 0.18431373, a: 1}
+  ArrowSize: 1
 --- !u!1 &1557146464283338207
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,6 +799,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   line: {fileID: 9179167968447605131}
   renderer: {fileID: 5128357549518219667}
+  color_material_property:
+    renderer: {fileID: 5128357549518219667}
+    name: _Color
+  Color: {r: 0.62352943, g: 0.62352943, b: 0.62352943, a: 1}
+  ArrowSize: 1
 --- !u!1 &3754893303904311474
 GameObject:
   m_ObjectHideFlags: 0

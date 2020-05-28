@@ -47,5 +47,8 @@ public class MainScene : Scene
             Cursor.Default.Use();
             cursor_operation_tile = null;
         }
+
+        if (this.IsModulusUpdate(60))
+            GraphUtility.ClearMetricTable();
     }
 }

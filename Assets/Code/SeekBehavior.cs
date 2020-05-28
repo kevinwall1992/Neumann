@@ -26,10 +26,17 @@ public class SeekBehavior : Behavior
         if (Motile == null || !Motile.IsFunctioning)
             return;
 
-        int progress_estimate = path.IndexOf(path.GetNearestNode(transform.position));
-        progress = Mathf.Max(progress_estimate, progress);
-        int next_stop_index = Mathf.Min(path.Count - 1, progress + 4);
-        Vector3 next_stop = (path[next_stop_index].Data as Graph.PositionData).Position;
+        Vector3 next_stop;
+        if (path != null)
+        {
+            int progress_estimate = path.IndexOf(path.GetNearestNode(Physical.Position));
+            progress = Mathf.Max(progress_estimate, progress);
+            int next_stop_index = Mathf.Min(path.Count - 1, progress + 1 + path_smoothing);
+
+            next_stop = (path[next_stop_index].Data as Graph.PositionData).Position;
+        }
+        else
+            next_stop = Target.Position;
 
         Vector3 normal = Scene.Main.World.Asteroid.GetSurfaceNormal(Physical.Position);
 
@@ -61,4 +68,7 @@ public class SeekBehavior : Behavior
 
         base.OnDestroy();
     }
+
+
+    static int path_smoothing = 0;
 }

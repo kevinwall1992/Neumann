@@ -3,6 +3,8 @@ using System.Collections;
 
 public static class VectorUtility
 {
+    public static Vector3 One { get { return new Vector3(1, 1, 1); } }
+
     public static Vector3 InPlane(this Vector3 vector, Vector3 normal)
     {
         return vector - normal * vector.Dot(normal.normalized);

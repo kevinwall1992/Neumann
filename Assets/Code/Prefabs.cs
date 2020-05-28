@@ -12,6 +12,8 @@ public class Prefabs : MonoBehaviour
     public Deposit Deposit;
     public SurfaceDeposit SurfaceDeposit;
 
+    public ArrowLine ArrowLine;
+
     [SerializeField]
     List<Unit> units = new List<Unit>();
     public Dictionary<string, Unit> Units

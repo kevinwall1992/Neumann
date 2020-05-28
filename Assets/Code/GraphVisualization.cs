@@ -23,7 +23,6 @@ public class GraphVisualization : MonoBehaviour
         }
     }
 
-    public Material Material;
     public ColorMaterialProperty ColorMaterialProperty;
 
     public System.Func<Graph.Edge, float> GetEdgeWidth { get; set; } = edge => 10;
@@ -45,16 +44,21 @@ public class GraphVisualization : MonoBehaviour
 
         foreach(Graph.Edge edge in graph.Edges)
         {
-            LineRenderer line = new GameObject("GraphLine").AddComponent<LineRenderer>();
-            line.transform.parent = transform;
-            line.useWorldSpace = true;
+            Color color = GetEdgeColor(edge);
 
-            line.material = Material;
-            ColorMaterialProperty.SetValueOfOther(line, GetEdgeColor(edge));
+            ArrowLine arrow_line = GameObject.Instantiate(Scene.Main.Prefabs.ArrowLine);
+            arrow_line.transform.parent = transform;
 
-            line.positionCount = 2;
-            line.SetPosition(0, ApplyOffset(edge.A.GetPosition()));
-            line.SetPosition(1, ApplyOffset(edge.B.GetPosition()));
+            arrow_line.Line.useWorldSpace = true;
+            arrow_line.Line.SetPosition(0, ApplyOffset(edge.A.GetPosition()));
+            arrow_line.Line.SetPosition(1, ApplyOffset(edge.B.GetPosition()));
+
+            arrow_line.Line.startWidth = arrow_line.Line.endWidth = GetEdgeWidth(edge);
+
+            ColorMaterialProperty.SetValueOfOther(arrow_line.Line, color);
+
+            arrow_line.Arrow.Color = color;
+            arrow_line.Arrow.ArrowSize = GetEdgeWidth(edge) * 6;
         }
 
         is_graph_invalid = false;

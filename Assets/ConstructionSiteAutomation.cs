@@ -301,7 +301,7 @@ public static class ConstructionSiteAutomation
 
             Graph mst = GraphUtility.CreateHairball(nearby_building_nodes.Select(node =>
                     new UnitData(node.GetUnit())))
-                .MinimumSpanned();
+                .MinimumSpanned_Euclidean();
 
             foreach (Edge edge in mst.Edges)
             {

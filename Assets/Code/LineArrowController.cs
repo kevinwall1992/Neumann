@@ -8,10 +8,20 @@ public class LineArrowController : MonoBehaviour
     LineRenderer line = null;
 
     //This hides obsolete field Component.renderer.
-    //I Ddon't think this can cause a problem, 
+    //I don't think this can cause a problem, 
     //but I'm leaving this note just in case.
     [SerializeField]
     new Renderer renderer = null;
+
+    [SerializeField]
+    ColorMaterialProperty color_material_property = null;
+
+    public Color Color;
+
+    public float ArrowSize = 1;
+
+    Vector3 LineFirstPosition
+    { get { return line.GetPosition(0); } }
 
     Vector3 LineFinalPosition
     { get { return line.GetPosition(line.positionCount - 1); } }
@@ -26,9 +36,12 @@ public class LineArrowController : MonoBehaviour
 
     void Update()
     {
-        transform.position = LineFinalPosition;
-
         renderer.enabled = line.enabled;
+
+        color_material_property.Value = Color;
+
+        transform.localScale = VectorUtility.One * ArrowSize;
+        transform.position = LineFinalPosition + (LineFirstPosition - LineFinalPosition).normalized * ArrowSize / 2;
     }
 
     private void LateUpdate()

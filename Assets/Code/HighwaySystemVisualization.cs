@@ -3,18 +3,16 @@ using System.Collections;
 
 public class HighwaySystemVisualization : MonoBehaviour
 {
-    public GraphVisualization OutgoingRoads,
-                              IncomingRoads;
+    public GraphVisualization HighwayGraphVisualization;
 
     void Start()
     {
-        OutgoingRoads.GetEdgeWidth = IncomingRoads.GetEdgeWidth = 
+        HighwayGraphVisualization.GetEdgeWidth =
             edge => Scene.Main.World.Asteroid.HighwaySystem.RoadWidth / 10;
 
-        OutgoingRoads.GetEdgeColor = edge => Color.green.AlphaChangedTo(0.08f);
-        IncomingRoads.GetEdgeColor = edge => Color.red.AlphaChangedTo(0.08f);
+        HighwayGraphVisualization.GetEdgeColor = edge => Color.yellow.AlphaChangedTo(0.4f);
 
-        OutgoingRoads.ApplyOffset = IncomingRoads.ApplyOffset =
+        HighwayGraphVisualization.ApplyOffset = 
             position => position + new Vector3(0, 4, 0);
     }
 
@@ -24,12 +22,7 @@ public class HighwaySystemVisualization : MonoBehaviour
             return;
 
         if(this.IsModulusUpdate(3600))
-        {
-            OutgoingRoads.Graph = 
-                Scene.Main.World.Asteroid.HighwaySystem.OutgoingRoads;
-
-            IncomingRoads.Graph = 
-                Scene.Main.World.Asteroid.HighwaySystem.IncomingRoads;
-        }
+            HighwayGraphVisualization.Graph =
+                Scene.Main.World.Asteroid.HighwaySystem.Highways;
     }
 }

@@ -65,10 +65,6 @@ public class Graph
             Data = data;
         }
 
-        //Should return real cost when parameter is a neighbor,
-        //And return admissible heuristic of path cost when it isn't
-        public float Cost(Node other) { return Data.GetCostFunction(this, other); }
-
 
         public interface IData
         {
@@ -93,11 +89,6 @@ public class Graph
         {
             if (nodes != null)
                 AddRange(nodes);
-        }
-
-        public Node GetNearestNode(Vector3 position)
-        {
-            return this.MinElement(node => node.GetPosition().Distance(position));
         }
     }
 
