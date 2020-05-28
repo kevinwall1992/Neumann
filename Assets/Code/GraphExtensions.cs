@@ -526,11 +526,16 @@ public static class PathExtensions
 
     public static float GetCost(this Path path,
                                     GraphUtility.Metric metric, 
-                                    int start_index = 0, 
-                                    int end_index = -1)
+                                    Node start, 
+                                    Node end = null)
     {
-        if (end_index < 0)
-            end_index = path.Count;
+        int start_index = path.IndexOf(start);
+
+        int end_index;
+        if (end != null)
+            end_index = path.IndexOf(end);
+        else
+            end_index = path.Count - 1;
 
         float cost_sum = 0;
 
@@ -539,5 +544,4 @@ public static class PathExtensions
 
         return cost_sum;
     }
-
 }
