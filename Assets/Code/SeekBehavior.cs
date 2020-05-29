@@ -4,7 +4,7 @@ using System.Collections;
 public class SeekBehavior : Behavior
 {
     Graph.Path path;
-    int progress;
+    int progress = 0;
 
     public Target Target { get; set; }
 
@@ -15,8 +15,8 @@ public class SeekBehavior : Behavior
     {
         base.Start();
 
-        path = Scene.Main.World.Asteroid.HighwaySystem.PlanRoadtrip(transform.position, Target.Position);
-        progress = 0;
+        path = Scene.Main.World.Asteroid.HighwaySystem
+            .PlanRoadtrip(transform.position, Target.Position);
     }
 
     protected override void Update()
@@ -29,12 +29,22 @@ public class SeekBehavior : Behavior
         Vector3 next_stop;
         if (path != null)
         {
-            int progress_estimate = path.IndexOf(
-                path.GetNearestNode(Physical.Position, GraphUtility.ObstacleMetric));
-            progress = Mathf.Max(progress_estimate, progress);
-            int next_stop_index = Mathf.Min(path.Count - 1, progress + 1 + path_smoothing);
+            Graph.Node next_node = path[progress + 1];
 
-            next_stop = (path[next_stop_index].Data as Graph.PositionData).Position;
+            float cost = GraphUtility.ObstacleMetric(GraphUtility.CreatePositionNode(Physical.Position), next_node);
+
+            float remaining_lead = path_lead;
+            while(remaining_lead > cost && path.IndexOf(next_node) < (path.Count - 1))
+            {
+                Graph.Node following_node = path[path.IndexOf(next_node) + 1];
+
+                remaining_lead -= cost;
+                cost = GraphUtility.ObstacleMetric(next_node, following_node);
+                next_node = following_node;
+            }
+
+            next_stop = next_node.GetPosition();
+            progress = path.IndexOf(next_node) - 1;
         }
         else
             next_stop = Target.Position;
@@ -71,5 +81,5 @@ public class SeekBehavior : Behavior
     }
 
 
-    static int path_smoothing = 0;
+    static float path_lead = 15;
 }
