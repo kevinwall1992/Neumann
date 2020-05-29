@@ -24,6 +24,16 @@ public static class VectorUtility
         return vector;
     }
 
+    public static Vector3 WithMagnitudeChangedTo(this Vector3 vector, float magnitude)
+    {
+        return vector.normalized * magnitude;
+    }
+
+    public static Vector3 WithMagnitudeChangedBy(this Vector3 vector, float magnitude_delta)
+    {
+        return vector.normalized * (vector.magnitude + magnitude_delta);
+    }
+
     public static float AngleBetween(this Vector3 vector, Vector3 other)
     {
         return MathUtility.DegreesToRadians(Vector3.Angle(vector, other));
