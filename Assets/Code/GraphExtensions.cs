@@ -56,6 +56,9 @@ public static class GraphExtensions
             return new Graph();
 
         HashSet<Node> open_set = new HashSet<Node>(graph.WithoutHiddenNodes().Nodes);
+        IEnumerable<Edge> edges = new Graph(open_set).Edges;
+        foreach (Node node in open_set)
+            node.ClearNeighbors();
 
         Graph mst = new Graph();
         mst.AddNode(open_set.First());
@@ -63,22 +66,15 @@ public static class GraphExtensions
 
         while (open_set.Count > 0)
         {
-            Edge minimum_edge = mst.Edges
-                .Where(edge => open_set.Contains(edge.B))
+            Edge minimum_edge = edges
+                .Where(edge => mst.Nodes.Contains(edge.A) && open_set.Contains(edge.B))
                 .MinElement(edge => metric(edge.A, edge.B));
 
-            Node node = minimum_edge.B;
+            minimum_edge.A.AddNeighbor(minimum_edge.B);
+            minimum_edge.B.AddNeighbor(minimum_edge.A);
 
-            foreach (Node neighbor in new List<Node>(node.Neighbors))
-                if (mst.Nodes.Contains(neighbor) && neighbor != minimum_edge.A)
-                    node.RemoveNeighbor(neighbor);
-
-            open_set.Remove(node);
-            mst.AddNode(node);
-
-            foreach (Node tree_node in mst.Nodes)
-                if (tree_node != minimum_edge.A && tree_node.Neighbors.Contains(node))
-                    tree_node.RemoveNeighbor(node);
+            open_set.Remove(minimum_edge.B);
+            mst.AddNode(minimum_edge.B);
         }
 
         return mst;
