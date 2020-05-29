@@ -195,11 +195,13 @@ public static class GraphUtility
 
     public static Metric CreateHeightMetric(System.Func<Vector3, float> get_height,
                                             System.Func<float, float> get_height_cost,
-                                            System.Func<float, float> get_slope_cost,
-                                            float resolution)
+                                            System.Func<float, float> get_angle_cost,
+                                            float resolution,
+                                            System.Func<Vector3, Vector3, float> get_angle = null)
     {
-        System.Func<Vector3, Vector3, float> get_slope =
-            (a, b) => (get_height(b) - get_height(a)) / a.Distance(b);
+        if (get_angle == null)
+            get_angle = (p0, p1) => Mathf.Atan((p1.y - p0.y) / 
+                                               p0.X0Z().Distance(p1.X0Z()));
 
         return delegate (Node a, Node b)
         {
@@ -215,13 +217,16 @@ public static class GraphUtility
 
                 float p0_height = get_height(p0);
                 float p1_height = get_height(p1);
-                float distance = p0.YChangedTo(p0_height).Distance(
-                                    p1.YChangedTo(p1_height));
+
+                p0 = p0.YChangedTo(p0_height);
+                p1 = p1.YChangedTo(p1_height);
+
+                float angle = get_angle(p0, p1);
 
                 float height_cost = (get_height_cost(p0_height) + get_height_cost(p1_height)) / 2;
-                float slope_cost = get_slope_cost((p1_height - p0_height) / distance);
+                float angle_cost = get_angle_cost(angle);
 
-                cost_sum += (height_cost + slope_cost) * distance;
+                cost_sum += (height_cost + angle_cost) * p0.Distance(p1);
             }
 
             return cost_sum;
@@ -257,11 +262,37 @@ public static class GraphUtility
         //is not necessarily the same as from b to a
         ObstacleMetric = CreateBakedMetric(delegate (Node a, Node b)
         {
+            Asteroid asteroid = Scene.Main.World.Asteroid;
+
+
+            System.Func<Vector3, Vector3, float> get_angle = delegate (Vector3 p0, Vector3 p1)
+            {
+                Vector2 normalized_xz = ((p0 + p1).XZ() / 2 - asteroid.Terrain.GetPosition().XZ()) /
+                                        asteroid.Terrain.terrainData.size.XZ();
+
+                float angle = MathUtility.DegreesToRadians(
+                    asteroid.Terrain.terrainData.GetSteepness(normalized_xz.x, normalized_xz.y));
+
+                return p1.y > p0.y ? angle : -angle;
+            };
+
+            float critical_angle = MathUtility.DegreesToRadians(15);
+            float max_angle = MathUtility.DegreesToRadians(30);
+            System.Func<float, float> get_angle_cost = delegate (float angle)
+            {
+                angle = Mathf.Max(0, angle);
+
+                return Mathf.Max(angle / critical_angle, 
+                                 Mathf.Pow(angle / critical_angle, 
+                                           Mathf.Log(1000, max_angle / critical_angle)));
+            };
+
             float height_cost = CreateHeightMetric(
-                position => Scene.Main.World.Asteroid.GetSurfaceHeight(position),
+                position => asteroid.GetSurfaceHeight(position),
                 height => 0,
-                slope => Mathf.Pow((Mathf.Max(0, slope) / 0.3f), 2),
-                HighwaySystem.TerrainGridResolution * Mathf.Sqrt(2))(a, b);
+                get_angle_cost,
+                    HighwaySystem.TerrainGridResolution * Mathf.Sqrt(2),
+                get_angle)(a, b);
 
             return height_cost + EuclideanMetric(a, b);
         });
