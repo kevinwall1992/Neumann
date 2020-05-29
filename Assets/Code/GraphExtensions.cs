@@ -516,12 +516,18 @@ public static class PathExtensions
 {
     public static Node GetNearestNode(this Path path, 
                                       Vector3 position, 
-                                      GraphUtility.Metric metric = null)
+                                      GraphUtility.Metric metric = null,
+                                      System.Func<Node, bool> predicate = null)
     {
         if (metric == null)
             metric = GraphUtility.EuclideanMetric;
 
-        return path.MinElement(node => node.Distance(position));
+        if (predicate == null)
+            predicate = node => true;
+
+        return path
+            .Where(predicate)
+            .MinElement(node => metric(node, GraphUtility.CreatePositionNode(position)));
     }
 
     public static float GetCost(this Path path,
