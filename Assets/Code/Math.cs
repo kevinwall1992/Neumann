@@ -178,28 +178,6 @@ public static class MathUtility
         return prime_factors;
     }
 
-    public static List<T> Intersection<T>(IEnumerable<T> a, IEnumerable<T> b)
-    {
-        List<T> intersection = new List<T>(a);
-
-        foreach (T element in a)
-            if (!b.Contains(element))
-                intersection.Remove(element);
-
-        return intersection;
-    }
-
-    public static List<T> Union<T>(IEnumerable<T> a, IEnumerable<T> b)
-    {
-        List<T> union = new List<T>(a);
-
-        foreach (T element in b)
-            if (!a.Contains(element))
-                union.Add(element);
-
-        return union;
-    }
-
     //Rotation measured from vector (1, 0) counterclockwise
     public static float GetRotation(Vector2 vector)
     {
