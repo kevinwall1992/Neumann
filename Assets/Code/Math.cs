@@ -10,7 +10,7 @@ public static class MathUtility
         return (int)(Random.value* 0.999999f* count);
     }
 
-    public static T RandomElement<T>(IEnumerable<T> enumerable)
+    public static T RandomElement<T>(this IEnumerable<T> enumerable)
     {
         List<T> list = new List<T>(enumerable);
 

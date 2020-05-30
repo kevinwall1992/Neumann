@@ -85,6 +85,19 @@ public class Graph
 
     public class Path : List<Node>
     {
+        public IEnumerable<Edge> Edges
+        {
+            get
+            {
+                List<Edge> edges = new List<Edge>();
+
+                for (int i = 0; i < this.Count - 1; i++)
+                    edges.Add(new Edge(this[i], this[i + 1]));
+
+                return edges;
+            }
+        }
+
         public Path(List<Node> nodes = null)
         {
             if (nodes != null)

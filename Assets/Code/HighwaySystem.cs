@@ -20,34 +20,17 @@ public class HighwaySystem
         Graph city_graph = GraphUtility.CreateHairball(cities).MinimumSpanned_Obstacle();
 
 
+        //Select capital
+        Node capital = city_graph.Nodes
+            .Where(node => node.Neighbors.Count() == 1)
+            .RandomElement();
+
+        //Get edges leaving the capital
         HashSet<Edge> left_edges = new HashSet<Edge>();
-        HashSet<Edge> right_edges = new HashSet<Edge>();
-
-        //Split up the bidirectional city graph into two sets 
-        //Of unidirectional edges. 
-        foreach(Node node in city_graph.Nodes)
-            foreach(Node neighbor in node.Neighbors)
-            {
-                Edge edge = new Edge(node, neighbor);
-                Edge reverse_edge = new Edge(neighbor, node);
-
-                if (left_edges.Contains(edge) || right_edges.Contains(edge))
-                    continue;
-
-                Vector3 displacement = neighbor.GetPosition() - node.GetPosition();
-
-                if (displacement.x * displacement.z > 0)
-                {
-                    left_edges.Add(edge);
-                    right_edges.Add(reverse_edge);
-                }
-                else
-                {
-                    right_edges.Add(edge);
-                    left_edges.Add(reverse_edge);
-                }
-            }
-
+        foreach (Node node in city_graph.Nodes)
+            if (node != capital)
+                left_edges.UnionWith(capital.GetPathTo_Euclidean(node).Edges);
+        
         //Embed left_city_graph within terrain_graph
         Graph left_city_graph = GraphUtility.CreateGraph(left_edges);
         Graph left_lanes = terrain_graph.Defleshed(left_city_graph, 
@@ -56,14 +39,21 @@ public class HighwaySystem
         //Do the same for right_city_graph, but alter the cost metric
         //so the right_lanes prefer a margin to exist between
         //opposing lanes of traffic. 
-        Graph right_city_graph = GraphUtility.CreateGraph(right_edges);
+        Graph right_city_graph = GraphUtility.CreateGraph(
+            left_edges.Select(edge => new Edge(edge.B, edge.A)));
         foreach (Node node in right_city_graph.Nodes)
         {
-            Vector3 position = node.GetPosition();
-            Vector3 offset = (terrain_center - position).X0Z().normalized * 
-                             OpposingTrafficMargin;
+            Edge edge;
 
-            node.SetPosition(position + offset);
+            if (node.GetPosition() == capital.GetPosition())
+                edge = right_city_graph.Edges.FirstOrDefault(edge_ => edge_.B == node);
+            else
+                edge = right_city_graph.Edges.FirstOrDefault(edge_ => edge_.A == node);
+
+            Vector3 offset = (edge.A.GetPosition() - edge.B.GetPosition())
+                .Crossed(new Vector3(0, 1, 0)).normalized * OpposingTrafficMargin;
+
+            node.SetPosition(node.GetPosition() + offset);
         }
 
         GraphUtility.Metric opposing_traffic_metric = GraphUtility.CreateBakedMetric(
