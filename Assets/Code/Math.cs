@@ -38,11 +38,9 @@ public static class MathUtility
         return default(T);
     }
 
-    public static T RemoveRandomElement<T>(IEnumerable<T> enumerable)
+    public static T RemoveRandomElement<T>(List<T> list)
     {
-        List<T> list = new List<T>(enumerable);
-
-        return enumerable.ToList().TakeAt(RandomIndex(list.Count));
+        return list.TakeAt(RandomIndex(list.Count));
     }
 
     public static bool Roll(float p)
